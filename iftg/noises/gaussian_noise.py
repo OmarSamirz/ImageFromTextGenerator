@@ -23,9 +23,9 @@ class GaussianNoise(Noise):
         noisy_img_array = img_array + noise
         noisy_img_array = np.clip(noisy_img_array, 0, 255).astype(np.uint8)
 
-        gaussian_image = Image.fromarray(noisy_img_array)
+        noisy_image = Image.fromarray(noisy_img_array)
         
-        return gaussian_image
+        return noisy_image
 
 
 

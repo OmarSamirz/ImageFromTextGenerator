@@ -2,7 +2,6 @@ import time
 from PIL import ImageFont
 from iftg.models.creators.image_creator import ImageCreator
 from iftg.models.generators.images_generator import ImagesGenerator
-from iftg.utils import get_text_dimensions
 from iftg.models.image_font_manager import ImageFontManager
 from iftg.noises.dilate_noise import DilateNoise
 from iftg.noises.gaussian_noise import GaussianNoise
@@ -35,4 +34,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+    
     
