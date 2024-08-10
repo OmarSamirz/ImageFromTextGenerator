@@ -20,6 +20,13 @@ class ImageFontManager:
     def clear(cls):
         cls._fonts.clear()
 
+    
+    @classmethod
+    def remove_font(cls, font_path, font_size):
+        try:
+            del cls._fonts[(font_path, font_size)]
+        except:
+            raise KeyError("This key does not exist inside ImageFontManager")
 
     @classmethod
     def get_font(cls, font_path, font_size):
