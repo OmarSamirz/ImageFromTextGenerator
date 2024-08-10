@@ -1,10 +1,9 @@
-import numpy as np
 from PIL import ImageFont
 
 
 def get_text_dimensions(text: str,
                         font: ImageFont
-                        ) -> tuple[float, float, float, float]:
+                       ) -> tuple[float, float, float, float]:
 
     left, top, right, bottom = font.getbbox(text)
 
@@ -14,7 +13,7 @@ def get_text_dimensions(text: str,
 def get_image_dimensions(right: int, 
                          bottom: int, 
                          margins: tuple[int, int, int, int] = (0, 0, 0, 0)
-                         ) -> tuple[int, int]:
+                        ) -> tuple[int, int]:
     
     left_margin, top_margin, right_margin, bottom_margin = margins
 
