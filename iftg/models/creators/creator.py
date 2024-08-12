@@ -53,7 +53,7 @@ class Creator(ABC):
                      font_size: int = 40,
                      font_color: str = 'black',
                      background_color: str = 'white',
-                     margins: tuple[int, int, int, int] = (0, 0, 0, 0),
+                     margins: tuple[int, int, int, int] = (5, 5, 5, 5),
                      clear_fonts: bool = True
                     ):
         pass

@@ -11,28 +11,28 @@ class ImageCreator(Creator):
     
     @classmethod
     def _create_base_image(cls, 
-                           text: str, 
+                           text: str,                            
                            font: ImageFont, 
+                           is_multiline: bool,
                            background_color: str,
                            margins: tuple[int, int, int, int]
-                          ) -> Image:
-        """
-            This function creates an image with the background color the user specify
-            after calculating the text dimensions and image dimensions
+                          ) -> tuple[Image.Image, int]:
+        
+        _, top, right, bottom = get_text_dimensions(text, font, is_multiline)
+        image_width, image_height = get_image_dimensions(right, top, bottom, margins)
 
-            
-        """
-        _, top, right, bottom = get_text_dimensions(text, font)
-        image_width, image_height = get_image_dimensions(right, bottom, margins)
-
-        image = Image.new('RGB', (image_width+2, image_height+top), color=background_color)
-
-        return image
+        image = Image.new('RGB', 
+                          (image_width, image_height-top if is_multiline else image_height+top),
+                          color=background_color
+                         )
+        
+        return image, top
 
     
     @classmethod
     def _apply_noise(cls,
                      text: str,
+                     top: int,
                      font: ImageFont,
                      noises: list[Noise],
                      blur_radius: float ,
@@ -50,7 +50,9 @@ class ImageCreator(Creator):
                     ) -> Image:
         # Draw the text on the image
         draw = ImageDraw.Draw(image)
-        draw.text((0+margins[0], 0+margins[1]), text, font=font, fill=font_color)
+
+        draw.text((margins[0], -top+margins[1]), text, font=font, fill=font_color)
+        
 
         # Add blur to the image if blur_radius is greater than 0
         if blur_radius > 0 or random_blur == True:
@@ -92,15 +94,16 @@ class ImageCreator(Creator):
                      font_size: float = 40.0,
                      font_color: str = 'black',
                      background_color: str = 'white',
-                     margins: tuple[int, int, int, int] = (0, 0, 0, 0),
+                     margins: tuple[int, int, int, int] = (5, 5, 5, 5),
                      clear_fonts: bool = True
                     ):
-
+        
         font = ImageFontManager.get_font(font_path, font_size)
+        is_multiline = True if len(text.splitlines()) > 1 else False
 
-        image = cls._create_base_image(text, font, background_color, margins)
+        image, top = cls._create_base_image(text, font, is_multiline, background_color, margins)
 
-        image = cls._apply_noise(text, font, noises, blur_radius, random_blur, min_blur, max_blur,
+        image = cls._apply_noise(text, top, font, noises, blur_radius, random_blur, min_blur, max_blur,
                                   rotation_angle, random_rotation, min_rotation, max_rotation, 
                                   font_color, background_color, margins, image)
         
