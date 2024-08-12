@@ -22,7 +22,8 @@ def main():
     texts = ["""I am Omar\nI live in cairo\nI love playing tenis and playing football\nI love playing tenis and playing football\nI love playing tenis and playing football\nI love playing tenis and playing football"""]*10000
     texts = ['أنا عمر سمير', 'قُلْ يَا أَيُّهَا الْكَافِرُونَ\nقُلْ يَا أَيُّهَا الْكَافِرُونَ', 'ثُمَّ لَتَرَوُنَّهَا عَيْنَ الْيَقِينِ']
     texts = ['Hello, I am Omar']
-    texts = ['नमस्ते, मैं उमर हूं']*10000
+    texts = ['नमस्ते, मैं उमर हूं']
+    texts = ['Hello, World!']
 
     text = 'Hi I am Omar Samir Ibrahim'
 
