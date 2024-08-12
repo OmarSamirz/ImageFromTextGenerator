@@ -21,7 +21,7 @@ class DetailedImagesGenerator(Generator):
                  font_size: float = 40.0,
                  font_color: str = 'black',
                  background_color: str = 'white',
-                 margins: tuple[int, int, int, int] = (0, 0, 0, 0),
+                 margins: tuple[int, int, int, int] = (5, 5, 5, 5),
                  clear_fonts: bool = False
                  ):
         super().__init__(texts, 

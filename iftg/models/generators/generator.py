@@ -53,15 +53,14 @@ class Generator(BaseModel):
 
 
     @abstractmethod
-    def _next(self):
+    def _generate_next_image(self) -> tuple[Image.Image, str]:
         pass
 
 
     @abstractmethod
-    def _generate_images(self) -> Image:
+    def _generate_images(self) -> tuple[Image.Image, str]:
         pass
 
-    
 
 
     
