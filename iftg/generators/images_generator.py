@@ -14,9 +14,9 @@ class ImagesGenerator(Generator):
         noises (list[Noise]): A list of noise objects to be applied to the images.
         blur_radius (float): The radius for Gaussian blur applied to the images.
         random_blur (bool): Whether to apply a random blur within a specified range.
-        min_blur (float): The minimum blur radius for random blur.
+        min_blur (float): The minimum blur radius for random blur. 
         max_blur (float): The maximum blur radius for random blur.
-        rotation_angle (float): The fixed rotation angle for the images.
+        rotation_angle (float): The fixed rotation angle for the images. 
         random_rotation (bool): Whether to apply a random rotation within a specified range.
         min_rotation (float): The minimum rotation angle for random rotation.
         max_rotation (float): The maximum rotation angle for random rotation.
