@@ -1,16 +1,15 @@
 import time
-import io
+
 from PIL import ImageFont, Image
-from iftg.models.creators.image_creator import ImageCreator
-from iftg.models.generators.images_generator import ImagesGenerator
-from iftg.models.image_font_manager import ImageFontManager
-from iftg.noises.dilate_noise import DilateNoise
-from iftg.noises.gaussian_noise import GaussianNoise
-from iftg.noises.erode_noise import ErodeNoise
-from iftg.noises.shadow_noise import ShadowNoise
+from iftg.creators import ImageCreator
+from iftg.generators import ImagesGenerator
+from iftg.utils import ImageFontManager
+from iftg.noises import DilateNoise
+from iftg.noises import GaussianNoise
+from iftg.noises import ErodeNoise
+from iftg.noises import ShadowNoise
 from concurrent.futures import ThreadPoolExecutor
 from multiprocessing import Pool, cpu_count
-
 
 def save_image(args):
     i, img = args
@@ -32,9 +31,9 @@ def main():
 
     results = ImagesGenerator(texts=texts, font_size=50, noises=[], font_path='iftg/fonts/AnekDevanagari-VariableFont_wdth,wght.ttf')
 
-    with Pool(cpu_count()) as pool:
-        # Map the save_image function to the results
-        pool.map(save_image, [(i, img) for i, (img, lbl) in enumerate(results)])
+    # with Pool(cpu_count()) as pool:
+    #     # Map the save_image function to the results
+    #     pool.map(save_image, [(i, img) for i, (img, lbl) in enumerate(results)])
 
     # for i, (img, lbl) in enumerate(results):
     #     print(i)
@@ -48,7 +47,8 @@ def main():
     results = ImagesGenerator(texts=texts, font_size=50, noises=[], font_path='iftg/fonts/AnekDevanagari-VariableFont_wdth,wght.ttf')
 
     for i, (img, _) in enumerate(results):
-        img.save(f'output_images/img_{i}.png')
+        # img.save(f'output_images/img_{i}.png')
+        continue
     end = time.time()
     print(f"Time: {end-start} sec")
     

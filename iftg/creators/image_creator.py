@@ -1,9 +1,9 @@
 import numpy as np
 from functools import reduce
 from iftg.noises.noise import Noise
-from iftg.models.creators.creator import Creator
+from iftg.creators.creator import Creator
 from PIL import Image, ImageFont, ImageDraw, ImageFilter
-from iftg.models.image_font_manager import ImageFontManager
+from iftg.utils.image_font_manager import ImageFontManager
 from iftg.utils import get_text_dimensions, get_image_dimensions
 
 class ImageCreator(Creator):
