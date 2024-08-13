@@ -1,5 +1,4 @@
 import time
-
 from PIL import ImageFont, Image
 from iftg.creators import ImageCreator
 from iftg.generators import ImagesGenerator
@@ -18,10 +17,10 @@ def save_image(args):
 def main():
     
     texts = ["我是奥马尔\n我是奥马尔\nDejaVuSans"]
-    texts = ["""I am Omar\nI live in cairo\nI love playing tenis and playing football\nI love playing tenis and playing football\nI love playing tenis and playing football\nI love playing tenis and playing football"""]*10000
     texts = ['أنا عمر سمير', 'قُلْ يَا أَيُّهَا الْكَافِرُونَ\nقُلْ يَا أَيُّهَا الْكَافِرُونَ', 'ثُمَّ لَتَرَوُنَّهَا عَيْنَ الْيَقِينِ']
     texts = ['Hello, I am Omar']
     texts = ['नमस्ते, मैं उमर हूं']
+    texts = ["""I am Omar\nI live in cairo\nI love playing tenis and playing football\nI love playing tenis and playing football\nI love playing tenis and playing football\nI love playing tenis and playing football"""]
     texts = ['Hello, World!']
 
     text = 'Hi I am Omar Samir Ibrahim'
@@ -29,7 +28,8 @@ def main():
     print("Using multiprocessing")
     start = time.time()
 
-    results = ImagesGenerator(texts=texts, font_size=50, noises=[], font_path='iftg/fonts/AnekDevanagari-VariableFont_wdth,wght.ttf')
+    # results = ImagesGenerator(texts=texts, font_size=0, noises=[], font_path='iftg/fonts/AnekDevanagari-VariableFont_wdth,wght.ttf')
+    
 
     # with Pool(cpu_count()) as pool:
     #     # Map the save_image function to the results
@@ -44,10 +44,11 @@ def main():
     
     print("\nUsing normal for loop\n")
     start = time.time()
-    results = ImagesGenerator(texts=texts, font_size=50, noises=[], font_path='iftg/fonts/AnekDevanagari-VariableFont_wdth,wght.ttf')
+    results = ImagesGenerator(texts=texts, font_size=20, noises=[], font_path='iftg/fonts/AnekDevanagari-VariableFont_wdth,wght.ttf', )
 
     for i, (img, _) in enumerate(results):
         # img.save(f'output_images/img_{i}.png')
+        img.show()
         continue
     end = time.time()
     print(f"Time: {end-start} sec")
