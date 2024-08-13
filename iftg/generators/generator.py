@@ -1,6 +1,6 @@
 from PIL import Image
 from abc import abstractmethod
-from iftg.models.base_model import BaseModel
+from iftg.base_model import BaseModel
 
 class Generator(BaseModel):
     

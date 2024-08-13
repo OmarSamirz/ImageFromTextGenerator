@@ -1,9 +1,10 @@
 from iftg.noises.noise import Noise
-from iftg.models.image_font_manager import ImageFontManager
-from iftg.models.creators.image_creator import ImageCreator
-from iftg.models.generators.generator import Generator, Image
+from iftg.utils.image_font_manager import ImageFontManager
+from iftg.creators.image_creator import ImageCreator
+from iftg.generators.generator import Generator, Image
 
-class DetailedImagesGenerator(Generator):
+
+class ImagesGenerator(Generator):
     
     
     def __init__(self, 
@@ -22,8 +23,8 @@ class DetailedImagesGenerator(Generator):
                  font_color: str = 'black',
                  background_color: str = 'white',
                  margins: tuple[int, int, int, int] = (5, 5, 5, 5),
-                 clear_fonts: bool = False
-                 ):
+                 clear_fonts: bool = False,
+                ):
         super().__init__(texts, 
                          noises, 
                          blur_radius,
@@ -41,19 +42,18 @@ class DetailedImagesGenerator(Generator):
                          margins,
                          clear_fonts
                         )
-        
 
     def __iter__(self):
         return self
 
 
     def __next__(self):
-        return self._generate_images()
-
+        return self._generate_next_image()
 
     
-    def _next(self) -> tuple[Image.Image, str]:
-        if self._count == self._texts_len:
+    def _generate_next_image(self) -> tuple[Image.Image, str]:
+        if self._count >= self._texts_len:
+            ImageFontManager.remove_font(self.font_path, self.font_size)
             raise StopIteration
 
         self._count += 1
@@ -77,14 +77,6 @@ class DetailedImagesGenerator(Generator):
         ), self.texts[self._count-1])
 
 
-    
-    def _generate_images(self) -> Image:
-        result = self._next()
-        ImageFontManager.clear()
-
-        return result
-
-
-
-
-
+    def _generate_images(self) -> tuple[Image.Image, str]:
+        pass
+        
