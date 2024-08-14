@@ -1,2 +1,2 @@
 from iftg.generators.images_generator import ImagesGenerator
-from iftg.generators.detailed_images_generator import DetailedImagesGenerator
+from iftg.generators.batches_images_generator import BatchesImagesGenerator

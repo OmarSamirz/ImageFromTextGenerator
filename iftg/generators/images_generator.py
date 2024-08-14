@@ -1,9 +1,11 @@
+from PIL import Image
+
 import os
 
 from iftg.noises.noise import Noise
 from iftg.image_font_manager import ImageFontManager
 from iftg.creators.image_creator import ImageCreator
-from iftg.generators.generator import Generator, Image
+from iftg.generators.generator import Generator
 
 
 class ImagesGenerator(Generator):
@@ -19,7 +21,6 @@ class ImagesGenerator(Generator):
         font_color (str): The color of the text in the images.
         background_color (str): The background color of the images.
         margins (tuple[int, int, int, int]): Margins for text placement on the images.
-        clear_fonts (bool): Whether to clear the font cache after generating images.
     """
     
     
@@ -37,7 +38,7 @@ class ImagesGenerator(Generator):
                  txt_name: str = 'text',
                  txt_format: str = '.txt',
                  txt_output_path: str = '',
-                 clear_fonts: bool = False,
+                 auto_remove_font: bool = True,
                 ):
         super().__init__(texts, 
                          noises, 
@@ -52,9 +53,8 @@ class ImagesGenerator(Generator):
                          txt_name,
                          txt_format,
                          txt_output_path,
-                         clear_fonts
                         )
-
+        self.auto_remove_font = auto_remove_font
 
     def __iter__(self):
         return self
@@ -75,20 +75,23 @@ class ImagesGenerator(Generator):
             StopIteration: When all images have been generated and the font cache is cleared.
         """
         if self._count >= self._texts_len:
-            ImageFontManager.remove_font(self.font_path, self.font_size)
+            if self.auto_remove_font:
+                ImageFontManager.remove_font(self.font_path, self.font_size)
+
             raise StopIteration
 
+        img_lbl = (ImageCreator.create_image(self.texts[self._count],
+                                             self.noises,
+                                             self.font_path,
+                                             self.font_size,
+                                             self.font_color,
+                                             self.background_color,
+                                             self.margins,
+                                             False,
+                                            ), self.texts[self._count])
+        
         self._count += 1
-        return (ImageCreator.create_image(
-            self.texts[self._count-1],
-            self.noises,
-            self.font_path,
-            self.font_size,
-            self.font_color,
-            self.background_color,
-            self.margins,
-            self.clear_fonts
-        ), self.texts[self._count-1])
+        return img_lbl
 
 
     def _cehck_inputs(self) -> None:
