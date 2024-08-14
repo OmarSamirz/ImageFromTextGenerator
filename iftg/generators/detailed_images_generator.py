@@ -1,5 +1,5 @@
 from iftg.noises.noise import Noise
-from iftg.utils.image_font_manager import ImageFontManager
+from iftg.image_font_manager import ImageFontManager
 from iftg.creators import ImageCreator
 from iftg.generators.generator import Generator, Image
 
@@ -9,14 +9,6 @@ class DetailedImagesGenerator(Generator):
     def __init__(self, 
                  texts: list[str],
                  noises: list[Noise] = [],
-                 blur_radius: float = 0.0,
-                 random_blur: bool = False,
-                 min_blur: float = 1.0,
-                 max_blur: float = 4.0,
-                 rotation_angle: float = 0.0,
-                 random_rotation: bool = False,
-                 min_rotation: float = -50.0,
-                 max_rotation: float = 50.0,
                  font_path: str = "iftg/fonts/Arial.ttf",
                  font_size: float = 40.0,
                  font_color: str = 'black',
@@ -26,14 +18,6 @@ class DetailedImagesGenerator(Generator):
                  ):
         super().__init__(texts, 
                          noises, 
-                         blur_radius,
-                         random_blur,
-                         min_blur,
-                         max_blur,
-                         rotation_angle,
-                         random_rotation,
-                         min_rotation,
-                         max_rotation,
                          font_path,
                          font_size,
                          font_color,

@@ -1,10 +1,12 @@
 from PIL import Image, ImageFont
-from iftg.noises.noise import Noise
 from abc import ABC, abstractmethod
+
+from iftg.noises.noise import Noise
 
 class Creator(ABC):
 
 
+    @classmethod
     @abstractmethod
     def _create_base_image(cls, 
                            text: str, 
@@ -13,8 +15,33 @@ class Creator(ABC):
                            margins: tuple[int, int, int, int]
                           ) -> Image:
         pass
+    
+    
+    @classmethod
+    @abstractmethod
+    def get_text_dimensions(cls, text: str, font: ImageFont) -> tuple[float, float, float, float]:
+        left, top, right, bottom = font.getbbox(text)
+
+        return left, top, right, bottom
 
 
+    @classmethod
+    @abstractmethod
+    def get_image_dimensions(cls,
+                             margins: tuple[int, int, int, int],
+                             text_dimensions: tuple[float, float, float, float],
+                            ) -> tuple[int, int]:
+        
+        _, top, right, bottom = text_dimensions
+        left_margin, top_margin, right_margin, bottom_margin = margins
+
+        image_width = right + left_margin + right_margin
+        image_height = bottom - (top * 2) + top_margin + bottom_margin
+
+        return image_width, image_height
+
+
+    @classmethod
     @abstractmethod
     def _apply_noise(cls,
                      text: str,

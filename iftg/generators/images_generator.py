@@ -1,5 +1,7 @@
+import os
+
 from iftg.noises.noise import Noise
-from iftg.utils.image_font_manager import ImageFontManager
+from iftg.image_font_manager import ImageFontManager
 from iftg.creators.image_creator import ImageCreator
 from iftg.generators.generator import Generator, Image
 
@@ -12,14 +14,6 @@ class ImagesGenerator(Generator):
     Attributes:
         texts (list[str]): A list of texts to be used for image creation.
         noises (list[Noise]): A list of noise objects to be applied to the images.
-        blur_radius (float): The radius for Gaussian blur applied to the images.
-        random_blur (bool): Whether to apply a random blur within a specified range.
-        min_blur (float): The minimum blur radius for random blur. 
-        max_blur (float): The maximum blur radius for random blur.
-        rotation_angle (float): The fixed rotation angle for the images. 
-        random_rotation (bool): Whether to apply a random rotation within a specified range.
-        min_rotation (float): The minimum rotation angle for random rotation.
-        max_rotation (float): The maximum rotation angle for random rotation.
         font_path (str): The file path to the font used in the images.
         font_size (float): The size of the font used in the images.
         font_color (str): The color of the text in the images.
@@ -32,36 +26,32 @@ class ImagesGenerator(Generator):
     def __init__(self, 
                  texts: list[str],
                  noises: list[Noise] = [],
-                 blur_radius: float = 0.0,
-                 random_blur: bool = False,
-                 min_blur: float = 1.0,
-                 max_blur: float = 4.0,
-                 rotation_angle: float = 0.0,
-                 random_rotation: bool = False,
-                 min_rotation: float = -50.0,
-                 max_rotation: float = 50.0,
                  font_path: str = "iftg/fonts/Arial.ttf",
                  font_size: float = 40.0,
                  font_color: str = 'black',
                  background_color: str = 'white',
                  margins: tuple[int, int, int, int] = (5, 5, 5, 5),
+                 img_name: str = 'img',
+                 img_format: str = '.tif',
+                 img_output_path: str = '',
+                 txt_name: str = 'text',
+                 txt_format: str = '.txt',
+                 txt_output_path: str = '',
                  clear_fonts: bool = False,
                 ):
         super().__init__(texts, 
                          noises, 
-                         blur_radius,
-                         random_blur,
-                         min_blur,
-                         max_blur,
-                         rotation_angle,
-                         random_rotation,
-                         min_rotation,
-                         max_rotation,
                          font_path,
                          font_size,
                          font_color,
                          background_color,
                          margins,
+                         img_name,
+                         img_format,
+                         img_output_path,
+                         txt_name,
+                         txt_format,
+                         txt_output_path,
                          clear_fonts
                         )
 
@@ -92,14 +82,6 @@ class ImagesGenerator(Generator):
         return (ImageCreator.create_image(
             self.texts[self._count-1],
             self.noises,
-            self.blur_radius,
-            self.random_blur,
-            self.min_blur,
-            self.max_blur,
-            self.rotation_angle,
-            self.random_rotation,
-            self.min_rotation,
-            self.max_rotation,
             self.font_path,
             self.font_size,
             self.font_color,
@@ -109,6 +91,55 @@ class ImagesGenerator(Generator):
         ), self.texts[self._count-1])
 
 
-    def _generate_images(self) -> tuple[Image.Image, str]:
-        pass
+    def _cehck_inputs(self) -> None:
+        if self.img_output_path == '':
+            answer = ''
+            
+            while answer != 'y' and answer != 'n':
+                answer = input('Do you want to save the images in current directory? (Y or N): ').lower()
+            
+            if answer == 'y':
+                self.img_output_path = input('Enter directory path: ')
+            
+            else:
+                print('Your images are going to be saved in current directory')
+        
+        if self.txt_output_path == '':
+            answer = ''
+            
+            while answer != 'y' and answer != 'n':
+                answer = input('Do you want to save the text files in current directory? (Y or N): ').lower()
+            
+            if answer == 'y':
+                self.img_output_path = input('Enter directory path: ')
+            
+            else:
+                print('Your text files are going to be saved in current directory')
+
+
+    def save_images_and_labels(self, img: Image, lbl: str, i: int) -> None:
+
+        img_path = os.path.join(self.img_output_path, self.img_name + f'_{i}' + self.img_format)
+        text_path = os.path.join(self.txt_output_path, self.txt_name + f'_{i}' + self.txt_format)
+
+        img.save(img_path)
+        
+        with open(text_path, 'w') as text_file:
+                text_file.write(lbl)
+
+
+    def generate_images(self) -> bool:
+        self._cehck_inputs()
+
+        for i, (img, lbl) in enumerate(self):
+            img_path = os.path.join(self.img_output_path, self.img_name + f'_{i}' + self.img_format)
+            text_path = os.path.join(self.txt_output_path, self.txt_name + f'_{i}' + self.txt_format)
+            
+            img.save(img_path)
+            with open(text_path, 'w') as text_file:
+                text_file.write(lbl)
+
+    
+    def generate_images_with_text(self) -> bool:
+        return super().generate_images_with_text()
         
