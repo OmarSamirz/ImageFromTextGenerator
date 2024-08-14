@@ -43,7 +43,6 @@ class RandomRotationNoise(Noise):
 
     def _rotation_noise(self, image: Image) -> Image:
         rotation_angle = np.random.uniform(*self.rotation_angle_range)
-        print(rotation_angle)
 
         rotated_image = image.rotate(angle=rotation_angle,
                                      resample=Image.Resampling.BICUBIC, 
