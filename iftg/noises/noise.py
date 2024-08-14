@@ -1,5 +1,5 @@
+from PIL import Image
 from abc import ABC, abstractmethod
-from PIL import Image, ImageDraw, ImageFont
 
 class Noise(ABC):
     
@@ -8,5 +8,15 @@ class Noise(ABC):
     def add_noise(self,
                   image: Image,
                   ) -> Image:
+        pass
+
+    
+    @abstractmethod
+    def add_noise(self) -> Image:
+        pass
+
+
+    @abstractmethod
+    def add_noise(self) -> None:
         pass
 
