@@ -1,47 +1,41 @@
 from PIL import Image, ImageDraw, ImageFont
 import math
 
-def create_image_with_rotated_text(text, font_path, font_size, rotation_angle):
-    # Load the font
-    font = ImageFont.truetype(font_path, font_size)
-    
-    # Get the size of the text
-    left, top, right, bottom = font.getbbox(text)
-    text_width = right - left
-    text_height = bottom - top
+def tilt_image_forward_with_text(image_path, angle, text, font_path, font_size):
+    """
+    Tilts the image forward based on the given angle and adjusts the size to fit text.
 
-    # Calculate the size of the rotated text
-    angle_rad = math.radians(rotation_angle)
-    rotated_width = int(abs(text_width * math.cos(angle_rad)) + abs(text_height * math.sin(angle_rad)))
-    rotated_height = int(abs(text_width * math.sin(angle_rad)) + abs(text_height * math.cos(angle_rad)))
+    :param image_path: Path to the image file
+    :param angle: Angle by which to tilt the image forward (in degrees)
+    :param text: Text to fit inside the image
+    :param font_path: Path to the font file
+    :param font_size: Size of the font
+    :return: Tilted image with text inside
+    """
+    # Open the image
+    image = Image.open(image_path)
+    width, height = image.size
     
-    # Create a new image with a size that accommodates the rotated text
-    image_size = (rotated_width + 40, rotated_height + 40)  # Add padding
-    image = Image.new('RGB', image_size, color='white')
+    # Convert angle to radians
+    angle_rad = math.radians(angle)
     
-    # Create a draw object
-    draw = ImageDraw.Draw(image)
-    image.transform(Image.Transform.AFFINE)
+    # Calculate the new width to accommodate the tilt effect
+    # This formula accounts for the horizontal shift due to the tilt
+    new_width = int(width + height * math.tan(angle_rad))
+    new_height = height  # Keep height the same (optional, you can adjust if needed)
     
     
-    # Calculate the position to center the text
-    x = (image_size[0] - text_width) / 2
-    y = (image_size[1] - text_height) / 2
+    # Paste the tilted image onto the new image
+    tilt_matrix = (1, -math.tan(angle_rad), 0,  # X-axis transformation
+                   0, 1, 0)                    # Y-axis transformation
     
-    # Rotate the image
-    rotated_image = image.rotate(rotation_angle, expand=1, center=(image_size[0]/2, image_size[1]/2))
-    rotated_draw = ImageDraw.Draw(rotated_image)
+    tilted_image = image.transform((new_width, new_height), Image.AFFINE, tilt_matrix, fillcolor='white', resample=Image.Resampling.BICUBIC)
     
-    # Draw the rotated text
-    rotated_draw.text((x, y), text, font=font, fill='black')
     
-    # Save the image
-    rotated_image.show()
+    return tilted_image
 
-# Example usage
-create_image_with_rotated_text(
-    text="Hello, Rotated World!",
-    font_path="arial.ttf",  # Replace with the path to your desired font
-    font_size=40,
-    rotation_angle=30,
-)
+# Usage example
+tilted_img_with_text = tilt_image_forward_with_text(
+    'img_1.tif', 30, 'Your Text Here', 'Arial.ttf', 40)
+tilted_img_with_text.show()
+tilted_img_with_text.save('tilted_image_with_text.jpg')

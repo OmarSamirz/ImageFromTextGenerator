@@ -1,6 +1,7 @@
 import numpy as np
+from PIL import Image, ImageFont, ImageDraw
+
 from functools import reduce
-from PIL import Image, ImageFont, ImageDraw, ImageFilter
 
 from iftg.noises.noise import Noise
 from iftg.creators.creator import Creator
@@ -8,7 +9,7 @@ from iftg.image_font_manager import ImageFontManager
 
 
 class ImageCreator(Creator):
-    """
+    """ 
     A class that extends the `Creator` base class to generate images with customizable text, noise, 
     blur, rotation, and other visual effects. This class is particularly useful for creating images 
     with text and applying various transformations for data creation and augmentation.
@@ -19,7 +20,9 @@ class ImageCreator(Creator):
                            text: str,                            
                            font: ImageFont, 
                            background_color: str,
-                           margins: tuple[int, int, int, int]
+                           margins: tuple[int, int, int, int],
+                           dpi: tuple[int, int],
+                           background_img: Image
                           ) -> tuple[Image.Image, int]:
         """
         Creates a base image with the specified background color and dimensions calculated based on the text.
@@ -43,6 +46,21 @@ class ImageCreator(Creator):
                           (image_width, image_height+text_dimensions[1]),
                           color=background_color
                          )
+        
+        # add a background image to the text
+        if background_img != None:
+            bg_width, bg_height = background_img.size
+
+            x1 = np.random.randint(0, bg_width - image_width)
+            y1 = np.random.randint(0, bg_height - image_height)
+            x2 = x1 + image_width + margins[2]
+            y2 = y1 + image_height + margins[3]
+
+            random_bg_part = background_img.crop((x1, y1, x2, y2))
+
+            image.paste(random_bg_part)
+        
+        image.info['dpi'] = dpi
         
         return image, text_dimensions[1]
 
@@ -93,6 +111,8 @@ class ImageCreator(Creator):
                      font_color: str = 'black',
                      background_color: str = 'white',
                      margins: tuple[int, int, int, int] = (5, 5, 5, 5),
+                     dpi: tuple[int, int] = (300, 300),
+                     background_img: Image = None,
                      clear_fonts: bool = True
                     ):
         """
@@ -114,7 +134,7 @@ class ImageCreator(Creator):
         
         font = ImageFontManager.get_font(font_path, font_size)
 
-        image, top = cls._create_base_image(text, font, background_color, margins)
+        image, top = cls._create_base_image(text, font, background_color, margins, dpi, background_img)
 
         image = cls._apply_noise(text, top, font, noises, font_color, margins, image)
         

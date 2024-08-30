@@ -32,13 +32,15 @@ class ImagesGenerator(Generator):
                  font_color: str = 'black',
                  background_color: str = 'white',
                  margins: tuple[int, int, int, int] = (5, 5, 5, 5),
+                 dpi: tuple[int, int] = (300, 300),
                  img_name: str = 'img',
                  img_format: str = '.tif',
-                 img_output_path: str = '',
+                 img_output_path: str = 'output',
                  txt_name: str = 'text',
                  txt_format: str = '.txt',
-                 txt_output_path: str = '',
+                 txt_output_path: str = 'output',
                  auto_remove_font: bool = True,
+                 background_image_path: str = '',
                 ):
         super().__init__(texts, 
                          noises, 
@@ -47,24 +49,26 @@ class ImagesGenerator(Generator):
                          font_color,
                          background_color,
                          margins,
+                         dpi,
                          img_name,
                          img_format,
                          img_output_path,
                          txt_name,
                          txt_format,
                          txt_output_path,
+                         background_image_path
                         )
         self.auto_remove_font = auto_remove_font
+        self.background_img = None
 
-    def __iter__(self):
-        return self
-
-
-    def __next__(self):
-        return self._generate_next_image()
+        if background_image_path != '':
+            try:
+                self.background_img = Image.open(background_image_path)
+            except:
+                raise FileNotFoundError("The background image does not exist")
 
     
-    def _generate_next_image(self) -> tuple[Image.Image, str]:
+    def _generate_next(self) -> tuple[Image.Image, str]:
         """
         Generates the next image in the sequence.
 
@@ -87,6 +91,8 @@ class ImagesGenerator(Generator):
                                              self.font_color,
                                              self.background_color,
                                              self.margins,
+                                             self.dpi,
+                                             self.background_img,
                                              False,
                                             ), self.texts[self._count])
         
@@ -94,45 +100,18 @@ class ImagesGenerator(Generator):
         return img_lbl
 
 
-    def _cehck_inputs(self) -> None:
-        if self.img_output_path == '':
-            answer = ''
-            
-            while answer != 'y' and answer != 'n':
-                answer = input('Do you want to save the images in current directory? (Y or N): ').lower()
-            
-            if answer == 'y':
-                self.img_output_path = input('Enter directory path: ')
-            
-            else:
-                print('Your images are going to be saved in current directory')
-        
-        if self.txt_output_path == '':
-            answer = ''
-            
-            while answer != 'y' and answer != 'n':
-                answer = input('Do you want to save the text files in current directory? (Y or N): ').lower()
-            
-            if answer == 'y':
-                self.img_output_path = input('Enter directory path: ')
-            
-            else:
-                print('Your text files are going to be saved in current directory')
+    def generate_images(self) -> None:
+        if os.path.isdir(self.img_output_path) == False:
+            os.mkdir(self.img_output_path)
 
+        for i, (img, _) in enumerate(self):
+            img_path = os.path.join(self.img_output_path, self.img_name + f'_{i}' + self.img_format)
+            img.save(img_path)
 
-    def save_images_and_labels(self, img: Image, lbl: str, i: int) -> None:
-
-        img_path = os.path.join(self.img_output_path, self.img_name + f'_{i}' + self.img_format)
-        text_path = os.path.join(self.txt_output_path, self.txt_name + f'_{i}' + self.txt_format)
-
-        img.save(img_path)
-        
-        with open(text_path, 'w') as text_file:
-                text_file.write(lbl)
-
-
-    def generate_images(self) -> bool:
-        self._cehck_inputs()
+    
+    def generate_images_with_text(self) -> None:
+        if os.path.isdir(self.img_output_path) == False:
+            os.mkdir(self.img_output_path)
 
         for i, (img, lbl) in enumerate(self):
             img_path = os.path.join(self.img_output_path, self.img_name + f'_{i}' + self.img_format)
@@ -141,8 +120,4 @@ class ImagesGenerator(Generator):
             img.save(img_path)
             with open(text_path, 'w') as text_file:
                 text_file.write(lbl)
-
-    
-    def generate_images_with_text(self) -> bool:
-        return super().generate_images_with_text()
         
