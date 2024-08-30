@@ -17,6 +17,7 @@ class BatchesImagesGenerator(Generator):
                  font_colors: list[str] = ['black'],
                  background_colors: list[str] = ['white'],
                  margins: list[tuple[int, int, int, int]] = [(5, 5, 5, 5)],
+                 dpi: list[tuple[int, int]] = [(300, 300)],
                  img_names: list[str] = ['img'],
                  img_formats: list[str] = ['.tif'],
                  img_output_paths: list[str] = [''],
@@ -31,6 +32,7 @@ class BatchesImagesGenerator(Generator):
                          font_colors,
                          background_colors,
                          margins,
+                         dpi,
                          img_names,
                          img_formats,
                          img_output_paths,
@@ -38,17 +40,9 @@ class BatchesImagesGenerator(Generator):
                          txt_formats,
                          txt_output_paths,
                         )            
-
-
-    def __iter__(self):
-        return self
-    
-    
-    def __next__(self):
-        return self._generate_next_batch()
     
 
-    def _generate_next_batch(self):
+    def _generate_next(self):
         if self._count >= self._texts_len:
             ImageFontManager.remove_font(self.font_path[self._count-1], self.font_size[self._count-1])
             raise StopIteration
@@ -60,6 +54,7 @@ class BatchesImagesGenerator(Generator):
                                      self.font_color[self._count],
                                      self.background_color[self._count],
                                      self.margins[self._count],
+                                     self.dpi,
                                      self.img_name[self._count] + f'_{self._count}',
                                      self.img_format[self._count],
                                      self.img_output_path[self._count],

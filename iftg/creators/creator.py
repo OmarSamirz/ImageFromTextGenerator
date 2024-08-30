@@ -81,6 +81,8 @@ class Creator(ABC):
                      font_color: str = 'black',
                      background_color: str = 'white',
                      margins: tuple[int, int, int, int] = (5, 5, 5, 5),
+                     dpi: tuple[int, int] = (300, 300),
+                     background_image_path: str = '',
                      clear_fonts: bool = True
                     ):
         pass
