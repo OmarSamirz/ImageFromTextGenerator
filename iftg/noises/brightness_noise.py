@@ -23,7 +23,7 @@ class BrightnessNoise(Noise):
 
 
 
-class RandomBrightnessNoise(Noise):
+class RandomBrightnessNoise(BrightnessNoise):
 
 
     def __init__(self, 
@@ -33,12 +33,6 @@ class RandomBrightnessNoise(Noise):
 
 
     def add_noise(self, image: Image) -> Image.Image:
-        return self._random_brightness_noise(image)
+        self.brightness_factor = np.random.uniform(*self.brightness_factor_range)
 
-    
-    def _random_brightness_noise(self, image: Image) -> Image.Image:
-        brightness_factor = np.random.uniform(*self.brightness_factor_range)
-
-        noisy_image = image.point(lambda p: min(255, int(p * brightness_factor)))
-
-        return noisy_image
+        return super().add_noise(image)

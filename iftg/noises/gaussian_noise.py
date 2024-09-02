@@ -30,7 +30,7 @@ class GaussianNoise(Noise):
         return noisy_image
     
 
-class RandomGaussianNoise(Noise):
+class RandomGaussianNoise(GaussianNoise):
 
     def __init__(self,
                  mean_range: tuple[float, float] = (0, 1),
@@ -41,20 +41,7 @@ class RandomGaussianNoise(Noise):
         self.sigma_range = sigma_range
 
     def add_noise(self, image: Image) -> Image:
-        return self._gaussian_noise(image)
-
-
-    def _gaussian_noise(self, image: Image) -> Image:
+        self.mean = np.random.uniform(*self.mean_range)
+        self.sigma = np.random.uniform(*self.sigma_range)
         
-        img_array = np.array(image)
-
-        mean = np.random.uniform(*self.mean_range)
-        sigma = np.random.uniform(*self.sigma_range)
-
-        noise = np.random.normal(mean, sigma, img_array.shape)
-        noisy_img_array = img_array + noise
-        noisy_img_array = np.clip(noisy_img_array, 0, 255).astype(np.uint8)
-
-        noisy_image = Image.fromarray(noisy_img_array)
-        
-        return noisy_image
+        return super().add_noise(image)

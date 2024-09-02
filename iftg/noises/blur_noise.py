@@ -20,21 +20,15 @@ class BlurNoise(Noise):
         return blured_image
 
 
-class RandomBlurNoise(Noise):
-    def __init__(self, blur_radius_range: tuple[float, float] = (1.0, 3.0)):
+class RandomBlurNoise(BlurNoise):
+    def __init__(self, 
+                 blur_radius_range: tuple[float, float] = (1.0, 3.0)
+                ):
         self.blur_radius_range = blur_radius_range
     
 
     def add_noise(self, image: Image) -> Image:
-        return self._random_blur_noise(image)
-
-
-    def _random_blur_noise(self, image: Image) -> Image:
-        blur_radius = np.random.uniform(*self.blur_radius_range)
-
-        gaussian_filter = ImageFilter.GaussianBlur(radius=blur_radius)
-            
-        blured_image = image.filter(gaussian_filter)
-
-        return blured_image
+        self.blur_radius = np.random.uniform(*self.blur_radius_range)
+        
+        return super().add_noise(image)
 

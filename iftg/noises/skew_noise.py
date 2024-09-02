@@ -18,7 +18,7 @@ class SkewNoise(Noise):
         pass
 
 
-class RandomSkewNoise(Noise):
+class RandomSkewNoise(SkewNoise):
 
 
     def __init__(self):
@@ -26,8 +26,5 @@ class RandomSkewNoise(Noise):
 
 
     def add_noise(self, image: Image) -> Image.Image:
-        return self._random_skew_noise(image)
 
-
-    def _random_skew_noise(self, image: Image) -> Image.Image:
-        pass
+        return super().add_noise(image)
