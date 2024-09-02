@@ -26,7 +26,7 @@ class RotationNoise(Noise):
         return rotated_image
 
 
-class RandomRotationNoise(Noise):
+class RandomRotationNoise(RotationNoise):
 
 
     def __init__(self, 
@@ -38,17 +38,7 @@ class RandomRotationNoise(Noise):
     
 
     def add_noise(self, image: Image) -> Image:
-        return self._rotation_noise(image)
+        self.rotation_angle = np.random.uniform(*self.rotation_angle_range)
 
-
-    def _rotation_noise(self, image: Image) -> Image:
-        rotation_angle = np.random.uniform(*self.rotation_angle_range)
-
-        rotated_image = image.rotate(angle=rotation_angle,
-                                     resample=Image.Resampling.BICUBIC, 
-                                     fillcolor=self.background_color,
-                                     expand=True
-                                    )
-
-        return rotated_image
+        return super().add_noise(image)
 

@@ -30,7 +30,7 @@ class ErodeNoise(Noise):
 
 
 
-class RandomErodeNoise(Noise):
+class RandomErodeNoise(ErodeNoise):
 
 
     def __init__(self,
@@ -43,18 +43,7 @@ class RandomErodeNoise(Noise):
 
 
     def add_noise(self, image: Image) -> Image:
-        return self._random_erode_noise(image)
-
-
-    def _random_erode_noise(self, image: Image) -> Image:
-        img_array = np.array(image)
+        self.kernel_size = np.random.randint(self.kernel_size_range[0], self.kernel_size_range[1])
+        self.iterations = np.random.randint(self.iterations_range[0], self.iterations_range[1])
         
-        kernel_size = np.random.randint(self.kernel_size_range[0], self.kernel_size_range[1])
-        iterations = np.random.randint(self.iterations_range[0], self.iterations_range[1])
-
-        kernel = np.ones((kernel_size, kernel_size), np.uint8)
-        noisy_img_array = cv2.dilate(img_array, kernel, iterations=iterations)
-
-        eroded_image = Image.fromarray(noisy_img_array)
-        
-        return eroded_image
+        return super().add_noise(image)
