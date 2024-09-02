@@ -3,7 +3,16 @@ import numpy as np
 from iftg.noises.noise import Noise, Image
 
 class ErodeNoise(Noise):
+    """
+    A class to apply erosion noise to an image. Erosion noise shrinks the white regions of the image
+    by applying morphological erosion using a structuring element (kernel).
 
+    Attributes:
+        kernel_size (int): 
+            The size of the structuring element (kernel) used for erosion.
+        iterations (int): 
+            The number of times the erosion operation is applied.
+    """
 
     def __init__(self,
                  kernel_size: int = 3,
@@ -15,6 +24,17 @@ class ErodeNoise(Noise):
 
 
     def add_noise(self, image: Image) -> Image:
+        """
+        Applies erosion noise to the image.
+
+        Parameters:
+            image (Image): 
+                The image to which noise will be applied.
+
+        Returns:
+            Image: 
+                The image with erosion noise applied.
+        """
         return self._erode_noise(image)
 
 
@@ -31,11 +51,20 @@ class ErodeNoise(Noise):
 
 
 class RandomErodeNoise(ErodeNoise):
+    """
+    A class to apply random erosion noise to an image. The kernel size and number of iterations
+    are chosen randomly within specified ranges.
 
+    Attributes:
+        kernel_size_range (tuple[int, int]): 
+            The range of kernel sizes to choose from for erosion.
+        iterations_range (tuple[int, int]): 
+            The range of iteration counts to choose from for erosion.
+    """
 
     def __init__(self,
                  kernel_size_range: tuple[int, int] = (3, 5),
-                 iterations_range: tuple[int, int] = (1, 1),
+                 iterations_range: tuple[int, int] = (1, 2),
                 ):
         
         self.kernel_size_range = kernel_size_range
@@ -43,7 +72,19 @@ class RandomErodeNoise(ErodeNoise):
 
 
     def add_noise(self, image: Image) -> Image:
-        self.kernel_size = np.random.randint(self.kernel_size_range[0], self.kernel_size_range[1])
-        self.iterations = np.random.randint(self.iterations_range[0], self.iterations_range[1])
+        """
+        Applies random erosion noise to the image by selecting random kernel size and number of iterations.
+
+        Parameters:
+            image (Image): 
+                The image to which noise will be applied.
+
+        Returns:
+            Image: 
+                The image with random erosion noise applied.
+        """
+                
+        self.kernel_size = np.random.randint(*self.kernel_size_range)
+        self.iterations = np.random.randint(*self.iterations_range)
         
         return super().add_noise(image)

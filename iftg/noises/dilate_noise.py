@@ -5,6 +5,16 @@ from iftg.noises.noise import Noise, Image
 
 
 class DilateNoise(Noise):
+    """
+    A class to apply dilation noise to an image. Dilation noise enlarges the white regions of the image
+    by applying morphological dilation using a structuring element (kernel).
+
+    Attributes:
+        kernel_size (int): 
+            The size of the structuring element (kernel) used for dilation.
+        iterations (int): 
+            The number of times the dilation operation is applied.
+    """
 
 
     def __init__(self,
@@ -17,6 +27,17 @@ class DilateNoise(Noise):
 
 
     def add_noise(self, image: Image) -> Image:
+        """
+        Applies dilation noise to the image.
+
+        Parameters:
+            image (Image): 
+                The image to which noise will be applied.
+
+        Returns:
+            Image: 
+                The image with dilation noise applied.
+        """
         return self._dilate_noise(image)
 
 
@@ -31,7 +52,18 @@ class DilateNoise(Noise):
         return dilated_image
     
 
-class RandomDilateNoise(DilateNoise):
+class RandomDilateNoise(DilateNoise):   
+    """
+    A class to apply random dilation noise to an image. The kernel size and number of iterations
+    are chosen randomly within specified ranges.
+
+    Attributes:
+        kernel_size_range (tuple[int, int]): 
+            The range of kernel sizes to choose from for dilation.
+        iterations_range (tuple[int, int]): 
+            The range of iteration counts to choose from for dilation.
+    """
+
 
     def __init__(self,
                  kernel_size_range: tuple[int, int] = (2, 5),
@@ -43,6 +75,17 @@ class RandomDilateNoise(DilateNoise):
 
 
     def add_noise(self, image: Image) -> Image:
+        """
+        Applies random dilation noise to the image by selecting random kernel size and number of iterations.
+
+        Parameters:
+            image (Image): 
+                The image to which noise will be applied.
+
+        Returns:
+            Image: 
+                The image with random dilation noise applied.
+        """
         self.kernel_size = np.random.randint(self.kernel_size_range[0], self.kernel_size_range[1])
         self.iterations = np.random.randint(self.iterations_range[0], self.iterations_range[1])
         

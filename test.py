@@ -1,41 +1,27 @@
-from PIL import Image, ImageDraw, ImageFont
-import math
+import numpy as np
+from PIL import Image
 
-def tilt_image_forward_with_text(image_path, angle, text, font_path, font_size):
-    """
-    Tilts the image forward based on the given angle and adjusts the size to fit text.
-
-    :param image_path: Path to the image file
-    :param angle: Angle by which to tilt the image forward (in degrees)
-    :param text: Text to fit inside the image
-    :param font_path: Path to the font file
-    :param font_size: Size of the font
-    :return: Tilted image with text inside
-    """
+def add_noise_effect(image_path, noise_intensity=0.2):
     # Open the image
-    image = Image.open(image_path)
-    width, height = image.size
+    img = Image.open(image_path)
     
-    # Convert angle to radians
-    angle_rad = math.radians(angle)
+    # Convert the image to a numpy array
+    img_array = np.array(img)
     
-    # Calculate the new width to accommodate the tilt effect
-    # This formula accounts for the horizontal shift due to the tilt
-    new_width = int(width + height * math.tan(angle_rad))
-    new_height = height  # Keep height the same (optional, you can adjust if needed)
+    # Create a noise array with the same shape as the image
+    noise = np.random.normal(0, noise_intensity, img_array.shape)
     
+    # Add the noise to the image array
+    noisy_img_array = img_array + noise * 255
     
-    # Paste the tilted image onto the new image
-    tilt_matrix = (1, -math.tan(angle_rad), 0,  # X-axis transformation
-                   0, 1, 0)                    # Y-axis transformation
+    # Clip the values to be between 0 and 255
+    noisy_img_array = np.clip(noisy_img_array, 0, 255).astype(np.uint8)
     
-    tilted_image = image.transform((new_width, new_height), Image.AFFINE, tilt_matrix, fillcolor='white', resample=Image.Resampling.BICUBIC)
+    # Create a new image from the noisy array
+    noisy_img = Image.fromarray(noisy_img_array)
     
-    
-    return tilted_image
+    return noisy_img
 
-# Usage example
-tilted_img_with_text = tilt_image_forward_with_text(
-    'img_1.tif', 30, 'Your Text Here', 'Arial.ttf', 40)
-tilted_img_with_text.show()
-tilted_img_with_text.save('tilted_image_with_text.jpg')
+# Example usage:
+noisy_image = add_noise_effect('img.png', noise_intensity=0.2)
+noisy_image.save('noisy_checkerboard.png')

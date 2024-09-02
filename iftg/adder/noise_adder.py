@@ -4,7 +4,18 @@ from iftg.noises.noise import Noise, Image
 
 
 class NoiseAdder(ABC):
-    
+    """
+    An abstract base class for adding noise to images. Subclasses must implement the methods 
+    for applying noise, adding noises, saving images, and transforming images.
+
+    Attributes:
+        identifier (str): 
+            A unique identifier for the noise adder instance.
+        img_formats (list[str]): 
+            A list of image formats for saving the processed images.
+        noises (list[Noise]): 
+            A list of noise objects to be applied to the images.
+    """
 
     def __init__(self, 
                  noises: list[Noise],
@@ -17,20 +28,20 @@ class NoiseAdder(ABC):
 
     
     @abstractmethod
-    def _apply_noises(self, image: Image) -> list[Image.Image]:
+    def _apply_noises(self, image: Image) -> tuple[Image.Image, str, str]:
         pass
 
 
     @abstractmethod
-    def _add_noises(self):
-        pass
-
-    
-    @abstractmethod
-    def _save_images(self):
+    def add_noises(self) -> list[tuple[Image.Image, str, str]]:
         pass
 
     
     @abstractmethod
-    def transform_images(self):
+    def save_image(self, img_info: tuple[Image.Image, str, str]) -> None:
+        pass
+
+    
+    @abstractmethod
+    def transform_images(self) -> None:
         pass

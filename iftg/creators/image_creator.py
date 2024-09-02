@@ -25,18 +25,26 @@ class ImageCreator(Creator):
                            background_img: Image
                           ) -> tuple[Image.Image, int]:
         """
-        Creates a base image with the specified background color and dimensions calculated based on the text.
+        Creates a base image with the specified background color and dimensions, 
+        and optionally adds a background image.
 
-        Args:
-            text (str): The text to be added to the image.
-            font (ImageFont): The font used for the text.
-            background_color (str): The background color of the image.
-            margins (tuple[int, int, int, int]): Margins for the image (left, top, right, bottom).
+        Parameters:
+            text (str):
+                The text to be added to the image.
+            font (ImageFont):
+                The font used for the text.
+            background_color (str):
+                The background color of the image.
+            margins (tuple[int, int, int, int]):
+                Margins for the image (left, top, right, bottom).
+            dpi (tuple[int, int]):
+                The resolution of the image (dots per inch).
+            background_img (Image):
+                An optional background image to be used as a base.
 
         Returns:
-            tuple: 
-            A tuple containing the generated image and the top margin adjustment.
-
+            tuple[Image.Image, int]:
+                A tuple containing the generated image and the top margin adjustment.
         """
 
         text_dimensions = cls.get_text_dimensions(text, font)
@@ -79,17 +87,24 @@ class ImageCreator(Creator):
         """
         Applies text, noise, blur, and rotation effects to the base image.
 
-        Args:
-            text (str): The text to be drawn on the image.
-            top (int): The top margin adjustment for the text placement.
-            font (ImageFont): The font used for the text.
-            noises (list[Noise]): A list of noise objects to apply to the image.
-            font_color (str): The color of the text.
-            margins (tuple[int, int, int, int]): Margins for text placement on the image (left, top, right, bottom).
-            image (Image.Image): The base image to which effects will be applied.
+        Parameters:
+            text (str):
+                The text to be drawn on the image.
+            top (int):
+                The top margin adjustment for the text placement.
+            font (ImageFont):
+                The font used for the text.
+            noises (list[Noise]):
+                A list of noise objects to apply to the image.
+            font_color (str):
+                The color of the text.
+            margins (tuple[int, int, int, int]):
+                Margins for text placement on the image (left, top, right, bottom).
+            image (Image.Image):
+                The base image to which effects will be applied.
 
         Returns:
-            Image.Image: The image with the applied text, noise, blur, and rotation effects.
+            Image: The image with the applied text, noise, blur, and rotation effects.
         """
 
         # Draw the text on the image
@@ -118,18 +133,31 @@ class ImageCreator(Creator):
         """
         Creates an image with the specified text, applying optional noise, blur, and rotation effects.
 
-        Args:
-            text (str): The text to be drawn on the image.
-            noises (list[Noise], optional): A list of noise objects to apply to the image. Defaults to an empty list.
-            font_path (str, optional): The file path to the font. Defaults to 'iftg/fonts/Arial.ttf'.
-            font_size (float, optional): The size of the font. Defaults to 40.0.
-            font_color (str, optional): The color of the text. Defaults to 'black'.
-            background_color (str, optional): The background color of the image. Defaults to 'white'.
-            margins (tuple[int, int, int, int], optional): Margins for text placement on the image (left, top, right, bottom). Defaults to (5, 5, 5, 5).
-            clear_fonts (bool, optional): Whether to clear the font cache after creating the image. Defaults to True.
+        Parameters:
+            text (str): 
+                The text to be drawn on the image.
+            noises (list[Noise], optional): 
+                A list of noise objects to apply to the image. Defaults to an empty list.
+            font_path (str, optional):
+                The file path to the font. Defaults to 'iftg/fonts/Arial.ttf'.
+            font_size (float, optional): 
+                The size of the font. Defaults to 40.0.
+            font_color (str, optional):
+                The color of the text. Defaults to 'black'.
+            background_color (str, optional):
+                The background color of the image. Defaults to 'white'.
+            margins (tuple[int, int, int, int], optional):
+                Margins for text placement on the image (left, top, right, bottom). Defaults to (5, 5, 5, 5).
+            dpi (tuple[int, int], optional):
+                The resolution of the image (dots per inch). Defaults to (300, 300).
+            background_img (Image, optional):
+                An optional background image to be used as a base. Defaults to None.
+            clear_fonts (bool, optional): 
+                Whether to clear the font cache after creating the image. Defaults to True.
 
         Returns:
-            Image.Image: The generated image with the applied text and effects.
+            Image.Image: 
+                The generated image with the applied text and effects.
         """
         
         font = ImageFontManager.get_font(font_path, font_size)
