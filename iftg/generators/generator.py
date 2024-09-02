@@ -3,7 +3,56 @@ from abc import ABC, abstractmethod
 from iftg.noises.noise import Noise
 
 class Generator(ABC):
-    
+    """
+    An abstract base class for creating image generators that apply various effects, 
+    such as noise and text, to images. Subclasses should implement the `_generate_next` method 
+    to define how each image is generated.
+
+    Attributes:
+        texts (list[str] | list[list[str]]): 
+            A list of texts or a list of lists of texts for generating images.
+        noises (list[Noise] | list[list[Noise]]): 
+            A list of noise objects or a list of lists of noise objects to be applied to the images.
+        font_path (str | list[str]): 
+            The file path(s) to the font(s) used in the images.
+        font_size (float | list[float]): 
+            The size(s) of the font(s) used in the images.
+        font_color (str | list[str]): 
+            The color(s) of the text in the images.
+        background_color (str | list[str]): 
+            The background color(s) of the images.
+        margins (tuple[int, int, int, int] | list[tuple[int, int, int, int]]): 
+            Margins for text placement on the images, either as a single tuple or a list of tuples.
+        dpi (tuple[int, int] | list[tuple[int, int]]): 
+            The DPI (dots per inch) settings for the images, either as a single tuple or a list of tuples.
+        img_name (str | list[str]): 
+            The base name(s) for the output image files.
+        img_format (str | list[str]): 
+            The file format(s) for the output images.
+        img_output_path (str | list[str]): 
+            The directory or directories where the generated images will be saved.
+        txt_name (str | list[str]): 
+            The base name(s) for the output text files containing image labels.
+        txt_format (str | list[str]): 
+            The file format(s) for the output text files.
+        txt_output_path (str | list[str]): 
+            The directory or directories where the generated text files will be saved.
+        background_image_path (str | list[str]): 
+            The file path(s) to the background image(s) to be used in the images.
+
+    Methods:
+
+        __iter__():
+            Returns the generator object itself.
+        
+        __next__():
+            Returns the next generated image by calling the `_generate_next` method.
+        
+        _generate_next():
+            Abstract method to be implemented by subclasses to define how to generate the next image.
+    """
+      
+
     def __init__(self,
                  texts: list[str] | list[list[str]],
                  noises: list[Noise] | list[list[Noise]],
@@ -42,12 +91,30 @@ class Generator(ABC):
 
         
     def __iter__(self):
+        """
+        Returns the generator object itself.
+
+        Returns:
+            Generator:
+                The generator object.
+        """
         return self
 
 
     def __next__(self):
+        """
+        Returns the next generated image by calling the `_generate_next` method.
+
+        Returns:
+            Object:
+                The next generated image or relevant output, depending on the subclass implementation.
+
+        Raises:
+            StopIteration:
+                When there are no more images to generate.
+        """
         return self._generate_next()
     
 
-    def _generate_next():
+    def _generate_next(self):
         pass

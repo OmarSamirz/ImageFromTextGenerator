@@ -5,7 +5,16 @@ from iftg.noises.noise import Noise, Image
 
 
 class ShadowNoise(Noise):
-
+    """
+    A class to apply shadow noise to an image. The shadow is applied based on a polygon drawn on a mask image.
+    
+    Attributes:
+        num_points (int): 
+            The number of points used to create the polygon for the shadow mask. Must be at least 2.
+        shadow_intensity (float): 
+            The intensity of the shadow applied to the image. Ranges from 0 to 1.
+    """
+ 
 
     def __init__(self,
                  num_points: int = 5,
@@ -19,6 +28,18 @@ class ShadowNoise(Noise):
 
 
     def add_noise(self, image: Image) -> Image:
+        """
+        Applies shadow noise to the image.
+
+        Parameters:
+            image (Image):
+                The image to which shadow noise will be applied.
+
+        Returns:
+            Image:
+                The image with the shadow noise applied.
+        """
+                
         return self._shadow_noise(image)
 
 
@@ -40,7 +61,16 @@ class ShadowNoise(Noise):
         
 
 class RandomShadowNoise(ShadowNoise):
+    """
+    A class to apply random shadow noise to an image. The number of points and shadow intensity are randomly chosen within specified ranges.
 
+    Attributes:
+        num_points_range (tuple[int, int]):
+            The range of the number of points used to create the polygon for the shadow mask.
+        shadow_intensity_range (tuple[float, float]):
+            The range of shadow intensity values.
+    """
+   
 
     def __init__(self,
                  num_points_range: tuple[int, int] = (5, 10),
@@ -51,6 +81,18 @@ class RandomShadowNoise(ShadowNoise):
 
 
     def add_noise(self, image: Image) -> Image:
+        """
+        Applies random shadow noise to the image by selecting a random number of points and shadow intensity.
+
+        Parameters:
+            image (Image): 
+                The image to which random shadow noise will be applied.
+
+        Returns:
+            Image: 
+                The image with the random shadow noise applied.
+        """
+        
         self.num_points = np.random.randint(*self.num_points_range)
         self.shadow_intensity = np.random.uniform(*self.shadow_intensity_range)
 

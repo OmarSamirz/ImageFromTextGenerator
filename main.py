@@ -11,7 +11,7 @@ from iftg.noises import DilateNoise, RandomDilateNoise
 from iftg.noises import GaussianNoise, RandomGaussianNoise, BlurNoise
 from iftg.noises import ErodeNoise, RandomRotationNoise, ElasticNoise, ShadowNoise, RandomShadowNoise
 from iftg.noises import ShadowNoise, RandomBrightnessNoise, RandomFlipNoise, RandomElasticNoise
-from iftg.noises import PixelDropoutNoise, RandomPixelDropoutNoise
+from iftg.noises import PixelDropoutNoise, RandomPixelDropoutNoise, RandomErodeNoise, BrightnessNoise, RandomBlurNoise
 
 
 def main1():
@@ -40,7 +40,11 @@ def main1():
     
     # print("\nUsing normal for loop\n")
     start = time.time()
-    results = ImagesGenerator(texts=texts, font_size=50, noises=[PixelDropoutNoise(dropout_prob=0.2, pixel_dimensions=(1, 10))], 
+    results = ImagesGenerator(texts=texts, font_size=50, noises=[
+                                                                PixelDropoutNoise(dropout_prob=0.2, pixel_dimensions=(1, 10)),
+                                                                ErodeNoise(),
+                                                                RandomBrightnessNoise(),
+                                                                 ], 
                               font_path='iftg/fonts/Arial.ttf', img_output_path='./img_text_test', 
                               txt_output_path='./img_text_test',
                              )
@@ -61,7 +65,7 @@ def main2():
     start = time.time()
     noise_adder = DirectoryNoiseAdder(dir_path='img_text_test', 
                                       output_path='img_text_test_2',
-                                      noises=[RandomBrightnessNoise(), ErodeNoise()]
+                                      noises=[BrightnessNoise(), ErodeNoise()]
                                      )
     noise_adder.transform_images()
     end = time.time()
@@ -69,9 +73,11 @@ def main2():
 
 
 if __name__ == '__main__':
-    main1()
+    main2()
+    # img = Image.open('img_text_test/img_0.tif')
+    # print(img.info['dpi'])
     # text = """I am Omar\nI live in cairo"""
     # print(text.splitlines())
-    
+
     
     

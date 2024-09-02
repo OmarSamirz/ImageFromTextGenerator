@@ -14,13 +14,38 @@ class ImagesGenerator(Generator):
     Inherits from `Generator` and provides functionality to iterate over the generated images.
 
     Attributes:
-        texts (list[str]): A list of texts to be used for image creation.
-        noises (list[Noise]): A list of noise objects to be applied to the images.
-        font_path (str): The file path to the font used in the images.
-        font_size (float): The size of the font used in the images.
-        font_color (str): The color of the text in the images.
-        background_color (str): The background color of the images.
-        margins (tuple[int, int, int, int]): Margins for text placement on the images.
+        texts (list[str]): 
+            A list of texts to be used for image creation.
+        noises (list[Noise]):
+            A list of noise objects to be applied to the images.
+        font_path (str):
+            The file path to the font used in the images.
+        font_size (float):
+            The size of the font used in the images.
+        font_color (str):
+            The color of the text in the images.
+        background_color (str):
+            The background color of the images.
+        margins (tuple[int, int, int, int]):
+            Margins for text placement on the images.
+        dpi (tuple[int, int]):
+            The DPI (dots per inch) settings for the images.
+        img_name (str):
+            The base name for the output image files.
+        img_format (str):
+            The file format for the output images.
+        img_output_path (str):
+            The directory where the generated images will be saved.
+        txt_name (str):
+            The base name for the output text files containing the image labels.
+        txt_format (str):
+            The file format for the output text files.
+        txt_output_path (str):
+            The directory where the generated text files will be saved.
+        auto_remove_font (bool):
+            A flag indicating whether to automatically remove the font from the cache after image generation.
+        background_image_path (str):
+            The file path to the background image, if any.
     """
     
     
@@ -101,6 +126,12 @@ class ImagesGenerator(Generator):
 
 
     def generate_images(self) -> None:
+        """
+        Generates and saves images to the specified output directory.
+
+        Creates the output directory if it doesn't exist, and saves each generated image 
+        with the specified name and format.
+        """
         if os.path.isdir(self.img_output_path) == False:
             os.mkdir(self.img_output_path)
 
@@ -111,6 +142,12 @@ class ImagesGenerator(Generator):
 
     
     def generate_images_with_text(self) -> None:
+        """
+        Generates images and saves both the images and their corresponding texts to the specified directories.
+
+        Creates the output directories if they don't exist. Saves each generated image and its label
+        to their respective paths.
+        """
         if os.path.isdir(self.img_output_path) == False:
             os.mkdir(self.img_output_path)
 

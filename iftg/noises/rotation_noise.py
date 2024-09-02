@@ -4,6 +4,18 @@ from PIL import Image, ImageFilter
 from iftg.noises.noise import Noise
 
 class RotationNoise(Noise):
+    """
+    A class to apply rotation noise to an image. 
+    The image is rotated by a fixed angle, with options for background color and resampling.
+
+    Attributes:
+        rotation_angle (float): 
+            The angle by which the image will be rotated.
+        background_color (str): 
+            The color to use for the background after rotation.
+    """
+
+
     def __init__(self,
                  rotation_angle: float = 30.0,
                  background_color: str = 'white',
@@ -13,6 +25,17 @@ class RotationNoise(Noise):
     
 
     def add_noise(self, image: Image) -> Image:
+        """
+        Applies rotation noise to the image.
+
+        Parameters:
+            image (Image): 
+                The image to which noise will be applied.
+
+        Returns:
+            Image: 
+                The rotated image with the applied background color.
+        """
         return self._rotation_noise(image)
 
 
@@ -27,6 +50,16 @@ class RotationNoise(Noise):
 
 
 class RandomRotationNoise(RotationNoise):
+    """
+    A class to apply random rotation noise to an image. 
+    The rotation angle is chosen randomly within a specified range.
+
+    Attributes:
+        rotation_angle_range (tuple[float, float]): 
+            The range within which the rotation angle will be randomly selected.
+        background_color (str): 
+            The color to use for the background after rotation.
+    """
 
 
     def __init__(self, 
@@ -38,6 +71,18 @@ class RandomRotationNoise(RotationNoise):
     
 
     def add_noise(self, image: Image) -> Image:
+        """
+        Applies random rotation noise to the image by selecting a random angle within the specified range.
+
+        Parameters:
+            image (Image): 
+                The image to which noise will be applied.
+
+        Returns:
+            Image: 
+                The image rotated by a random angle within the specified range.
+        """
+        
         self.rotation_angle = np.random.uniform(*self.rotation_angle_range)
 
         return super().add_noise(image)
