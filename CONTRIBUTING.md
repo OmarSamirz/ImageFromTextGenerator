@@ -12,7 +12,7 @@ Thank you for your interest in contributing to IFTG (ImageFromTextGenerator)! We
 
 2. **Suggesting Features**
 
-    Have a great idea for a new feature? We’d love to hear it! Please [open a feature request](feature_request.md) and include:  
+    Have a great idea for a new feature? We’d love to hear it! Please [open a feature request]([feature_request.md](https://github.com/OmarSamirz/ImageFromTextGenerator/issues/new?assignees=&labels=&projects=&template=feature_request.md&title=)) and include:  
     - A detailed description of the feature.
     - The problem it solves or the improvement it provides.
     - Any potential implementation suggestions.
