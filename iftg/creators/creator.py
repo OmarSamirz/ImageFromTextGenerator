@@ -13,7 +13,6 @@ class Creator(ABC):
                            font: ImageFont, 
                            background_color: str,
                            margins: tuple[int, int, int, int],
-                           dpi: tuple[float, float],
                            background_img: Image
                           ) -> Image:
         pass
@@ -61,8 +60,8 @@ class Creator(ABC):
     @abstractmethod
     def create_image(cls,
                      text: str,
-                     noises: list[Noise],
                      font_path: str,
+                     noises: list[Noise],
                      font_size: float,
                      font_color: str,
                      background_color: str ,

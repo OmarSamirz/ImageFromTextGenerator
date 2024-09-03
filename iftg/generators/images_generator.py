@@ -16,10 +16,10 @@ class ImagesGenerator(Generator):
     Attributes:
         texts (list[str]): 
             A list of texts to be used for image creation.
-        noises (list[Noise]):
-            A list of noise objects to be applied to the images.
         font_path (str):
             The file path to the font used in the images.
+        noises (list[Noise]):
+            A list of noise objects to be applied to the images.
         font_size (float):
             The size of the font used in the images.
         font_color (str):
@@ -51,8 +51,8 @@ class ImagesGenerator(Generator):
     
     def __init__(self, 
                  texts: list[str],
+                 font_path: str,
                  noises: list[Noise] = [],
-                 font_path: str = "iftg/fonts/Arial.ttf",
                  font_size: float = 40.0,
                  font_color: str = 'black',
                  background_color: str = 'white',
@@ -67,9 +67,22 @@ class ImagesGenerator(Generator):
                  auto_remove_font: bool = True,
                  background_image_path: str = '',
                 ):
+        
+        self.auto_remove_font = auto_remove_font
+        self.background_img = None
+
+        if os.path.exists(font_path) == False:
+            raise FileNotFoundError("The font does not exist.")
+
+        if background_image_path != '':
+            try:
+                self.background_img = Image.open(background_image_path)
+            except:
+                raise FileNotFoundError("The background image does not exist")
+
         super().__init__(texts, 
-                         noises, 
                          font_path,
+                         noises, 
                          font_size,
                          font_color,
                          background_color,
@@ -83,14 +96,6 @@ class ImagesGenerator(Generator):
                          txt_output_path,
                          background_image_path
                         )
-        self.auto_remove_font = auto_remove_font
-        self.background_img = None
-
-        if background_image_path != '':
-            try:
-                self.background_img = Image.open(background_image_path)
-            except:
-                raise FileNotFoundError("The background image does not exist")
 
     
     def _generate_next(self) -> tuple[Image.Image, str]:
@@ -110,8 +115,8 @@ class ImagesGenerator(Generator):
             raise StopIteration
 
         img_lbl = (ImageCreator.create_image(self.texts[self._count],
-                                             self.noises,
                                              self.font_path,
+                                             self.noises,
                                              self.font_size,
                                              self.font_color,
                                              self.background_color,

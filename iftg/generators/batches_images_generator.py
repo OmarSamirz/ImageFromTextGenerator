@@ -47,8 +47,8 @@ class BatchesImagesGenerator(Generator):
     
     def __init__(self, 
                  texts: list[list[str]],
+                 font_paths: list[str],
                  noises: list[list[Noise]] = [],
-                 font_paths: list[str] = ["iftg/fonts/Arial.ttf"],
                  font_sizes: list[float] = [40.0],
                  font_colors: list[str] = ['black'],
                  background_colors: list[str] = ['white'],
@@ -94,8 +94,8 @@ class BatchesImagesGenerator(Generator):
             background_image_paths = extend_list(background_image_paths, background_image_paths[-1])
 
         super().__init__(texts, 
-                         noises, 
                          font_paths,
+                         noises, 
                          font_sizes,
                          font_colors,
                          background_colors,

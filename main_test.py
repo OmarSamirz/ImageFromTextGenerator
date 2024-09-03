@@ -2,6 +2,7 @@ from PIL import ImageFont, Image
 from multiprocessing import Pool, cpu_count
 from concurrent.futures import ThreadPoolExecutor
 
+import os
 import time
 
 from iftg.adders import DirectoryNoiseAdder
@@ -67,5 +68,5 @@ def main3():
     img.save('noisy_images/img_with_background.png')
 
 
-if __name__ == '__main__':    
-    pass
+if __name__ == '__main__':
+    image = ImageCreator.create_image()

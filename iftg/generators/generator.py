@@ -11,10 +11,10 @@ class Generator(ABC):
     Attributes:
         texts (list[str] | list[list[str]]): 
             A list of texts or a list of lists of texts for generating images.
-        noises (list[Noise] | list[list[Noise]]): 
-            A list of noise objects or a list of lists of noise objects to be applied to the images.
         font_path (str | list[str]): 
             The file path(s) to the font(s) used in the images.
+        noises (list[Noise] | list[list[Noise]]): 
+            A list of noise objects or a list of lists of noise objects to be applied to the images.
         font_size (float | list[float]): 
             The size(s) of the font(s) used in the images.
         font_color (str | list[str]): 
@@ -39,24 +39,13 @@ class Generator(ABC):
             The directory or directories where the generated text files will be saved.
         background_image_path (str | list[str]): 
             The file path(s) to the background image(s) to be used in the images.
-
-    Methods:
-
-        __iter__():
-            Returns the generator object itself.
-        
-        __next__():
-            Returns the next generated image by calling the `_generate_next` method.
-        
-        _generate_next():
-            Abstract method to be implemented by subclasses to define how to generate the next image.
     """
       
 
     def __init__(self,
                  texts: list[str] | list[list[str]],
-                 noises: list[Noise] | list[list[Noise]],
                  font_path: str | list[str],
+                 noises: list[Noise] | list[list[Noise]],
                  font_size: float | list[float],
                  font_color: str | list[str],
                  background_color: str | list[str],
@@ -71,8 +60,8 @@ class Generator(ABC):
                  background_image_path: str | list[str],
                 ):
         self.texts = texts
-        self.noises = noises
         self.font_path = font_path
+        self.noises = noises
         self.font_size = font_size
         self.font_color = font_color
         self.background_color = background_color

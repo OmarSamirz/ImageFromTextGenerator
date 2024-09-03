@@ -81,6 +81,7 @@ image.save('image.tif', **image.info)
 
 Example Usage:
 ```python
+from PIL import Image
 from iftg.creators import ImageCreator
 
 # Define the text
@@ -89,15 +90,15 @@ text = 'Hello, World!'
 
 # Create an image with specified parameters
 image = ImageCreator.create_image(text=text,    # The text to be drawn on the image.
+                                  font_path='Arial.ttf', # The file path to the font.
                                   noises=[],    # A list of noise objects to apply to the image.
-                                  font_path='iftg/fonts/Arial.ttf', # The file path to the font.
                                   font_size=50, # The size of the font.
                                   font_color='black',   # The color of the text. It can be text or hexadecimal
                                   background_color='white', # The background color of the image. It can be text or hexadecimal
                                   margins=(5, 5, 5, 5), # Margins for text placement on the image (left, top, right, bottom). 
                                   dpi=(300, 300),   # The resolution of the image (dots per inch). 
-                                  background_img='image.png',   # An optional background image to be used as a base.
-                                  clear_fonts=True, # Whether to clear the font cache after creating the image.
+                                  background_img=Image.open('path/to/background/image'),   # An optional background image to be used as a base.
+                                  clear_font=True, # Whether to clear the font cache after creating the image.
                                  )
 
 
@@ -115,11 +116,11 @@ from iftg.noises import (BlurNoise, BrightnessNoise, DilateNoise)
 texts = ['Hello, World!']
 
 results = ImagesGenerator(texts=texts,  # A list of texts to be used for image creation.
+                          font_path= "path/to/the/font",    # The file path to the font used in the images.
                           noises=[BlurNoise(),  # A list of noise objects to be applied to the images.
                                   BrightnessNoise(),
                                   DilateNoise()
                                  ],    
-                          font_path= "iftg/fonts/Arial.ttf",    # The file path to the font used in the images.
                           font_size= 40,    # The size of the font used in the images.
                           font_color= 'black',  # The color of the text in the images.
                           background_color= 'white',    # The background color of the images.
@@ -163,11 +164,11 @@ texts = [['Hello, World!'], ['Hello, World!']]
 
 # Initialize the BatchesImagesGenerator with the specified parameters
 results = BatchesImagesGenerator(texts=texts,   # A list of lists of texts, where each inner list contains texts for one batch of images.
+                                 font_paths=["path/to/the/font"],   # A list of font file paths, where each font corresponds to a batch of images.
                                  noises=[   # A list of lists of noise objects, where each inner list contains noises to be applied to one batch of images.
                                         [ElasticNoise(), FlipNoise()],
                                         [ErodeNoise(), FlipNoise]
                                         ],
-                                 font_paths=["iftg/fonts/Arial.ttf"],   # A list of font file paths, where each font corresponds to a batch of images.
                                  font_sizes=[40],   # A list of font sizes, where each size corresponds to a batch of images.
                                  font_colors=['black'], # A list of font colors, where each color corresponds to a batch of images.
                                  background_colors=['white'],   # A list of background colors, where each color corresponds to a batch of images.

@@ -21,7 +21,6 @@ class ImageCreator(Creator):
                            font: ImageFont, 
                            background_color: str,
                            margins: tuple[int, int, int, int],
-                           dpi: tuple[float, float],
                            background_img: Image
                           ) -> tuple[Image.Image, int]:
         """
@@ -37,8 +36,6 @@ class ImageCreator(Creator):
                 The background color of the image.
             margins (tuple[int, int, int, int]):
                 Margins for the image (left, top, right, bottom).
-            dpi (tuple[float, float]):
-                The resolution of the image (dots per inch).
             background_img (Image):
                 An optional background image to be used as a base.
 
@@ -118,8 +115,8 @@ class ImageCreator(Creator):
     @classmethod
     def create_image(cls,
                      text: str,
+                     font_path: str,
                      noises: list[Noise] = [],
-                     font_path: str = 'iftg/fonts/Arial.ttf',
                      font_size: float = 40.0,
                      font_color: str = 'black',
                      background_color: str = 'white',
@@ -160,10 +157,11 @@ class ImageCreator(Creator):
         
         font = ImageFontManager.get_font(font_path, font_size)
 
-        image, top = cls._create_base_image(text, font, background_color, margins, dpi, background_img)
+        image, top = cls._create_base_image(text, font, background_color, margins, background_img)
 
         image = cls._apply_noise(text, top, font, noises, font_color, margins, image)
-        image.info['dpi'] = dpi    
+        image.info['dpi'] = dpi
+        
         if clear_font:
             ImageFontManager.clear()
 
