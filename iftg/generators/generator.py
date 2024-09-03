@@ -23,7 +23,7 @@ class Generator(ABC):
             The background color(s) of the images.
         margins (tuple[int, int, int, int] | list[tuple[int, int, int, int]]): 
             Margins for text placement on the images, either as a single tuple or a list of tuples.
-        dpi (tuple[float, float] | list[tuple[int, int]]): 
+        dpi (tuple[float, float] | list[tuple[float, float]]): 
             The DPI (dots per inch) settings for the images, either as a single tuple or a list of tuples.
         img_name (str | list[str]): 
             The base name(s) for the output image files.
@@ -61,7 +61,7 @@ class Generator(ABC):
                  font_color: str | list[str],
                  background_color: str | list[str],
                  margins: tuple[int, int, int, int] | list[tuple[int, int, int, int]],
-                 dpi: tuple[float, float] | list[tuple[int, int]],
+                 dpi: tuple[float, float] | list[tuple[float, float]],
                  img_name: str | list[str],
                  img_format: str | list[str],
                  img_output_path: str | list[str],
