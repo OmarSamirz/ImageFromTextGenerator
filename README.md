@@ -67,7 +67,7 @@ from iftg.noises import BlurNoise, BrightnessNoise
 text = 'Hello, World!'
     
 image = ImageCreator.create_image(text=text, 
-                                    noises=[BlurNoise(), BrightnessNoise()],                                    
+                                  noises=[BlurNoise(), BrightnessNoise()],                                    
                                  )
 ```
 - **Save the Image:** Finally, save the generated image to a file
@@ -90,7 +90,7 @@ text = 'Hello, World!'
 
 # Create an image with specified parameters
 image = ImageCreator.create_image(text=text,    # The text to be drawn on the image.
-                                  font_path='Arial.ttf', # The file path to the font.
+                                  font_path='path/to/the/font', # The file path to the font.
                                   noises=[],    # A list of noise objects to apply to the image.
                                   font_size=50, # The size of the font.
                                   font_color='black',   # The color of the text. It can be text or hexadecimal
