@@ -21,7 +21,7 @@ class PixelDropoutNoise(Noise):
 
     def __init__(self, 
                  dropout_prob: float = 0.1, 
-                 pixel_dimensions: tuple[float, float] = (5, 10),
+                 pixel_dimensions: tuple[float, float] = (1, 1),
                  pixel_color: str = '#FFFFFF'
                 ):
         self.dropout_prob = dropout_prob

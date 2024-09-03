@@ -7,11 +7,10 @@ import time
 from iftg.adder import DirectoryNoiseAdder
 from iftg.creators import ImageCreator
 from iftg.generators import ImagesGenerator, BatchesImagesGenerator
-from iftg.noises import DilateNoise, RandomDilateNoise
-from iftg.noises import GaussianNoise, RandomGaussianNoise, BlurNoise
-from iftg.noises import ErodeNoise, RandomRotationNoise, ElasticNoise, ShadowNoise, RandomShadowNoise
-from iftg.noises import ShadowNoise, RandomBrightnessNoise, RandomFlipNoise, RandomElasticNoise
-from iftg.noises import PixelDropoutNoise, RandomPixelDropoutNoise, RandomErodeNoise, BrightnessNoise, RandomBlurNoise
+from iftg.noises import (
+    BlurNoise, BrightnessNoise, DilateNoise, ElasticNoise, ErodeNoise,
+    FlipNoise, GaussianNoise, PixelDropoutNoise, RotationNoise, ShadowNoise
+)
 
 
 def main1():
@@ -42,7 +41,6 @@ def main1():
     results = ImagesGenerator(texts=texts, font_size=50, noises=[
                                                                 PixelDropoutNoise(dropout_prob=0.2, pixel_dimensions=(1, 10)),
                                                                 ErodeNoise(),
-                                                                RandomBrightnessNoise(),
                                                                  ], 
                               font_path='iftg/fonts/Arial.ttf', img_output_path='./output', 
                               txt_output_path='./output',
@@ -72,10 +70,16 @@ def main2():
 
 
 def main3():
-    texts_lst = [['Omar', 'Samir'], ['Ibrahim', 'Desoky'], ['Ahmed', 'Oraby']]
-    results = BatchesImagesGenerator(texts_lst, img_output_paths=['output'])
+    texts_lst = [['Hello, World!']]*10
+    results = BatchesImagesGenerator(texts_lst, 
+                                     img_output_paths=['noisy_images'], 
+                                     img_formats=['.tif'],
+                                     noises=[[BlurNoise()], [BrightnessNoise()], [DilateNoise()], 
+                                             [ElasticNoise()], [ErodeNoise()], [FlipNoise()],
+                                             [GaussianNoise()], [PixelDropoutNoise()], [RotationNoise(20)], [ShadowNoise()]])
     results.generate_batches(False)
-    
+    img = ImageCreator.create_image('Hello, World!', background_img=Image.open('water.png'))
+    img.save('noisy_images/img_with_background.png')
 
 
 if __name__ == '__main__':

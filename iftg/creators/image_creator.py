@@ -61,8 +61,8 @@ class ImageCreator(Creator):
 
             x1 = np.random.randint(0, bg_width - image_width)
             y1 = np.random.randint(0, bg_height - image_height)
-            x2 = x1 + image_width + margins[2]
-            y2 = y1 + image_height + margins[3]
+            x2 = x1 + image_width * 2
+            y2 = y1 + image_height * 2
 
             random_bg_part = background_img.crop((x1, y1, x2, y2))
 
@@ -148,7 +148,7 @@ class ImageCreator(Creator):
                 The background color of the image. Defaults to 'white'.
             margins (tuple[int, int, int, int], optional):
                 Margins for text placement on the image (left, top, right, bottom). Defaults to (5, 5, 5, 5).
-            dpi (tuple[loat, float], optional):
+            dpi (tuple[float, float], optional):
                 The resolution of the image (dots per inch). Defaults to (300, 300).
             background_img (Image, optional):
                 An optional background image to be used as a base. Defaults to None.
