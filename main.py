@@ -73,7 +73,7 @@ def main3():
     texts_lst = [['Hello, World!']]*10
     results = BatchesImagesGenerator(texts_lst, 
                                      img_output_paths=['noisy_images'], 
-                                     img_formats=['.tif'],
+                                     img_formats=['.png'],
                                      noises=[[BlurNoise()], [BrightnessNoise()], [DilateNoise()], 
                                              [ElasticNoise()], [ErodeNoise()], [FlipNoise()],
                                              [GaussianNoise()], [PixelDropoutNoise()], [RotationNoise(20)], [ShadowNoise()]])
