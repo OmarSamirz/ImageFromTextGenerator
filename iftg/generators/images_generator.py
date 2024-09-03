@@ -10,7 +10,7 @@ from iftg.generators.generator import Generator
 
 class ImagesGenerator(Generator):
     """
-    A generator class for creating a sequence of images with varying text, noise, blur, rotation, and other effects.
+    A generator class for creating a sequence of images with varying text, noise effects.
     Inherits from `Generator` and provides functionality to iterate over the generated images.
 
     Attributes:
@@ -28,7 +28,7 @@ class ImagesGenerator(Generator):
             The background color of the images.
         margins (tuple[int, int, int, int]):
             Margins for text placement on the images.
-        dpi (tuple[int, int]):
+        dpi (tuple[float, float]):
             The DPI (dots per inch) settings for the images.
         img_name (str):
             The base name for the output image files.
@@ -57,7 +57,7 @@ class ImagesGenerator(Generator):
                  font_color: str = 'black',
                  background_color: str = 'white',
                  margins: tuple[int, int, int, int] = (5, 5, 5, 5),
-                 dpi: tuple[int, int] = (300, 300),
+                 dpi: tuple[float, float] = (300.0, 300.0),
                  img_name: str = 'img',
                  img_format: str = '.tif',
                  img_output_path: str = 'output',

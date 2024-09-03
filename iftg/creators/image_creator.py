@@ -21,7 +21,7 @@ class ImageCreator(Creator):
                            font: ImageFont, 
                            background_color: str,
                            margins: tuple[int, int, int, int],
-                           dpi: tuple[int, int],
+                           dpi: tuple[float, float],
                            background_img: Image
                           ) -> tuple[Image.Image, int]:
         """
@@ -37,7 +37,7 @@ class ImageCreator(Creator):
                 The background color of the image.
             margins (tuple[int, int, int, int]):
                 Margins for the image (left, top, right, bottom).
-            dpi (tuple[int, int]):
+            dpi (tuple[float, float]):
                 The resolution of the image (dots per inch).
             background_img (Image):
                 An optional background image to be used as a base.
@@ -126,7 +126,7 @@ class ImageCreator(Creator):
                      font_color: str = 'black',
                      background_color: str = 'white',
                      margins: tuple[int, int, int, int] = (5, 5, 5, 5),
-                     dpi: tuple[int, int] = (300, 300),
+                     dpi: tuple[float, float] = (300.0, 300.0),
                      background_img: Image = None,
                      clear_fonts: bool = True
                     ):
@@ -148,7 +148,7 @@ class ImageCreator(Creator):
                 The background color of the image. Defaults to 'white'.
             margins (tuple[int, int, int, int], optional):
                 Margins for text placement on the image (left, top, right, bottom). Defaults to (5, 5, 5, 5).
-            dpi (tuple[int, int], optional):
+            dpi (tuple[loat, float], optional):
                 The resolution of the image (dots per inch). Defaults to (300, 300).
             background_img (Image, optional):
                 An optional background image to be used as a base. Defaults to None.

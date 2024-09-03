@@ -72,13 +72,12 @@ class RandomPixelDropoutNoise(PixelDropoutNoise):
     The dropout probability and pixel dimensions are chosen randomly within specified ranges.
 
     Attributes:
-    ----------
-    dropout_prob_range (tuple[float, float]): 
-        The range for random selection of the dropout probability.
-    pixel_dimensions_range (tuple[float, float]): 
-        The range for random selection of pixel dimensions (width, height).
-    pixel_color (str): 
-        The color of the dropped-out pixels.
+        dropout_prob_range (tuple[float, float]): 
+            The range for random selection of the dropout probability.
+        pixel_dimensions_range (tuple[float, float]): 
+            The range for random selection of pixel dimensions (width, height).
+        pixel_color (str): 
+            The color of the dropped-out pixels.
     """
 
     def __init__(self, 

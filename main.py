@@ -19,7 +19,6 @@ def main1():
     texts = ["我是奥马尔"]
     texts = ['नमस्ते, मैं उमर हूं']
     text = 'Hi I am Omar Samir Ibrahim'
-    texts_lst = [['Omar', 'Samir'], ['Ibrahim', 'Desoky'], ['Ahmed', 'Oraby']]
     texts = ['こんにちは、オマールです']
     texts = ['أنا عمر سمير', 'قُلْ يَا أَيُّهَا الْكَافِرُونَ', 'ثُمَّ لَتَرَوُنَّهَا عَيْنَ الْيَقِينِ']
     texts = ['Hello, I am Omar', 'Omar', 'Samir', 'Ibrahim', 'Desoky', 'Ahmed', 'Oraby', 'Oraby']
@@ -45,8 +44,8 @@ def main1():
                                                                 ErodeNoise(),
                                                                 RandomBrightnessNoise(),
                                                                  ], 
-                              font_path='iftg/fonts/Arial.ttf', img_output_path='./img_text_test', 
-                              txt_output_path='./img_text_test',
+                              font_path='iftg/fonts/Arial.ttf', img_output_path='./output', 
+                              txt_output_path='./output',
                              )
     
     results.generate_images()
@@ -72,8 +71,15 @@ def main2():
     print(f'Taken time: {end-start} ms')
 
 
+def main3():
+    texts_lst = [['Omar', 'Samir'], ['Ibrahim', 'Desoky'], ['Ahmed', 'Oraby']]
+    results = BatchesImagesGenerator(texts_lst, img_output_paths=['output'])
+    results.generate_batches(False)
+    
+
+
 if __name__ == '__main__':
-    main2()
+    main3()
     # img = Image.open('img_text_test/img_0.tif')
     # print(img.info['dpi'])
     # text = """I am Omar\nI live in cairo"""
