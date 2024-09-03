@@ -69,7 +69,7 @@ class Creator(ABC):
                      margins: tuple[int, int, int, int],
                      dpi: tuple[float, float],
                      background_img: Image,
-                     clear_fonts: bool
+                     clear_font: bool
                     ):
         pass
 

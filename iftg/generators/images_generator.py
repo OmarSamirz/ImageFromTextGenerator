@@ -138,7 +138,7 @@ class ImagesGenerator(Generator):
         for i, (img, _) in enumerate(self):
             img_final_name = f'{self.img_name}_{i}{self.img_format}'
             img_path = os.path.join(self.img_output_path, img_final_name)
-            img.save(img_path, dpi=self.dpi)
+            img.save(img_path, **img.info)
 
     
     def generate_images_with_text(self) -> None:
@@ -155,7 +155,7 @@ class ImagesGenerator(Generator):
             img_path = os.path.join(self.img_output_path, self.img_name + f'_{i}' + self.img_format)
             text_path = os.path.join(self.txt_output_path, self.txt_name + f'_{i}' + self.txt_format)
             
-            img.save(img_path, dpi=self.dpi)
+            img.save(img_path, **img.info)
             with open(text_path, 'w') as text_file:
                 text_file.write(lbl)
         

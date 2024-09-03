@@ -3,7 +3,7 @@ import glob
 import itertools
 from functools import reduce
 
-from iftg.adder.noise_adder import NoiseAdder
+from iftg.adders.noise_adder import NoiseAdder
 from iftg.noises.noise import Noise, Image
 
 

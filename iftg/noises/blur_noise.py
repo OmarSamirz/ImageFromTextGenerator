@@ -8,9 +8,9 @@ class BlurNoise(Noise):
     A class to apply Gaussian blur noise to an image.
 
     Attributes:
-    blur_radius : float
-        The radius of the Gaussian blur to be applied. 
-        A higher value results in a more blurred image.
+        blur_radius (float): 
+            The radius of the Gaussian blur to be applied. 
+            A higher value results in a more blurred image.
     """
 
 

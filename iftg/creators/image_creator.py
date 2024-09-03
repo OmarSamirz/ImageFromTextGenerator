@@ -68,8 +68,6 @@ class ImageCreator(Creator):
 
             image.paste(random_bg_part)
         
-        image.info['dpi'] = dpi
-        
         return image, text_dimensions[1]
 
     
@@ -128,7 +126,7 @@ class ImageCreator(Creator):
                      margins: tuple[int, int, int, int] = (5, 5, 5, 5),
                      dpi: tuple[float, float] = (300.0, 300.0),
                      background_img: Image = None,
-                     clear_fonts: bool = True
+                     clear_font: bool = True
                     ):
         """
         Creates an image with the specified text, applying optional noise, blur, and rotation effects.
@@ -156,7 +154,7 @@ class ImageCreator(Creator):
                 Whether to clear the font cache after creating the image. Defaults to True.
 
         Returns:
-            Image.Image: 
+            Image: 
                 The generated image with the applied text and effects.
         """
         
@@ -165,8 +163,8 @@ class ImageCreator(Creator):
         image, top = cls._create_base_image(text, font, background_color, margins, dpi, background_img)
 
         image = cls._apply_noise(text, top, font, noises, font_color, margins, image)
-        
-        if clear_fonts:
+        image.info['dpi'] = dpi    
+        if clear_font:
             ImageFontManager.clear()
 
         return image

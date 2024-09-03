@@ -8,4 +8,4 @@ from iftg.noises.gaussian_noise import GaussianNoise, RandomGaussianNoise
 from iftg.noises.pixel_dropout_noise import PixelDropoutNoise, RandomPixelDropoutNoise
 from iftg.noises.rotation_noise import RotationNoise, RandomRotationNoise
 from iftg.noises.shadow_noise import ShadowNoise, RandomShadowNoise
-from iftg.noises.skew_noise import SkewNoise, RandomSkewNoise
+# from iftg.noises.skew_noise import SkewNoise, RandomSkewNoise
