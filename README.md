@@ -30,11 +30,11 @@ IFTG is designed to simplify and accelerate the process of creating large and di
 ## Noises
 | Background | Blur | Brightness | Dilate | Elastic |
 |------------|------|------------|--------|---------|
-| ![Background](./noisy_images/background_img.tif) | ![Blur](./noisy_images/blur_img.tif) | ![Brightness](./noisy_images/brightness_img.tif) | ![Dilate](./noisy_images/dilate_img.tif) | ![Elastic](./noisy_images/elastic_img.tif) |
+| ![Background](./noisy_images/background_img.png) | ![Blur](./noisy_images/blur_img.png) | ![Brightness](./noisy_images/brightness_img.png) | ![Dilate](./noisy_images/dilate_img.png) | ![Elastic](./noisy_images/elastic_img.png) |
 
 | Erode | Flip | Gaussian | Pixel Dropout | Rotation | Shadow |
 |-------|------|----------|---------------|----------|--------|
-| ![Erode](./noisy_images/erode_img.tif) | ![Flip](./noisy_images/flip_img.tif) | ![Gaussian](./noisy_images/gaussian_img.tif) | ![Pixel Dropout](./noisy_images/pixeldropout_img.tif) | ![Rotation](./noisy_images/rotation_img.tif) | ![Shadow](./noisy_images/shadow_img.tif) |
+| ![Erode](./noisy_images/erode_img.png) | ![Flip](./noisy_images/flip_img.png) | ![Gaussian](./noisy_images/gaussian_img.png) | ![Pixel Dropout](./noisy_images/pixeldropout_img.png) | ![Rotation](./noisy_images/rotation_img.png) | ![Shadow](./noisy_images/shadow_img.png) |
 
 
 ## Installation
