@@ -9,14 +9,3 @@ class Noise(ABC):
                   image: Image,
                   ) -> Image:
         pass
-
-    
-    @abstractmethod
-    def add_noise(self) -> Image:
-        pass
-
-
-    @abstractmethod
-    def add_noise(self) -> None:
-        pass
-

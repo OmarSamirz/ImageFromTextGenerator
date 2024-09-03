@@ -38,6 +38,7 @@ IFTG offers a wide variety of noise effects that you can apply to your images to
 
 - **Static Noises:** These noises apply consistent effects, making them useful when you want repeatable results across your dataset.
 - **Random Noises:** These noises introduce variability, allowing you to generate different effects with each image, enhancing the robustness of your models.
+- **Custom Noises:** IFTG provides a [noise template](noise_template.py) that allows you to easily create your own custom noise effects. This feature gives you even more control over the image augmentation process, enabling you to tailor the noises to your specific needs.
   
 | Background | Blur | Brightness | Dilate | Elastic |
 |------------|------|------------|--------|---------|
