@@ -70,23 +70,23 @@ pip install iftg
 ## Quick Start
 To get started with IFTG, follow these simple steps:
 - **Import the Required Classes:** First, import the necessary classes from the IFTG package
-```python
-from iftg.generators import ImagesGenerator
-from iftg.noises import BlurNoise, BrightnessNoise
-```
+    ```python
+    from iftg.generators import ImagesGenerator
+    from iftg.noises import BlurNoise, BrightnessNoise
+    ```
 - **generate Images:** Use the ImagesGenerator class to generate images with the desired text, font and apply noise
-```python
-text = ['Hello, World!']
-    
-results = ImagesGenerator(text=text,
-                        font_path='path/to/the/font',
-                        noises=[BlurNoise(), BrightnessNoise()],                                    
-                       )
-```
+    ```python
+    text = ['Hello, World!']
+        
+    results = ImagesGenerator(text=text,
+                            font_path='path/to/the/font',
+                            noises=[BlurNoise(), BrightnessNoise()],                                    
+                           )
+    ```
 - **Save Images:** Finally, save the generated image to a file
-```python
-results.generate_images_with_text()
-```
+    ```python
+    results.generate_images_with_text()
+    ```
 
 ## Usage
 ### Creators
