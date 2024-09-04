@@ -1,4 +1,6 @@
-<img src="./images/iftg_logo.png" alt="Logo" style="display: block; margin-left: auto; margin-right: auto; width: 50%;">
+<div align="center">
+  <img src="./images/iftg_logo.png" alt="Logo" width="50%">
+</div>
 
 # ImageFromTextGenerator
 
