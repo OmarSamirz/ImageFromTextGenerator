@@ -1,8 +1,7 @@
 <div align="center">
-  <img src="./images/iftg_logo.png" alt="Logo" width="50%">
+  <img src="./images/iftg_logo.png" alt="Logo" width="60%">
+  <h1>ImageFromTextGenerator</h1>
 </div>
-
-# ImageFromTextGenerator
 
 ![PyPI - Version](https://img.shields.io/pypi/v/iftg)
 [![Downloads](https://static.pepy.tech/badge/iftg)](https://pepy.tech/project/iftg) 
