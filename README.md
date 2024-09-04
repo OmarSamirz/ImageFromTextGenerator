@@ -1,6 +1,6 @@
 # ImageFromTextGenerator
 
-IFTG (ImageFromTextGenerator) is a Python package designed to create datasets for Optical Character Recognition (OCR) models, by generating synthetic text images with various noise and augmentation techniques.
+IFTG is a powerful Python package designed to create high-quality datasets for Optical Character Recognition (OCR) models. By generating synthetic text images with various noise and augmentation techniques, IFTG enables researchers and developers to build robust and accurate OCR systems.
 
 ## Table of Contents
 - [IFTG](#imagefromtextgenerator)
@@ -22,22 +22,34 @@ IFTG (ImageFromTextGenerator) is a Python package designed to create datasets fo
 
 ## Why IFTG
 IFTG is designed to simplify and accelerate the process of creating large and diverse OCR datasets. Here's why you should choose IFTG for your OCR model development:
+
 - **Efficient Dataset Generation:** Create large-scale synthetic datasets for OCR models with minimal effort.
+  
 - **Rich Noise Library:** Access over 10 different noise types to simulate diverse real-world conditions.
+  
 - **Endless Noise Combinations:** Combine multiple noise types to generate highly varied datasets.
+  
 - **Custom Noise Integration:** Easily add custom noise types using the provided noise template, allowing for customized dataset creation.
+  
 - **Advanced Image Augmentation:** Apply augmentations such as rotations, blurring, distortions, and more to both newly generated and existing datasets.
+  
 - **Flexible Text and Font Options:** Generate images with customizable fonts, colors, sizes, and backgrounds.
+  
 - **Support for All Languages:** Generate text images in any language, as long as the correct font is provided.
+  
 - **Automated Dataset Creation:** Automate the process of generating and saving large datasets.
+  
 - **Distinctive Image Naming:** Automatically rename images with distinctive names to differentiate between original and augmented versions.
+  
 - **User-Friendly API:** Simple and intuitive API design for easy integration into your projects.
 
 ## Noises
 IFTG offers a wide variety of noise effects that you can apply to your images to create robust and diverse datasets for OCR models. With more than 10 noise types available, you have the flexibility to use static noises or introduce randomness in your noise application.
 
 - **Static Noises:** These noises apply consistent effects, making them useful when you want repeatable results across your dataset.
+  
 - **Random Noises:** These noises introduce variability, allowing you to generate different effects with each image, enhancing the robustness of your models.
+  
 - **Custom Noises:** IFTG provides a [noise template](noise_template.py) that allows you to easily create your own custom noise effects. This feature gives you even more control over the image augmentation process, enabling you to tailor the noises to your specific needs.
   
 | Background | Blur | Brightness | Dilate | Elastic |
@@ -59,20 +71,21 @@ pip install iftg
 To get started with IFTG, follow these simple steps:
 - **Import the Required Classes:** First, import the necessary classes from the IFTG package
 ```python
-from iftg.creators import ImageCreator
+from iftg.generators import ImagesGenerator
 from iftg.noises import BlurNoise, BrightnessNoise
 ```
-- **Create an Image:** Use the ImageCreator class to create an image with the desired text and apply noise
+- **generate Images:** Use the ImagesGenerator class to generate images with the desired text, font and apply noise
 ```python
-text = 'Hello, World!'
+text = ['Hello, World!']
     
-image = ImageCreator.create_image(text=text, 
-                                  noises=[BlurNoise(), BrightnessNoise()],                                    
-                                 )
+results = ImagesGenerator(text=text,
+                        font_path='path/to/the/font',
+                        noises=[BlurNoise(), BrightnessNoise()],                                    
+                       )
 ```
-- **Save the Image:** Finally, save the generated image to a file
+- **Save Images:** Finally, save the generated image to a file
 ```python
-image.save('image.tif', **image.info)
+results.generate_images_with_text()
 ```
 
 ## Usage
