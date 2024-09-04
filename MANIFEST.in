@@ -1,4 +1,5 @@
 graft iftg
 include pyproject.toml
+include images/*
 include setup.py
 global-exclude *.py[cod]
