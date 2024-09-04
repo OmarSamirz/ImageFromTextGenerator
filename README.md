@@ -1,5 +1,12 @@
 # ImageFromTextGenerator
 
+![PyPI - Version](https://img.shields.io/pypi/v/iftg)
+[![Downloads](https://static.pepy.tech/badge/iftg)](https://pepy.tech/project/iftg) 
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/iftg)
+![GitHub Release Date](https://img.shields.io/github/release-date/OmarSamirz/ImageFromTextGenerator)
+![GitHub License](https://img.shields.io/github/license/OmarSamirz/ImageFromTextGenerator?logoColor=%230d7fc0)
+
+
 IFTG is a powerful Python package designed to create high-quality datasets for Optical Character Recognition (OCR) models. By generating synthetic text images with various noise and augmentation techniques, IFTG enables researchers and developers to build robust and accurate OCR systems.
 
 ## Table of Contents
@@ -160,7 +167,7 @@ To get started with IFTG, follow these simple steps:
     
     # OR
     
-    # You can use for-loop to further modify you images or do something else
+    # You can use for-loop to further modify your images or do something else
     for i, (img, lbl) in enumerate(results):
         img.save(f'img_{i}.tif', **img.info)
     
