@@ -1,3 +1,5 @@
+<img src="./images/iftg_logo.png" alt="Logo" style="display: block; margin-left: auto; margin-right: auto;">
+
 # ImageFromTextGenerator
 
 ![PyPI - Version](https://img.shields.io/pypi/v/iftg)
@@ -10,20 +12,20 @@
 IFTG is a powerful Python package designed to create high-quality datasets for Optical Character Recognition (OCR) models. By generating synthetic text images with various noise and augmentation techniques, IFTG enables researchers and developers to build robust and accurate OCR systems.
 
 ## Table of Contents
-- [IFTG](#imagefromtextgenerator)
-    1. [Why IFTG](#why-iftg)
-    2. [Noises](#noises)
-    3. [Installation](#installation)
-    4. [Quick Start](#quick-start)
-    5. [Usage](#usage)
-         - [Creators](#creators)
-             - [ImageCreator](#imagecreator)
-         - [Generators](#generators)
-             - [ImagesGenerator](#imagesgenerator)
-             - [BatchesImagesGenerator](#batchesimagesgenerator)
-         - [Adders](#adders)
-             - [DirectoryNoiseAdder](#directorynoiseadder)
-    6. [Planned Features](#planned-features)
+
+1. [Why IFTG](#why-iftg)
+2. [Noises](#noises)
+3. [Installation](#installation)
+4. [Quick Start](#quick-start)
+5. [Usage](#usage)
+     - [Creators](#creators)
+         - [ImageCreator](#imagecreator)
+     - [Generators](#generators)
+         - [ImagesGenerator](#imagesgenerator)
+         - [BatchesImagesGenerator](#batchesimagesgenerator)
+     - [Adders](#adders)
+         - [DirectoryNoiseAdder](#directorynoiseadder)
+6. [Planned Features](#planned-features)
         
 
 
@@ -61,11 +63,11 @@ IFTG offers a wide variety of noise effects that you can apply to your images to
   
 | Background | Blur | Brightness | Dilate | Elastic |
 |------------|------|------------|--------|---------|
-| ![Background](./noisy_images/background_img.png) | ![Blur](./noisy_images/blur_img.png) | ![Brightness](./noisy_images/brightness_img.png) | ![Dilate](./noisy_images/dilate_img.png) | ![Elastic](./noisy_images/elastic_img.png) |
+| ![Background](./images/background_img.png) | ![Blur](./images/blur_img.png) | ![Brightness](./images/brightness_img.png) | ![Dilate](./images/dilate_img.png) | ![Elastic](./images/elastic_img.png) |
 
 | Erode | Flip | Gaussian | Pixel Dropout | Rotation | Shadow |
 |-------|------|----------|---------------|----------|--------|
-| ![Erode](./noisy_images/erode_img.png) | ![Flip](./noisy_images/flip_img.png) | ![Gaussian](./noisy_images/gaussian_img.png) | ![Pixel Dropout](./noisy_images/pixeldropout_img.png) | ![Rotation](./noisy_images/rotation_img.png) | ![Shadow](./noisy_images/shadow_img.png) |
+| ![Erode](./images/erode_img.png) | ![Flip](./images/flip_img.png) | ![Gaussian](./images/gaussian_img.png) | ![Pixel Dropout](./images/pixeldropout_img.png) | ![Rotation](./images/rotation_img.png) | ![Shadow](./images/shadow_img.png) |
 
 
 ## Installation
