@@ -46,10 +46,10 @@ enhancing the robustness of your models.
     <th>Dilate</th>
   </tr>
   <tr>
-    <td><img src="../images/background_img.png" alt="Background" width="100%"></td>
-    <td><img src="../images/blur_img.png" alt="Blur" width="100%"></td>
-    <td><img src="../images/brightness_img.png" alt="Brightness" width="100%"></td>
-    <td><img src="../images/dilate_img.png" alt="Dilate" width="100%"></td>
+    <td><img src="/ImageFromTextGenerator/assets/background_img.png" alt="Background" width="100%"></td>
+    <td><img src="/ImageFromTextGenerator/assets/blur_img.png" alt="Blur" width="100%"></td>
+    <td><img src="/ImageFromTextGenerator/assets/brightness_img.png" alt="Brightness" width="100%"></td>
+    <td><img src="/ImageFromTextGenerator/assets/dilate_img.png" alt="Dilate" width="100%"></td>
   </tr>
 </table>
 
@@ -61,10 +61,10 @@ enhancing the robustness of your models.
     <th>Gaussian</th>
   </tr>
   <tr>
-    <td><img src="../images/elastic_img.png" alt="Elastic" width="100%"></td>
-    <td><img src="../images/erode_img.png" alt="Erode" width="100%"></td>
-    <td><img src="../images/flip_img.png" alt="Flip" width="100%"></td>
-    <td><img src="../images/gaussian_img.png" alt="Gaussian" width="100%"></td>
+    <td><img src="/ImageFromTextGenerator/assets/elastic_img.png" alt="Elastic" width="100%"></td>
+    <td><img src="/ImageFromTextGenerator/assets/erode_img.png" alt="Erode" width="100%"></td>
+    <td><img src="/ImageFromTextGenerator/assets/flip_img.png" alt="Flip" width="100%"></td>
+    <td><img src="/ImageFromTextGenerator/assets/gaussian_img.png" alt="Gaussian" width="100%"></td>
   </tr>
 </table>
 
@@ -75,9 +75,9 @@ enhancing the robustness of your models.
     <th>Shadow</th>
   </tr>
   <tr>
-    <td><img src="../images/pixeldropout_img.png" alt="Pixel Dropout" width="100%"></td>
-    <td><img src="../images/rotation_img.png" alt="Rotatoin" width="100%"></td>
-    <td><img src="../images/shadow_img.png" alt="Shadow" width="100%"></td>
+    <td><img src="/ImageFromTextGenerator/assets/pixeldropout_img.png" alt="Pixel Dropout" width="100%"></td>
+    <td><img src="/ImageFromTextGenerator/assets/rotation_img.png" alt="Rotatoin" width="100%"></td>
+    <td><img src="/ImageFromTextGenerator/assets/shadow_img.png" alt="Shadow" width="100%"></td>
   </tr>
 </table>
 
