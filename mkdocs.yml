@@ -1,7 +1,7 @@
 site_name: ImageFromTextGenerator
 theme:
-  favicon: ../images/iftg_logo_small.png
-  logo: ../images/iftg_logo_small.png
+  favicon: 'images/iftg_logo_small.png'
+  logo: 'images/iftg_logo_small.png'
   name: material
   language: en  
   features:
