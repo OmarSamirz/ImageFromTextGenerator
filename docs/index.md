@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="assets/iftg_logo.png" alt="Logo" width="60%">
+    <img src="assets/iftg_logo_small.png" alt="Logo" width="60%">
     <h1><b>Welcome to IFTG Documentation</b></h1>
 </div>
 

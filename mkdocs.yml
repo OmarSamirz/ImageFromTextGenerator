@@ -2,8 +2,8 @@ site_name: ImageFromTextGenerator
 site_url: https://omarsamirz.github.io/ImageFromTextGenerator/
 
 theme:
-  favicon: assets/iftg_logo.png
-  logo: assets/iftg_logo.png
+  favicon: assets/iftg_logo_small.png
+  logo: assets/iftg_logo_small.png
   name: material
   language: en  
   features:

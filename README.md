@@ -17,8 +17,9 @@ IFTG is a powerful Python package designed to create high-quality datasets for O
 1. [Why IFTG](#why-iftg)
 2. [Noises](#noises)
 3. [Installation](#installation)
-4. [Quick Start](#quick-start)
-5. [Usage](#usage)
+4. [Documentation](#documentation)
+5. [Quick Start](#quick-start)
+6. [Usage](#usage)
      - [Creators](#creators)
          - [ImageCreator](#imagecreator)
      - [Generators](#generators)
@@ -26,7 +27,7 @@ IFTG is a powerful Python package designed to create high-quality datasets for O
          - [BatchesImagesGenerator](#batchesimagesgenerator)
      - [Adders](#adders)
          - [DirectoryNoiseAdder](#directorynoiseadder)
-6. [Planned Features](#planned-features)
+7. [Planned Features](#planned-features)
         
 
 
@@ -110,6 +111,13 @@ To get started with IFTG, you'll need to install the package. You can do this us
 ```bash
 pip install iftg
 ```
+
+## Documentation
+To read the full documentation, visit the [IFTG documentation page](https://omarsamirz.github.io/ImageFromTextGenerator/).
+
+The documentation provides detailed guides on using all `features` of the package, with examples and `API references`.
+
+Feel free to explore the documentation to learn how to use IFTG in your projects!
 
 ## Quick Start
 To get started with IFTG, follow these simple steps:
@@ -270,7 +278,6 @@ To get started with IFTG, follow these simple steps:
     # Apply the specified noises and save the transformed images
     results.transform_images()
     ```
-
 
 ## Planned Features
 - **Support for Multiprocessing:** Enhance performance by adding multiprocessing capabilities to speed up the image generation and noise application processes.
