@@ -80,7 +80,7 @@ class ImageCreator(Creator):
                     ) -> Image:
         
         """
-        Applies text, noise, blur, and rotation effects to the base image.
+        Applies text, and noise effects to the base image.
 
         Parameters:
             text (str):
@@ -95,7 +95,7 @@ class ImageCreator(Creator):
                 The color of the text.
             margins (tuple[int, int, int, int]):
                 Margins for text placement on the image (left, top, right, bottom).
-            image (Image.Image):
+            image (Image):
                 The base image to which effects will be applied.
 
         Returns:
@@ -124,17 +124,17 @@ class ImageCreator(Creator):
                      dpi: tuple[float, float] = (300.0, 300.0),
                      background_img: Image = None,
                      clear_font: bool = True
-                    ):
+                    ) -> Image:
         """
         Creates an image with the specified text, applying optional noise, blur, and rotation effects.
 
         Parameters:
             text (str): 
                 The text to be drawn on the image.
+            font_path (str):
+                The file path to the font.
             noises (list[Noise], optional): 
                 A list of noise objects to apply to the image. Defaults to an empty list.
-            font_path (str, optional):
-                The file path to the font. Defaults to 'iftg/fonts/Arial.ttf'.
             font_size (float, optional): 
                 The size of the font. Defaults to 40.0.
             font_color (str, optional):
@@ -147,7 +147,7 @@ class ImageCreator(Creator):
                 The resolution of the image (dots per inch). Defaults to (300, 300).
             background_img (Image, optional):
                 An optional background image to be used as a base. Defaults to None.
-            clear_fonts (bool, optional): 
+            clear_font (bool, optional): 
                 Whether to clear the font cache after creating the image. Defaults to True.
 
         Returns:

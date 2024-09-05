@@ -14,7 +14,7 @@ class Creator(ABC):
                            background_color: str,
                            margins: tuple[int, int, int, int],
                            background_img: Image
-                          ) -> Image:
+                          ) -> tuple[Image.Image, int]:
         pass
     
     
@@ -69,7 +69,7 @@ class Creator(ABC):
                      dpi: tuple[float, float],
                      background_img: Image,
                      clear_font: bool
-                    ):
+                    ) -> Image:
         pass
 
 

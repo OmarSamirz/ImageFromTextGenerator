@@ -10,7 +10,7 @@ class NoiseAdder(ABC):
 
     Attributes:
         identifier (str): 
-            A unique identifier for the noise adder instance.
+            A unique identifier to append to the filenames of the processed images.
         img_formats (list[str]): 
             A list of image formats for saving the processed images.
         noises (list[Noise]): 

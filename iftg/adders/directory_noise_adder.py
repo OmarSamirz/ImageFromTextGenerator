@@ -22,7 +22,7 @@ class DirectoryNoiseAdder(NoiseAdder):
         identifier (str): 
             A unique identifier to append to the filenames of the processed images.
         img_formats (list[str]): 
-            A list of image formats to be considered for processing.
+            A list of image formats for saving the processed images.
         
     """
 
