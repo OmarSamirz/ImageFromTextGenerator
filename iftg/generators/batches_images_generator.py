@@ -128,8 +128,8 @@ class BatchesImagesGenerator(Generator):
             raise StopIteration
         
         generator =  ImagesGenerator(self.texts[self._count], 
-                                     self.noises[self._count],
                                      self.font_path[self._count],
+                                     self.noises[self._count],
                                      self.font_size[self._count],
                                      self.font_color[self._count],
                                      self.background_color[self._count],

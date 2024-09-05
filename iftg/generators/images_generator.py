@@ -114,7 +114,7 @@ class ImagesGenerator(Generator):
 
             raise StopIteration
 
-        img_lbl = (ImageCreator.create_image(self.texts[self._count],
+        img_info = (ImageCreator.create_image(self.texts[self._count],
                                              self.font_path,
                                              self.noises,
                                              self.font_size,
@@ -124,10 +124,31 @@ class ImagesGenerator(Generator):
                                              self.dpi,
                                              self.background_img,
                                              False,
-                                            ), self.texts[self._count])
+                                            ), self.texts[self._count], self._count)
         
         self._count += 1
-        return img_lbl
+        return img_info
+
+
+    def _save_image(self, img: Image, i: int) -> None:
+        """
+        Saves the image to output path.
+        """
+        img_path = os.path.join(self.img_output_path, self.img_name + f'_{i}' + self.img_format)
+        img.save(img_path, **img.info)
+
+
+    def _save_image_and_text(self, img_info: tuple[Image.Image, str, int]) -> None:
+            """
+            Saves the image and the corresponding text to their respective output paths.
+            """
+            img, lbl, i = img_info
+            
+            self._save_image(img, i)
+
+            text_path = os.path.join(self.txt_output_path, self.txt_name + f'_{i}' + self.txt_format)
+            with open(text_path, 'w') as text_file:
+                text_file.write(lbl)
 
 
     def generate_images(self) -> None:
@@ -140,10 +161,8 @@ class ImagesGenerator(Generator):
         if os.path.isdir(self.img_output_path) == False:
             os.mkdir(self.img_output_path)
 
-        for i, (img, _) in enumerate(self):
-            img_final_name = f'{self.img_name}_{i}{self.img_format}'
-            img_path = os.path.join(self.img_output_path, img_final_name)
-            img.save(img_path, **img.info)
+        for img, _, i in self:
+            self._save_image(img, i)
 
     
     def generate_images_with_text(self) -> None:
@@ -155,12 +174,9 @@ class ImagesGenerator(Generator):
         """
         if os.path.isdir(self.img_output_path) == False:
             os.mkdir(self.img_output_path)
+        if os.path.isdir(self.txt_output_path) == False:
+            os.mkdir(self.txt_output_path)
 
-        for i, (img, lbl) in enumerate(self):
-            img_path = os.path.join(self.img_output_path, self.img_name + f'_{i}' + self.img_format)
-            text_path = os.path.join(self.txt_output_path, self.txt_name + f'_{i}' + self.txt_format)
-            
-            img.save(img_path, **img.info)
-            with open(text_path, 'w') as text_file:
-                text_file.write(lbl)
+        for img_info in self:
+            self._save_image_and_text(img_info)
         

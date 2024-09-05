@@ -1,11 +1,11 @@
 <div align="center">
-  <img src="./images/iftg_logo.png" alt="Logo" width="60%">
+  <img src="https://drive.google.com/uc?export=view&id=1ixdcGw8OQYGCCuwaMw3A0tJWgPhdqRRf" alt="Logo" width="60%">
   <h1>ImageFromTextGenerator</h1>
 </div>
 
 ![PyPI - Version](https://img.shields.io/pypi/v/iftg)
-[![Downloads](https://static.pepy.tech/badge/iftg)](https://pepy.tech/project/iftg) 
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/iftg)
+![PyPI - Downloads](https://img.shields.io/pypi/dm/iftg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/OmarSamirz/ImageFromTextGenerator)
 ![GitHub License](https://img.shields.io/github/license/OmarSamirz/ImageFromTextGenerator?logoColor=%230d7fc0)
 
@@ -61,15 +61,49 @@ IFTG offers a wide variety of noise effects that you can apply to your images to
 - **Random Noises:** These noises introduce variability, allowing you to generate different effects with each image, enhancing the robustness of your models.
   
 - **Custom Noises:** IFTG provides a [noise template](noise_template.py) that allows you to easily create your own custom noise effects. This feature gives you even more control over the image augmentation process, enabling you to tailor the noises to your specific needs.
-  
-| Background | Blur | Brightness | Dilate | Elastic |
-|------------|------|------------|--------|---------|
-| ![Background](./images/background_img.png) | ![Blur](./images/blur_img.png) | ![Brightness](./images/brightness_img.png) | ![Dilate](./images/dilate_img.png) | ![Elastic](./images/elastic_img.png) |
 
-| Erode | Flip | Gaussian | Pixel Dropout | Rotation | Shadow |
-|-------|------|----------|---------------|----------|--------|
-| ![Erode](./images/erode_img.png) | ![Flip](./images/flip_img.png) | ![Gaussian](./images/gaussian_img.png) | ![Pixel Dropout](./images/pixeldropout_img.png) | ![Rotation](./images/rotation_img.png) | ![Shadow](./images/shadow_img.png) |
+<table>
+  <tr>
+    <th>Background</th>
+    <th>Blur</th>
+    <th>Brightness</th>
+    <th>Dilate</th>
+  </tr>
+  <tr>
+    <td><img src="https://drive.google.com/uc?export=view&id=1x21Ae-alAtpF3yXrODnoy3gH3eA3Z6ih" alt="Background" width="100%"></td>
+    <td><img src="https://drive.google.com/uc?export=view&id=1D2CWjze5DxnFwGBhOAyPlUtaHoDCHLS_" alt="Blur" width="100%"></td>
+    <td><img src="https://drive.google.com/uc?export=view&id=1LnS61a0H2cTf8l5rZnVnUP-p1Fo87Kx5" alt="Brightness" width="100%"></td>
+    <td><img src="https://drive.google.com/uc?export=view&id=1d5fQkxVOfWYrlK3A-_OR3QkLttyh6Kxb" alt="Dilate" width="100%"></td>
+  </tr>
+</table>
 
+<table>
+  <tr>
+    <th>Elastic</th>
+    <th>Erode</th>
+    <th>Flip</th>
+    <th>Gaussian</th>
+  </tr>
+  <tr>
+    <td><img src="https://drive.google.com/uc?export=view&id=1JDQDsKQGKAu83tciNo_NvPS0b4NuwzF4" alt="Elastic" width="100%"></td>
+    <td><img src="https://drive.google.com/uc?export=view&id=1jQ59Caw4Kd0dKM56mgtZoFNU1gH3lJdL" alt="Erode" width="100%"></td>
+    <td><img src="https://drive.google.com/uc?export=view&id=11gwDnDNlr5XNLKmVgFOS_k-aSXDr4F8c" alt="Flip" width="100%"></td>
+    <td><img src="https://drive.google.com/uc?export=view&id=1wEd0GmxKnAEGZ1tN9d3QHQl0EnlsieC_" alt="Gaussian" width="100%"></td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <th>Pixel Dropout</th>
+    <th>Rotation</th>
+    <th>Shadow</th>
+  </tr>
+  <tr>
+    <td><img src="https://drive.google.com/uc?export=view&id=1-tK015rD9_qwkwagz6mq7_i9b-Ot3zAT" alt="Pixel Dropout" width="100%"></td>
+    <td><img src="https://drive.google.com/uc?export=view&id=1P8x0rhe-y5PKbKwMwVEBLiSzI6kN7hSi" alt="Rotatoin" width="100%"></td>
+    <td><img src="https://drive.google.com/uc?export=view&id=1I5vlwsYaG2eC4yGowuYMVOfWo1KbAFYM" alt="Shadow" width="100%"></td>
+  </tr>
+</table>
 
 ## Installation
 To get started with IFTG, you'll need to install the package. You can do this using pip.
@@ -82,16 +116,16 @@ To get started with IFTG, follow these simple steps:
 - **Import the Required Classes:** First, import the necessary classes from the IFTG package
     ```python
     from iftg.generators import ImagesGenerator
-    from iftg.noises import BlurNoise, BrightnessNoise
+    from iftg.noises import RandomBlurNoise, RandomBrightnessNoise
     ```
 - **generate Images:** Use the ImagesGenerator class to generate images with the desired text, font and apply noise
     ```python
     text = ['Hello, World!']
         
     results = ImagesGenerator(text=text,
-                            font_path='path/to/the/font',
-                            noises=[BlurNoise(), BrightnessNoise()],                                    
-                           )
+                              font_path='path/to/the/font',
+                              noises=[RandomBlurNoise(), RandomBrightnessNoise()],                                    
+                             )
     ```
 - **Save Images:** Finally, save the generated image to a file
     ```python
@@ -240,5 +274,7 @@ To get started with IFTG, follow these simple steps:
 
 ## Planned Features
 - **Support for Multiprocessing:** Enhance performance by adding multiprocessing capabilities to speed up the image generation and noise application processes.
+
 - **Addition of More Noise Effects:** Expand the library of noise effects to provide even more options for dataset augmentation.
+
 - **Support for Multiline Text:** Enable the creation of images with multiline text, allowing for more complex and varied text-based datasets.

@@ -56,17 +56,23 @@ def main2():
 
 
 def main3():
-    texts_lst = [['Hello, World!']]*10
+    texts_lst = [['Hello, World!', 'I am'], ['Omar Samir', 'Ahmed']]
+    print(texts_lst)
     results = BatchesImagesGenerator(texts_lst, 
-                                     img_output_paths=['noisy_images'], 
-                                     img_formats=['.png'],
-                                     noises=[[BlurNoise()], [BrightnessNoise()], [DilateNoise()], 
-                                             [ElasticNoise()], [ErodeNoise()], [FlipNoise()],
-                                             [GaussianNoise()], [PixelDropoutNoise()], [RotationNoise(20)], [ShadowNoise()]])
+                                     font_paths=['./fonts/Arial.ttf'],
+                                     img_output_paths=['noisy_images'])
     results.generate_batches(False)
-    img = ImageCreator.create_image('Hello, World!', background_img=Image.open('water.png'))
-    img.save('noisy_images/img_with_background.png')
 
+
+def main4():
+    start = time.time()
+
+    texts = ['Hello, World!']
+    results = ImagesGenerator(texts=texts, font_path='fonts/Arial.ttf')
+    results.generate_images_with_text()
+
+    end = time.time()
+    print(f'{end-start} ms')
 
 if __name__ == '__main__':
-    image = ImageCreator.create_image()
+    main3()
