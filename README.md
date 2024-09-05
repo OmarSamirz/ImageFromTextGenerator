@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://drive.google.com/uc?export=view&id=1GFRvkiM1NDZU58RDuE_L21oEyrVeJNNd" alt="Logo" width="60%">
+  <img src="https://drive.google.com/uc?export=view&id=1ixdcGw8OQYGCCuwaMw3A0tJWgPhdqRRf" alt="Logo" width="60%">
   <h1>ImageFromTextGenerator</h1>
 </div>
 
