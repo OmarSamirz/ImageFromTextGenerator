@@ -11,7 +11,7 @@
 ![GitHub Release Date](https://img.shields.io/github/release-date/OmarSamirz/ImageFromTextGenerator)
 ![GitHub License](https://img.shields.io/github/license/OmarSamirz/ImageFromTextGenerator?logoColor=%230d7fc0)
 
-Welcome to the official documentation for IFTG (ImageFromTextGenerator). IFTG is a Python package designed to streamline the creation of high-quality datasets for Optical Character Recognition (OCR) models. With IFTG, you can generate synthetic text images with a variety of noise and augmentation techniques to improve the performance and robustness of your OCR systems.
+Welcome to the official documentation for IFTG (ImageFromTextGenerator). IFTG is a Python package designed to streamline the creation of high-quality datasets for Optical Character Recognition (OCR) models. With IFTG, you can generate synthetic text images with a variety of noise and augmentation techniques to improve the performance and robustness of your OCR systems. 
 
  
 ## **Key Features**
