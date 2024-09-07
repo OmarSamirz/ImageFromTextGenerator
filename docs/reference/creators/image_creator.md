@@ -1,6 +1,6 @@
 # **<a href='#imagecreator-module' style="text-decoration: underline;">`ImageCreator`</a> Module**
 
-The <a href='#imagecreator-module' style="text-decoration: underline;">`ImageCreator`</a> class extends the <a href="../creator/#creator-module" style="text-decoration: underline;">Creator</a>
+The <a href='#imagecreator-module' style="text-decoration: underline;">`ImageCreator`</a> class extends the <a href="../creator/#creator-module" style="text-decoration: underline;">`Creator`</a>
 base class to provide functionality for generating images with customizable text, noise, and visual effects. This class is particularly useful for creating synthetic data by augmenting text-based images with noise or other transformations.
 
 ## **Attributes**
@@ -8,7 +8,7 @@ base class to provide functionality for generating images with customizable text
 <a href='#imagecreator-module' style="text-decoration: underline;">`ImageCreator`</a> is a class-based implementation with class-level methods that generate images. The methods allow developers to create text images with optional visual transformations, background images, and noise effects.
 
 
-## **Methods**
+## **Class Methods**
 
 ### **`_create_base_image()`**
 ```py
@@ -24,29 +24,29 @@ _create_base_image(cls,
 Creates the base image with a specified background color, font, and text. Optionally, it can apply a background image over which the text will be rendered.
 
 - **Parameters:**
-    - **text : str** 
+    - **text : `str`** 
 
         The text to be added to the image.
 
-    - **font : ImageFont**
+    - **font : `ImageFont`**
 
         The font object used to render the text.
 
-    - **background_color : str**
+    - **background_color : `str`**
 
         The color of the image background, given as a hex code or color name.
 
-    - **margins : tuple[int, int, int, int]**
+    - **margins : `tuple[int, int, int, int]`**
         
         The margins `(left, top, right, bottom)` around the text in the image.
 
-    - **background_img : Image** 
+    - **background_img : `Image`** 
         
         An optional background image. If not <a href='../../noises' style="text-decoration: underline;">`Noise`</a>, this image will be used as a base.
 
 - **Returns:**
 
-    A tuple containing the generated image and an integer representing the top margin adjustment.
+    A `tuple` containing the generated image and an integer representing the top margin adjustment.
 
 
 ### **`_apply_noise()`**
@@ -67,31 +67,31 @@ This method applies noise to the image, altering the appearance of the text or b
 
 - **Parameters:**
 
-    - **text : str**
+    - **text : `str`**
         
         The text to be added to the image.
 
-    - **top : int**
+    - **top : `int`**
 
         The top coordinate for placing the text.
 
-    - **font : ImageFont**
+    - **font : `ImageFont`**
         
         The font object used to render the text.
 
-    - **noises : list[Noise]**
+    - **noises : `list[Noise]`**
         
         A list of <a href='../../noises' style="text-decoration: underline;">`Noise`</a> objects that apply various noise transformations to the image.
 
-    - **font_color : str**
+    - **font_color : `str`**
         
         The color of the text to be added.
 
-    - **margins : tuple[int, int, int, int]**
+    - **margins : `tuple[int, int, int, int]`**
         
         The margins around the text in the image.
 
-    - **image : Image**
+    - **image : `Image`**
         
         The image object where the text will be placed and noise applied.
 
@@ -121,43 +121,43 @@ The main method responsible for generating the final image with text and effects
 - **Parameters:**
 
     
-    - **text : str**
+    - **text : `str`**
         
         The text to be rendered in the image.
     
-    - **font_path : str**
+    - **font_path : `str`**
         
         The path to the font file used to render the text.
     
-    - **noises : list[Noise]**
+    - **noises : `list[Noise]`**
         
         A list of Noise objects to be applied to the image.
     
-    - **font_size : float** 
+    - **font_size : `float`** 
 
         The size of the font.
     
-    - **font_color : str**
+    - **font_color : `str`**
         
         The color of the font text.
     
-    - **background_color : str**
+    - **background_color : `str`**
         
         The background color of the image.
     
-    - **margins : tuple[int, int, int, int]**
+    - **margins : `tuple[int, int, int, int]`**
         
         The margins (left, top, right, bottom) around the text.
     
-    - **dpi : tuple[float, float]**
+    - **dpi : `tuple[float, float]`**
         
         The DPI (dots per inch) resolution for the image.
     
-    - **background_img : Image** 
+    - **background_img : `Image`** 
         
         An optional background image to be used instead of a plain color.
     
-    - **clear_font : bool** 
+    - **clear_font : `bool`** 
         
         If `True`, the font will be rendered without noise. If `False`, the font will also have noise applied.
 
@@ -166,7 +166,7 @@ The main method responsible for generating the final image with text and effects
     The final `Image` object containing the text, background, and applied noise.
 
 
-## **Example Usage**
+## **Usage Example**
 
 Here’s an example of how to use the <a href='imagecreator-module' style="text-decoration: underline;">`ImageCreator`</a> class to create an image with text and noise:
 
@@ -207,12 +207,12 @@ image = ImageCreator.create_image(
 image.save("generated_image.tif", **image.info)
 ```
 
-- **Notes:**
+!!! Notes
 
-    - **Background Image:**
+    1. **Background Image:**
 
         If you use a background image, it will randomly crop a portion of the background to use as the base. This allows for variability in background textures.
 
-    - **Noises:**
+    2. **Noises:**
 
         The `noises` parameter accepts a list of <a href='../../noises' style="text-decoration: underline;">`Noise`</a> objects, allowing multiple types of noise to be applied to the image.

@@ -42,10 +42,10 @@ class ImagesGenerator(Generator):
             The file format for the output text files.
         txt_output_path (str):
             The directory where the generated text files will be saved.
-        auto_remove_font (bool):
-            A flag indicating whether to automatically remove the font from the cache after image generation.
         background_image_path (str):
             The file path to the background image, if any.
+        auto_remove_font (bool):
+            A flag indicating whether to automatically remove the font from the cache after image generation.
     """
     
     
@@ -64,8 +64,8 @@ class ImagesGenerator(Generator):
                  txt_name: str = 'text',
                  txt_format: str = '.txt',
                  txt_output_path: str = 'output',
-                 auto_remove_font: bool = True,
                  background_image_path: str = '',
+                 auto_remove_font: bool = True,
                 ):
         
         self.auto_remove_font = auto_remove_font
@@ -98,7 +98,7 @@ class ImagesGenerator(Generator):
                         )
 
     
-    def _generate_next(self) -> tuple[Image.Image, str]:
+    def _generate_next(self) -> tuple[Image.Image, str, int]:
         """
         Generates the next image in the sequence.
 

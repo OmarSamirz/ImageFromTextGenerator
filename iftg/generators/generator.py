@@ -1,3 +1,6 @@
+
+from PIL import Image
+
 from abc import ABC, abstractmethod
 
 from iftg.noises.noise import Noise
@@ -95,15 +98,21 @@ class Generator(ABC):
         Returns the next generated image by calling the `_generate_next` method.
 
         Returns:
-            Object:
-                The next generated image or relevant output, depending on the subclass implementation.
+        ImagesGenerator | tuple[Image.Image, str, int]:
+            - If the subclass returns an image, a tuple is expected containing:
+                - `Image.Image`: The generated image.
+                - `str`: A label or related information for the image.
+                - `int`: An additional identifier or index for the image.
+            - Alternatively, a custom subclass may return an instance of `ImagesGenerator`.
 
         Raises:
             StopIteration:
                 When there are no more images to generate.
         """
+    
         return self._generate_next()
     
-
+    
+    @abstractmethod
     def _generate_next(self):
         pass

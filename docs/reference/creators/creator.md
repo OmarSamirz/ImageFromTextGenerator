@@ -25,29 +25,29 @@ _create_base_image(cls,
 This method is responsible for creating the base image with the specified text and background. It is an abstract method that must be implemented by subclasses.
 
 - **Parameters:**
-    - **text : str** 
+    - **text : `str`** 
 
         The text to be added to the image.
 
-    - **font : ImageFont**
+    - **font : `ImageFont`**
 
         The font object used to render the text.
 
-    - **background_color : str**
+    - **background_color : `str`**
 
         The color of the image background, given as a hex code or color name.
 
-    - **margins : tuple[int, int, int, int]**
+    - **margins : `tuple[int, int, int, int]`**
         
         The margins `(left, top, right, bottom)` around the text in the image.
 
-    - **background_img : Image** 
+    - **background_img : `Image`** 
         
         An optional background image over which the text will be placed.
 
 - **Returns:**
 
-    A tuple containing the generated image and an integer representing the top margin adjustment.
+    A `tuple` containing the generated image and an integer representing the top margin adjustment.
 
 ### **`get_text_dimensions()`**
 
@@ -62,30 +62,30 @@ This method calculates the dimensions (bounding box) of the given text using the
 
 - **Parameters:**
 
-    - **text : str** 
+    - **text : `str`** 
 
         The text to measure.
 
-    - **font : ImageFont** 
+    - **font : `ImageFont`** 
 
         The font object used to render the text.
 
 - **Returns:**
 
-- A tuple containing four floating-point values representing the bounding box of the text:
-    - **left : float**
+- A `tuple` containing four floating-point values representing the bounding box of the text:
+    - **left : `float`**
 
          The left boundary of the text.
 
-    - **top : float** 
+    - **top : `float`** 
         
         The top boundary of the text.
 
-    - **right : float**
+    - **right : `float`**
         
         The right boundary of the text.
 
-    - **bottom : float** 
+    - **bottom : `float`** 
         
         The bottom boundary of the text.
 
@@ -102,21 +102,21 @@ This method calculates the width and height of the image based on the text dimen
 
 - **Parameters:**
 
-    - **margins : tuple[int, int, int, int]**
+    - **margins : `tuple[int, int, int, int]`**
         
         The margins (left, top, right, bottom) around the text.
 
-    - **text_dimensions : tuple[float, float, float, float]**
+    - **text_dimensions : `tuple[float, float, float, float]`**
 
         The bounding box of the text (left, top, right, bottom) calculated using <a href='#get_text_dimensions' style="text-decoration: underline;">`get_text_dimensions()`</a>.
 
 - **Returns:**
-    - A tuple containing the width and height of the image as integers:
-        - **image_width : int**
+    - A `tuple` containing the width and height of the image as integers:
+        - image_width : `int`
 
             The total width of the image, including the margins.
 
-        - **image_height : int**
+        - image_height : `int`
             
             The total height of the image, including the margins and text area.
 
@@ -138,31 +138,31 @@ This method applies noise to the image, altering the appearance of the text or b
 
 - **Parameters:**
 
-    - **text : str**
+    - **text : `str`**
         
         The text to be added to the image.
 
-    - **top : int**
+    - **top : `int`**
 
         The top coordinate for placing the text.
 
-    - **font : ImageFont**
+    - **font : `ImageFont`**
         
         The font object used to render the text.
 
-    - **noises : list[Noise]**
+    - **noises : `list[Noise]`**
         
         A list of Noise objects to apply to the image.
 
-    - **font_color : str**
+    - **font_color : `str`**
         
         The color of the text to be added.
 
-    - **margins : tuple[int, int, int, int]**
+    - **margins : `tuple[int, int, int, int]`**
         
         The margins around the text in the image.
 
-    - **image : Image**
+    - **image : `Image`**
         
         The image object where the text will be placed and noise applied.
 
@@ -192,43 +192,43 @@ This is the main method responsible for creating the final image with text, back
 - **Parameters:**
 
     
-    - **text : str**
+    - **text : `str`**
         
         The text to be rendered in the image.
     
-    - **font_path : str**
+    - **font_path : `str`**
         
         The path to the font file used to render the text.
     
-    - **noises : list[Noise]**
+    - **noises : `list[Noise]`**
         
         A list of Noise objects to be applied to the image.
     
-    - **font_size : float** 
+    - **font_size : `float`** 
 
         The size of the font.
     
-    - **font_color : str**
+    - **font_color : `str`**
         
         The color of the font text.
     
-    - **background_color : str**
+    - **background_color : `str`**
         
         The background color of the image.
     
-    - **margins : tuple[int, int, int, int]**
+    - **margins : `tuple[int, int, int, int]`**
         
         The margins (left, top, right, bottom) around the text.
     
-    - **dpi : tuple[float, float]**
+    - **dpi : `tuple[float, float]`**
         
         The DPI (dots per inch) resolution for the image.
     
-    - **background_img : Image** 
+    - **background_img : `Image`** 
         
         An optional background image to be used instead of a plain color.
     
-    - **clear_font : bool** 
+    - **clear_font : `bool`** 
         
         If `True`, the font will be rendered without noise. If `False`, the font will also have noise applied.
 

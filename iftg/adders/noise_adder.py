@@ -1,4 +1,7 @@
+
+import os
 from abc import ABC, abstractmethod
+
 
 from iftg.noises.noise import Noise, Image
 
@@ -9,22 +12,22 @@ class NoiseAdder(ABC):
     for applying noise, adding noises, saving images, and transforming images.
 
     Attributes:
-        identifier (str): 
-            A unique identifier to append to the filenames of the processed images.
-        img_formats (list[str]): 
-            A list of image formats for saving the processed images.
         noises (list[Noise]): 
             A list of noise objects to be applied to the images.
+        output_path (str): 
+            The path where the processed images will be saved.
+        identifier (str): 
+            A unique identifier to append to the filenames of the processed images.
     """
 
     def __init__(self, 
                  noises: list[Noise],
+                 output_path: str,
                  identifier: str,
-                 img_formats: list[str],
                 ):
-        self.identifier = identifier
-        self.img_formats = img_formats
         self.noises = noises
+        self.output_path = output_path
+        self.identifier = identifier
 
     
     @abstractmethod
@@ -33,15 +36,14 @@ class NoiseAdder(ABC):
 
 
     @abstractmethod
-    def add_noises(self) -> list[tuple[Image.Image, str, str]]:
+    def add_noises(self) -> tuple[Image.Image, str, str] | list[tuple[Image.Image, str, str]]:
         pass
 
-    
+
     @abstractmethod
     def save_image(self, img_info: tuple[Image.Image, str, str]) -> None:
-        pass
+        image, img_name, img_format = img_info
+        img_final_name = f'{img_name}_{self.identifier}{img_format}'
+        image.save(os.path.join(self.output_path, img_final_name), dpi=image.info['dpi'])
 
     
-    @abstractmethod
-    def transform_images(self) -> None:
-        pass

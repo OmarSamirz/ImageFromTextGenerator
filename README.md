@@ -5,7 +5,9 @@
 
 ![PyPI - Version](https://img.shields.io/pypi/v/iftg)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/iftg)
-![PyPI - Downloads](https://img.shields.io/pypi/dm/iftg)
+[![Downloads](https://static.pepy.tech/badge/iftg)](https://pepy.tech/project/iftg)
+[![Downloads](https://static.pepy.tech/badge/iftg/month)](https://pepy.tech/project/iftg)
+[![Downloads](https://static.pepy.tech/badge/iftg/week)](https://pepy.tech/project/iftg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/OmarSamirz/ImageFromTextGenerator)
 ![GitHub License](https://img.shields.io/github/license/OmarSamirz/ImageFromTextGenerator?logoColor=%230d7fc0)
 
@@ -63,6 +65,7 @@ IFTG offers a wide variety of noise effects that you can apply to your images to
   
 - **Custom Noises:** IFTG provides a [noise template](noise_template.py) that allows you to easily create your own custom noise effects. This feature gives you even more control over the image augmentation process, enabling you to tailor the noises to your specific needs.
 
+### Examples of Noise Effects
 <table>
   <tr>
     <th>Background</th>
@@ -144,7 +147,7 @@ To get started with IFTG, follow these simple steps:
 ### Creators
 - **ImageCreator:** The ImageCreator class is used to generate images with specified text and optional customization. It can be used to create images for testing or as inputs for other generator classes.
 
-    Example Usage:
+    Usage Example:
     ```python
     from PIL import Image
     from iftg.creators import ImageCreator
@@ -174,7 +177,7 @@ To get started with IFTG, follow these simple steps:
 ### Generators
 - **ImageGenerator:** ImagesGenerator class is designed to create images based on provided text and optional noise effects. It supports both generating images alone and with associated labels.
 
-    Example Usage:
+    Usage Example:
     ```python
     from iftg.generators import ImagesGenerator
     from iftg.noises import (BlurNoise, BrightnessNoise, DilateNoise)
@@ -213,7 +216,7 @@ To get started with IFTG, follow these simple steps:
     # OR
     
     # You can use for-loop to further modify your images or do something else
-    for i, (img, lbl) in enumerate(results):
+    for img, lbl, i in results:
         img.save(f'img_{i}.tif', **img.info)
     
     ```
@@ -221,7 +224,7 @@ To get started with IFTG, follow these simple steps:
 
 - **BatchesImagesGenerator:** BatchesImagesGenerator class is designed to simplify the creation of multiple batches of images with minimal code. This class is particularly useful when you need to generate images in bulk, with different configurations for each batch.
 
-    Example Usage:
+    Usage Example:
     ```python
     from iftg.generators import BatchesImagesGenerator
     from iftg.noises import (ElasticNoise, ErodeNoise, FlipNoise)
@@ -258,7 +261,7 @@ To get started with IFTG, follow these simple steps:
 ### Adders
 - **DirectoryNoiseAdder:** DirectoryNoiseAdder class is designed to add noises to images in a specific directory.
 
-    Example Usage:
+    Usage Example:
     ```python
     from iftg.adders import DirectoryNoiseAdder
     from iftg.noises import (GaussianNoise, PixelDropoutNoise, RotationNoise, ShadowNoise)

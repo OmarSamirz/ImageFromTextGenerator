@@ -111,7 +111,7 @@ class BatchesImagesGenerator(Generator):
                         )            
     
 
-    def _generate_next(self):
+    def _generate_next(self) -> ImagesGenerator:
         """
         Generates the next batch of images using the specified settings for that batch.
 

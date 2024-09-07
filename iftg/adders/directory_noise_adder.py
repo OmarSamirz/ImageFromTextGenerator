@@ -34,26 +34,28 @@ class DirectoryNoiseAdder(NoiseAdder):
                  identifier: str = 'noisy',
                  img_formats: list[str] = ['jpg', 'png', 'tif'],
                 ):
-        
-        super().__init__(noises, 
-                         identifier, 
-                         img_formats, 
-                        )
 
-        try:
+        if os.path.exists(dir_path) == True:
             self.dir_path = dir_path
-        except:
+        else:
             raise FileNotFoundError('The directory does not exist.')
         
         if output_path == '':
-            self.output_path = dir_path
+            output_path = dir_path
         else:
-            self.output_path = output_path
+            output_path = output_path
+
+        self.img_formats = img_formats
 
         self.images_pathes = list(itertools.chain.from_iterable(
                             glob.iglob(os.path.join(dir_path, f'*.{fmt}')) for fmt in self.img_formats
                             ))
         self._count = 0
+
+        super().__init__(noises, 
+                         output_path,
+                         identifier, 
+                        )
     
 
     def _apply_noises(self, image: Image) -> tuple[Image.Image, str, str]:
@@ -70,6 +72,7 @@ class DirectoryNoiseAdder(NoiseAdder):
         """
         base_name = os.path.basename(self.images_pathes[self._count])
         img_name, img_format = os.path.splitext(base_name)
+        
         noisy_image = reduce(lambda img, noise: noise.add_noise(img), self.noises, image)
         noisy_image.info['dpi'] = image.info['dpi']
         self._count += 1
@@ -99,9 +102,7 @@ class DirectoryNoiseAdder(NoiseAdder):
             img_info (tuple[Image, str, str]): 
                 A tuple containing the noisy image, the base name of the image, and the image format.
         """
-        image, img_name, img_format = img_info
-        img_final_name = f'{img_name}_{self.identifier}{img_format}'
-        image.save(os.path.join(self.output_path, img_final_name), dpi=image.info['dpi'])
+        super().save_image(img_info)
 
 
     def transform_images(self) -> None:

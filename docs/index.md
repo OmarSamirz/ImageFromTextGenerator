@@ -5,7 +5,9 @@
 
 ![PyPI - Version](https://img.shields.io/pypi/v/iftg)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/iftg)
-![PyPI - Downloads](https://img.shields.io/pypi/dm/iftg)
+[![Downloads](https://static.pepy.tech/badge/iftg)](https://pepy.tech/project/iftg)
+[![Downloads](https://static.pepy.tech/badge/iftg/month)](https://pepy.tech/project/iftg)
+[![Downloads](https://static.pepy.tech/badge/iftg/week)](https://pepy.tech/project/iftg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/OmarSamirz/ImageFromTextGenerator)
 ![GitHub License](https://img.shields.io/github/license/OmarSamirz/ImageFromTextGenerator?logoColor=%230d7fc0)
 

@@ -5,13 +5,18 @@ from concurrent.futures import ThreadPoolExecutor
 import os
 import time
 
-from iftg.adders import DirectoryNoiseAdder
+from iftg.adders import ImageNoiseAdder, DirectoryNoiseAdder
 from iftg.creators import ImageCreator
 from iftg.generators import ImagesGenerator, BatchesImagesGenerator
 from iftg.noises import (
     BlurNoise, BrightnessNoise, DilateNoise, ElasticNoise, ErodeNoise,
     FlipNoise, GaussianNoise, PixelDropoutNoise, RotationNoise, ShadowNoise
 )
+
+
+def main0():
+    image = ImageCreator.create_image('Hello, world', './fonts/Arial.ttf')
+    image.save('img.tif', **image.info)
 
 
 def main1():
@@ -46,8 +51,8 @@ def main1():
 
 def main2():
     start = time.time()
-    noise_adder = DirectoryNoiseAdder(dir_path='img_text_test', 
-                                      output_path='img_text_test_2',
+    noise_adder = DirectoryNoiseAdder(dir_path='output', 
+                                      output_path='output',
                                       noises=[BrightnessNoise(), ErodeNoise()]
                                      )
     noise_adder.transform_images()
@@ -74,5 +79,11 @@ def main4():
     end = time.time()
     print(f'{end-start} ms')
 
+
+def main5():
+    img_noise_adder = ImageNoiseAdder(img_path='output/img_0.tif', noises=[GaussianNoise()])
+    img_noise_adder.transform_image()
+
+
 if __name__ == '__main__':
-    main3()
+    main2()

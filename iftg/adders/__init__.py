@@ -1,1 +1,2 @@
+from iftg.adders.image_noise_adder import ImageNoiseAdder
 from iftg.adders.directory_noise_adder import DirectoryNoiseAdder

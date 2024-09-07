@@ -2,9 +2,11 @@ site_name: ImageFromTextGenerator
 site_url: https://omarsamirz.github.io/ImageFromTextGenerator/
 
 theme:
+  name: material
+  font: 
+    text: Roboto
   favicon: assets/iftg_logo_small.png
   logo: assets/iftg_logo_small.png
-  name: material
   language: en  
   features:
     - content.code.annotate
@@ -12,8 +14,9 @@ theme:
     - content.tabs.link
     # - header.autohide
     - announce.dismiss
-    - navigation.path
-    - navigation.indexes
+    - navigation.footer
+    # - navigation.path
+    # - navigation.indexes
     - navigation.sidebar
     - navigation.tracking
     - navigation.sections
@@ -24,7 +27,7 @@ theme:
     - search.suggest
     - content.code.copy
     - content.code.select
-    - content.code.annotate 
+    - content.code.annotate
 
   palette:
     
@@ -68,14 +71,27 @@ nav:
       - Tutorial: getting_started/tutorial.md
   - API Reference:
     - Adders:
-      - NoiseAdder: reference/adders/noise_adder.md
-      - DirectoryNoiseAdder: reference/adders/directory_noise_adder.md
+      - NoiseAdder <b>Module</b>: reference/adders/noise_adder.md
+      - ImageNoiseAdder <b>Module</b>: reference/adders/image_noise_adder.md
+      - DirectoryNoiseAdder <b>Module</b>: reference/adders/directory_noise_adder.md
     - Creators:
-      - Creator: reference/creators/creator.md
-      - ImageCreator: reference/creators/image_creator.md
+      - Creator <b>Module</b>: reference/creators/creator.md
+      - ImageCreator <b>Module</b>: reference/creators/image_creator.md
     - Generators:
-      - Generator: reference/generators/generator.md
-      - ImagesGenerator: reference/generators/images_generator.md
-      - BatchesImagesGenerator: reference/generators/batches_images_generator.md
-    - Noises: reference/noises.md
+      - Generator <b>Module</b>: reference/generators/generator.md
+      - ImagesGenerator <b>Module</b>: reference/generators/images_generator.md
+      - BatchesImagesGenerator <b>Module</b>: reference/generators/batches_images_generator.md
+    - Noises: 
+      - Noise <b>Module</b>: reference/noises/noise.md
+      - BlurNoise <b>Module</b>: reference/noises/blur_noise.md
+      - BrightnessNoise <b>Module</b>: reference/noises/brightness_noise.md
+      - DilateNoise <b>Module</b>: reference/noises/dilate_noise.md
+      - ElasticNoise <b>Module</b>: reference/noises/elastic_noise.md
+      - ErodeNoise <b>Module</b>: reference/noises/erode_noise.md
+      - FlipNoise <b>Module</b>: reference/noises/flip_noise.md
+      - GaussianNoise <b>Module</b>: reference/noises/gaussian_noise.md
+      - PixelDropoutNoise <b>Module</b>: reference/noises/pixel_dropout_noise.md
+      - RotationNoise <b>Module</b>: reference/noises/rotation_noise.md
+      - ShadowNoise <b>Module</b>: reference/noises/shadow_noise.md
+    - ImageFontManager <b>Module</b>: reference/image_font_manager.md
     
