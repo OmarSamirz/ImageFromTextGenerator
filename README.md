@@ -5,8 +5,8 @@
 
 ![PyPI - Version](https://img.shields.io/pypi/v/iftg)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/iftg)
-![PyPI - Downloads](https://img.shields.io/pypi/dm/iftg)
-![PyPI - Downloads](https://img.shields.io/pypi/dw/iftg)
+![PyPI - Downloads](https://img.shields.io/pypi/dm/iftg?color=%231082c3)
+![PyPI - Downloads](https://img.shields.io/pypi/dw/iftg?color=%231082c3)
 ![GitHub Release Date](https://img.shields.io/github/release-date/OmarSamirz/ImageFromTextGenerator)
 ![GitHub License](https://img.shields.io/github/license/OmarSamirz/ImageFromTextGenerator?logoColor=%230d7fc0)
 
