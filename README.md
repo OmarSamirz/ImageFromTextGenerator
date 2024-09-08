@@ -9,6 +9,7 @@
 ![PyPI - Downloads](https://img.shields.io/pypi/dw/iftg?color=%231082c3)
 ![GitHub Release Date](https://img.shields.io/github/release-date/OmarSamirz/ImageFromTextGenerator)
 ![GitHub License](https://img.shields.io/github/license/OmarSamirz/ImageFromTextGenerator?logoColor=%230d7fc0)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FOmarSamirz%2FImageFromTextGenerator.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FOmarSamirz%2FImageFromTextGenerator?ref=badge_shield)
 
 
 IFTG is a powerful Python package designed to create high-quality datasets for Optical Character Recognition (OCR) models. By generating synthetic text images with various noise and augmentation techniques, IFTG enables researchers and developers to build robust and accurate OCR systems.
@@ -287,3 +288,7 @@ To get started with IFTG, follow these simple steps:
 - **Addition of More Noise Effects:** Expand the library of noise effects to provide even more options for dataset augmentation.
 
 - **Support for Multiline Text:** Enable the creation of images with multiline text, allowing for more complex and varied text-based datasets.
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FOmarSamirz%2FImageFromTextGenerator.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FOmarSamirz%2FImageFromTextGenerator?ref=badge_large)
