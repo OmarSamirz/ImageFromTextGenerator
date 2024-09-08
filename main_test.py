@@ -103,4 +103,3 @@ def main5():
 
 if __name__ == '__main__':
     main3()
-    # print(ImageFontManager.fonts())

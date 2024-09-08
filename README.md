@@ -14,6 +14,7 @@
 ![GitHub repo size](https://img.shields.io/github/repo-size/OmarSamirz/ImageFromTextGenerator)
 ![GitHub Release Date](https://img.shields.io/github/release-date/OmarSamirz/ImageFromTextGenerator)
 ![GitHub License](https://img.shields.io/github/license/OmarSamirz/ImageFromTextGenerator?logoColor=%230d7fc0)
+[![DOI](https://zenodo.org/badge/839921966.svg)](https://zenodo.org/doi/10.5281/zenodo.13732596)
 
 
 IFTG is a powerful Python package designed to create high-quality datasets for Optical Character Recognition (OCR) models. By generating synthetic text images with various noise and augmentation techniques, IFTG enables researchers and developers to build robust and accurate OCR systems.
@@ -26,14 +27,15 @@ IFTG is a powerful Python package designed to create high-quality datasets for O
 4. [Documentation](#documentation)
 5. [Quick Start](#quick-start)
 6. [Usage](#usage)
+     - [Adders](#adders)
+         - [ImageNoiseAdder](#imagenoiseadder)
+         - [DirectoryNoiseAdder](#directorynoiseadder)
      - [Creators](#creators)
          - [ImageCreator](#imagecreator)
      - [Generators](#generators)
          - [ImagesGenerator](#imagesgenerator)
          - [BatchesImagesGenerator](#batchesimagesgenerator)
-     - [Adders](#adders)
-         - [DirectoryNoiseAdder](#directorynoiseadder)
-7. [Planned Features](#planned-features)
+8. [Planned Features](#planned-features)
         
 
 
@@ -148,6 +150,48 @@ To get started with IFTG, follow these simple steps:
     ```
 
 ## Usage
+### Adders
+- **ImageNoiseAdder:** ImageNoiseAdder class is designed to test and add noises to existing image in a specific directory.
+
+    Usage Example:
+    ```pyfrom
+    iftg.adders import ImageNoiseAdder
+    from iftg.noises import PixelDropoutNoise
+
+    # Initialize ImageNoiseAdder with the specified parameters
+    result = ImageNoiseAdder(img_path='path/to/image.tif',  # Path to the input image file.
+                             output_path='',    #  Directory where the noisy image will be saved. Default is an empty string.
+                             noises=[PixelDropoutNoise()],  # List of noise objects to be applied to the image.
+                             identifier='noisy' # Identifier for the noisy image file.
+                            )
+
+    # Apply the specified noises and save the transformed images
+    result.transform_image()
+    ```
+  
+- **DirectoryNoiseAdder:** DirectoryNoiseAdder class is designed to add noises to existing images in a specific directory.
+
+    Usage Example:
+    ```python
+    from iftg.adders import DirectoryNoiseAdder
+    from iftg.noises import (GaussianNoise, PixelDropoutNoise, RotationNoise, ShadowNoise)
+    
+    # Initialize DirectoryNoiseAdder with the specified parameters
+    results = DirectoryNoiseAdder(dir_path='path/to/directory', # The path to the directory containing images to be processed.
+                                  output_path='path/to/output/directory',   # The path where the processed images will be saved.
+                                  noises=[RotationNoise(), # A list of noise objects to be applied to the images.
+                                          GaussianNoise(),
+                                          PixelDropoutNoise(),
+                                          ShadowNoise()
+                                         ],
+                                  identifier='noisy',   # A unique identifier to append to the filenames of the processed images.
+                                  img_formats=['jpg', 'png'],   # A list of image formats to be considered for processing.
+                                 )
+    
+    # Apply the specified noises and save the transformed images
+    results.transform_images()
+    ```
+
 ### Creators
 - **ImageCreator:** The ImageCreator class is used to generate images with specified text and optional customization. It can be used to create images for testing or as inputs for other generator classes.
 
@@ -259,31 +303,6 @@ To get started with IFTG, follow these simple steps:
     
     # Generate and save the images without labels
     results.generate_batches(is_with_label=True) # Set to False to generate images without labels
-    ```
-
-
-### Adders
-- **DirectoryNoiseAdder:** DirectoryNoiseAdder class is designed to add noises to images in a specific directory.
-
-    Usage Example:
-    ```python
-    from iftg.adders import DirectoryNoiseAdder
-    from iftg.noises import (GaussianNoise, PixelDropoutNoise, RotationNoise, ShadowNoise)
-    
-    # Initialize DirectoryNoiseAdder with the specified parameters
-    results = DirectoryNoiseAdder(dir_path='path/to/directory', # The path to the directory containing images to be processed.
-                                  output_path='path/to/output/directory',   # The path where the processed images will be saved.
-                                  noises=[RotationNoise(), # A list of noise objects to be applied to the images.
-                                          GaussianNoise(),
-                                          PixelDropoutNoise(),
-                                          ShadowNoise()
-                                         ],
-                                  identifier='noisy',   # A unique identifier to append to the filenames of the processed images.
-                                  img_formats=['jpg', 'png'],   # A list of image formats to be considered for processing.
-                                 )
-    
-    # Apply the specified noises and save the transformed images
-    results.transform_images()
     ```
 
 ## Planned Features
