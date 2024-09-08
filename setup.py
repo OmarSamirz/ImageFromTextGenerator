@@ -4,7 +4,7 @@ import setuptools
 
 setuptools.setup(
     name='iftg',
-    version='1.1.0',
+    version='1.2.0',
     description='IFTG (ImageFromTextGenerator) is a Python package that simplifies creating robust datasets for OCR models. Generate images from text, apply over 10 built-in noise effects, and customize fonts and layouts. IFTG supports all languages and offers endless noise combinations, including custom noise creation.',
     long_description=pathlib.Path('README.md').read_text(),
     long_description_content_type='text/markdown',
