@@ -4,9 +4,14 @@
 </div>
 
 ![PyPI - Version](https://img.shields.io/pypi/v/iftg)
+[![Build Status](https://app.travis-ci.com/OmarSamirz/ImageFromTextGenerator.svg?token=sD96ekdrKiXZ1PgQDJDX&branch=main)](https://app.travis-ci.com/OmarSamirz/ImageFromTextGenerator)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FOmarSamirz%2FImageFromTextGenerator.svg?type=shield&issueType=license)](https://app.fossa.com/projects/git%2Bgithub.com%2FOmarSamirz%2FImageFromTextGenerator?ref=badge_shield&issueType=license)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FOmarSamirz%2FImageFromTextGenerator.svg?type=shield&issueType=security)](https://app.fossa.com/projects/git%2Bgithub.com%2FOmarSamirz%2FImageFromTextGenerator?ref=badge_shield&issueType=security)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/iftg)
+[![Downloads](https://static.pepy.tech/badge/iftg)](https://pepy.tech/project/iftg)
 ![PyPI - Downloads](https://img.shields.io/pypi/dm/iftg?color=%231082c3)
 ![PyPI - Downloads](https://img.shields.io/pypi/dw/iftg?color=%231082c3)
+![GitHub repo size](https://img.shields.io/github/repo-size/OmarSamirz/ImageFromTextGenerator)
 ![GitHub Release Date](https://img.shields.io/github/release-date/OmarSamirz/ImageFromTextGenerator)
 ![GitHub License](https://img.shields.io/github/license/OmarSamirz/ImageFromTextGenerator?logoColor=%230d7fc0)
 

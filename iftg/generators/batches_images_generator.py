@@ -124,7 +124,7 @@ class BatchesImagesGenerator(Generator):
             When all batches have been generated and the font cache for the last batch is cleared.
         """
         if self._count >= self._texts_len:
-            ImageFontManager.remove_font(self.font_path[self._count-1], self.font_size[self._count-1])
+            ImageFontManager.clear()
             raise StopIteration
         
         generator =  ImagesGenerator(self.texts[self._count], 
@@ -141,9 +141,10 @@ class BatchesImagesGenerator(Generator):
                                      self.txt_name[self._count] + f'_{self._count}',
                                      self.txt_format[self._count],
                                      self.txt_output_path[self._count],
-                                     auto_remove_font=False,
+                                     self.background_image_path[self._count],
+                                     False,
                                     )
-        
+
         self._count += 1
         return generator
 

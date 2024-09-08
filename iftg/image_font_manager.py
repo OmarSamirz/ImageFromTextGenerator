@@ -11,7 +11,7 @@ class ImageFontManager:
     _fonts = {}
 
 
-    @property
+    @classmethod
     def fonts(cls) -> dict:
         return cls._fonts
 

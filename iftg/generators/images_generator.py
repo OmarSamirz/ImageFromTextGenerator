@@ -109,7 +109,7 @@ class ImagesGenerator(Generator):
             StopIteration: When all images have been generated and the font cache is cleared.
         """
         if self._count >= self._texts_len:
-            if self.auto_remove_font:
+            if self.auto_remove_font == True:
                 ImageFontManager.remove_font(self.font_path, self.font_size)
 
             raise StopIteration

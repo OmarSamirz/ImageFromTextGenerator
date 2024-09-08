@@ -74,7 +74,11 @@ class DirectoryNoiseAdder(NoiseAdder):
         img_name, img_format = os.path.splitext(base_name)
         
         noisy_image = reduce(lambda img, noise: noise.add_noise(img), self.noises, image)
-        noisy_image.info['dpi'] = image.info['dpi']
+        if 'dpi' in image.info:
+            noisy_image.info['dpi'] = image.info['dpi']
+        else:
+            noisy_image.info['dpi'] = (300, 300)
+
         self._count += 1
 
         return noisy_image, img_name, img_format

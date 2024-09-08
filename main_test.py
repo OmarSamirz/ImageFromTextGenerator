@@ -8,6 +8,7 @@ import time
 from iftg.adders import ImageNoiseAdder, DirectoryNoiseAdder
 from iftg.creators import ImageCreator
 from iftg.generators import ImagesGenerator, BatchesImagesGenerator
+from iftg.image_font_manager import ImageFontManager
 from iftg.noises import (
     BlurNoise, BrightnessNoise, DilateNoise, ElasticNoise, ErodeNoise,
     FlipNoise, GaussianNoise, PixelDropoutNoise, RotationNoise, ShadowNoise
@@ -15,6 +16,7 @@ from iftg.noises import (
 
 
 def main0():
+    
     image = ImageCreator.create_image('Hello, world', './fonts/Arial.ttf')
     image.save('img.tif', **image.info)
 
@@ -61,12 +63,26 @@ def main2():
 
 
 def main3():
-    texts_lst = [['Hello, World!', 'I am'], ['Omar Samir', 'Ahmed']]
-    print(texts_lst)
-    results = BatchesImagesGenerator(texts_lst, 
-                                     font_paths=['./fonts/Arial.ttf'],
-                                     img_output_paths=['noisy_images'])
-    results.generate_batches(False)
+    texts_lst = [["Text1", "Text2"], ["Text3", "Text4"]]
+    inputs = {
+        "texts": texts_lst,
+        "font_paths": ["tests/Arial.ttf", "tests/Arial.ttf"],
+        "noises": [[BlurNoise()], [BlurNoise()]],
+        "font_sizes": [40.0, 45.0],
+        "font_colors": ["black", "blue"],
+        "background_colors": ["white", "gray"],
+        "margins": [(5, 5, 5, 5), (10, 10, 10, 10)],
+        "dpi": [(300, 300), (72, 72)],
+        "img_names": ["batch1", "batch2"],
+        "img_formats": [".png", ".jpeg"],
+        "img_output_paths": ["output1", "output2"],
+        "txt_names": ["label1", "label2"],
+        "txt_formats": [".txt", ".md"],
+        "txt_output_paths": ["output1", "output2"],
+        "background_image_paths": ["", ""],
+    }
+    results = BatchesImagesGenerator(**inputs)
+    results.generate_batches()
 
 
 def main4():
@@ -81,9 +97,10 @@ def main4():
 
 
 def main5():
-    img_noise_adder = ImageNoiseAdder(img_path='output/img_0.tif', noises=[GaussianNoise()])
+    img_noise_adder = ImageNoiseAdder(img_path='img.png', noises=[GaussianNoise()])
     img_noise_adder.transform_image()
 
 
 if __name__ == '__main__':
-    main2()
+    main3()
+    # print(ImageFontManager.fonts())
