@@ -32,9 +32,10 @@ jobs:
           pip install pytest pytest-mock numpy pillow opencv-python scipy
 
       - name: Run tests
+        shell: bash
         run: |
-          if [[ "$RUNNER_OS" == "Windows" ]]; then
-            cmd /c "set PYTHONPATH=. && pytest"
+          if [ "$RUNNER_OS" == "Windows" ]; then
+            pwsh -c 'Set-Item -Path Env:PYTHONPATH "."; pytest'
           else
             PYTHONPATH=. pytest
           fi
