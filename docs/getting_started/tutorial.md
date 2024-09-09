@@ -1,4 +1,4 @@
-# **Tutorial: To be continued**
+# **Tutorial**
 
 Welcome to the IFTG (Image From Text Generator) package tutorial. This guide will walk you through the key modules and functionalities provided by the package, allowing you to create robust datasets for OCR (Optical Character Recognition) models. Whether you're augmenting images with noise, generating text-based images, or creating batches of data, this tutorial will guide you step-by-step.
 
