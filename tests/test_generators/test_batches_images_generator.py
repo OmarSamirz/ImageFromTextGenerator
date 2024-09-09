@@ -18,7 +18,7 @@ def valid_noises():
 
 @pytest.fixture
 def valid_font_paths():
-    return ["tests/Arial.ttf", "tests/Arial.ttf"]
+    return [os.path.join("tests", "Arial.ttf"), os.path.join("tests", "Arial.ttf")]
 
 @pytest.fixture
 def valid_batch_params(valid_texts, valid_noises, valid_font_paths):
@@ -76,7 +76,7 @@ def test_mismatched_lengths():
     Test that the constructor handles mismatched input lengths by extending lists.
     """
     texts = [["Text1", "Text2"]]
-    font_paths = ["tests/Arial.ttf"]
+    font_paths = [os.path.join("tests", "Arial.ttf")]
     noises = [[BlurNoise()]]
     batch_gen = BatchesImagesGenerator(texts=texts, font_paths=font_paths, noises=noises)
 
