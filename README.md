@@ -3,8 +3,9 @@
   <h1>ImageFromTextGenerator</h1>
 </div>
 
+
 ![PyPI - Version](https://img.shields.io/pypi/v/iftg)
-[![Build Status](https://app.travis-ci.com/OmarSamirz/ImageFromTextGenerator.svg?token=sD96ekdrKiXZ1PgQDJDX&branch=main)](https://app.travis-ci.com/OmarSamirz/ImageFromTextGenerator)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/OmarSamirz/ImageFromTextGenerator/.%2F.github%2Fworkflows%2Ftest.yml)
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FOmarSamirz%2FImageFromTextGenerator.svg?type=shield&issueType=license)](https://app.fossa.com/projects/git%2Bgithub.com%2FOmarSamirz%2FImageFromTextGenerator?ref=badge_shield&issueType=license)
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FOmarSamirz%2FImageFromTextGenerator.svg?type=shield&issueType=security)](https://app.fossa.com/projects/git%2Bgithub.com%2FOmarSamirz%2FImageFromTextGenerator?ref=badge_shield&issueType=security)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/iftg)
@@ -154,7 +155,7 @@ To get started with IFTG, follow these simple steps:
 - **ImageNoiseAdder:** ImageNoiseAdder class is designed to test and add noises to existing image in a specific directory.
 
     Usage Example:
-    ```pyfrom
+    ```py
     iftg.adders import ImageNoiseAdder
     from iftg.noises import PixelDropoutNoise
 
