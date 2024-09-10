@@ -1,0 +1,33 @@
+name: Coverage
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: |
+          pip install pytest pytest-cov coveralls
+          pip install pytest pytest-mock numpy pillow opencv-python scipy
+
+      - name: Run tests with coverage
+        run: |
+          pytest --cov=your_package
+
+      - name: Upload coverage to Coveralls
+        run: coveralls
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
