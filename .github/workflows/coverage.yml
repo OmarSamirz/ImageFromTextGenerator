@@ -25,7 +25,7 @@ jobs:
 
       - name: Run tests with coverage
         run: |
-          pytest --cov=your_package
+          pytest --cov=tests
 
       - name: Upload coverage to Coveralls
         run: coveralls
