@@ -28,6 +28,6 @@ jobs:
           pytest --cov=tests
 
       - name: Upload coverage to Coveralls
-        run: coveralls
+        run: coverallsapp/github-action@v2
         env:
           COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
