@@ -5,6 +5,7 @@
 
 ![PyPI - Version](https://img.shields.io/pypi/v/iftg)
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/OmarSamirz/ImageFromTextGenerator/.%2F.github%2Fworkflows%2Ftest.yml)
+[![Coverage Status](https://coveralls.io/repos/github/OmarSamirz/ImageFromTextGenerator/badge.svg?branch=main)](https://coveralls.io/github/OmarSamirz/ImageFromTextGenerator?branch=main)
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FOmarSamirz%2FImageFromTextGenerator.svg?type=shield&issueType=license)](https://app.fossa.com/projects/git%2Bgithub.com%2FOmarSamirz%2FImageFromTextGenerator?ref=badge_shield&issueType=license)
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FOmarSamirz%2FImageFromTextGenerator.svg?type=shield&issueType=security)](https://app.fossa.com/projects/git%2Bgithub.com%2FOmarSamirz%2FImageFromTextGenerator?ref=badge_shield&issueType=security)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/iftg)

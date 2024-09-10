@@ -28,8 +28,8 @@ jobs:
           pytest --cov=tests
 
       - name: Upload coverage to Coveralls
-        uses: coverallsapp/github-action@v2  # Correct way to call the Coveralls GitHub Action
+        uses: coverallsapp/github-action@v2 
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}  # GitHub Actions token
+          github-token: ${{ secrets.GITHUB_TOKEN }}
         env:
           COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
