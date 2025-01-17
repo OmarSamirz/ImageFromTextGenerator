@@ -16,7 +16,7 @@ class Creator(ABC):
     def _create_base_image(cls,
                            text: str,
                            font: ImageFont,
-                           font_color: tuple[float, float, float],
+                           font_color: tuple[int, int, int],
                            background_color: str,
                            margins: tuple[int, int, int, int],
                            background_img: Image
@@ -71,7 +71,7 @@ class Creator(ABC):
     
     @classmethod
     @abstractmethod
-    def _blend_colors(cls, bg_color: str, text_color: str, font_opacity: float) -> tuple:
+    def _blend_colors(cls, bg_color: str, text_color: str, font_opacity: float) -> tuple[int, int, int]:
         pass
 
     @classmethod
@@ -81,12 +81,12 @@ class Creator(ABC):
                      font_path: str,
                      noises: list[Noise],
                      font_size: float,
+                     font_opacity: float,
                      font_color: str,
                      background_color: str,
                      margins: tuple[int, int, int, int],
                      dpi: tuple[float, float],
                      background_img: Image,
                      clear_font: bool,
-                     font_opacity: float,
                      ) -> Image:
         pass

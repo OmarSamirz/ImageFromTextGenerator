@@ -28,6 +28,10 @@ The <a href='#generator-module' style="text-decoration: underline;">`Generator`<
         
     The color(s) of the text in the images. This can be a single color or a list of colors if different colors are applied to different images.
 
+- **font_opacity: `float` or `list[float]`**
+
+    The opacity level(s) of the text, where `1.0` is fully opaque and `0.0` is fully transparent.
+
 - **background_color : `str` or `list[str]`**
         
     The background color(s) of the images. This can be a single color or multiple colors if different backgrounds are used.

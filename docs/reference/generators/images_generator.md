@@ -25,6 +25,10 @@ The <a href='#imagesgenerator-module' style="text-decoration: underline;">`Image
 
     The color of the text in the images. The color should be specified in a format supported by the image library (e.g., `black`, `#000000`).
 
+- **font_opacity: `float`**
+
+    The opacity level of the text for each image, where `1.0` is fully opaque and `0.0` is fully transparent.
+
 - **background_color : `str`**
 
     The background color of the images. This color will be used if no background image is specified.

@@ -73,11 +73,13 @@ enhancing the robustness of your models.
     <th>Pixel Dropout</th>
     <th>Rotation</th>
     <th>Shadow</th>
+    <th>Text Opacity</th>
   </tr>
   <tr>
     <td><img src="/ImageFromTextGenerator/assets/pixeldropout_img.png" alt="Pixel Dropout" width="100%"></td>
     <td><img src="/ImageFromTextGenerator/assets/rotation_img.png" alt="Rotatoin" width="100%"></td>
     <td><img src="/ImageFromTextGenerator/assets/shadow_img.png" alt="Shadow" width="100%"></td>
+    <td><img src="/ImageFromTextGenerator/assets/opacity_img.png" alt="Text Opacity" width="100%"></td>
   </tr>
 </table>
 

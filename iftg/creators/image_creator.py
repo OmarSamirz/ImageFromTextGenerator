@@ -19,7 +19,7 @@ class ImageCreator(Creator):
     def _create_base_image(cls,
                            text: str,
                            font: ImageFont,
-                           font_color: tuple[float, float, float],
+                           font_color: tuple[int, int, int],
                            background_color: str,
                            margins: tuple[int, int, int, int],
                            background_img: Image
@@ -77,29 +77,6 @@ class ImageCreator(Creator):
         return image
 
     @classmethod
-    def _blend_colors(cls, bg_color: str, text_color: str, font_opacity: float) -> tuple:
-        """
-        Blends the text color with the background color to simulate transparency.
-
-        Parameters:
-            bg_color (str): The background color in any valid PIL color format.
-            text_color (str): The text color in any valid PIL color format.
-            alpha (float): The transparency level (0.0 to 1.0).
-
-        Returns:
-            tuple: The blended color as an (R, G, B) tuple.
-        """
-        
-        bg_r, bg_g, bg_b = ImageColor.getrgb(bg_color)
-        text_r, text_g, text_b = ImageColor.getrgb(text_color)
-
-        r = int((1 - font_opacity) * bg_r + font_opacity * text_r)
-        g = int((1 - font_opacity) * bg_g + font_opacity * text_g)
-        b = int((1 - font_opacity) * bg_b + font_opacity * text_b)
-
-        return r, g, b
-
-    @classmethod
     def _apply_noise(cls, noises: list[Noise], image: Image) -> Image:
         """
         Applies text, and noise effects to the base image.
@@ -117,6 +94,29 @@ class ImageCreator(Creator):
         image = reduce(lambda img, noise: noise.add_noise(img), noises, image)
 
         return image
+    
+    @classmethod
+    def _blend_colors(cls, bg_color: str, text_color: str, font_opacity: float) -> tuple[float, float, float]:
+        """
+        Blends the text color with the background color to simulate transparency.
+
+        Parameters:
+            bg_color (str): The background color in any valid PIL color format.
+            text_color (str): The text color in any valid PIL color format.
+            alpha (float): The transparency level (0.0 to 1.0).
+
+        Returns:
+            tuple: The blended color as an (R, G, B) tuple.
+        """
+        
+        bg_r, bg_g, bg_b = ImageColor.getrgb(bg_color)
+        text_r, text_g, text_b = ImageColor.getrgb(text_color)
+
+        r = (1 - font_opacity) * bg_r + font_opacity * text_r
+        g = (1 - font_opacity) * bg_g + font_opacity * text_g
+        b = (1 - font_opacity) * bg_b + font_opacity * text_b
+
+        return r, g, b
 
     @classmethod
     def create_image(cls,
@@ -125,12 +125,12 @@ class ImageCreator(Creator):
                      noises: list[Noise] = [],
                      font_size: float = 40.0,
                      font_color: str = 'black',
+                     font_opacity: float = 1.0,
                      background_color: str = 'white',
                      margins: tuple[int, int, int, int] = (5, 5, 5, 5),
                      dpi: tuple[float, float] = (300.0, 300.0),
                      background_img: Image = None,
                      clear_font: bool = True,
-                     font_opacity: float = 1.0,
                      ) -> Image:
         """
         Creates an image with the specified text, applying optional noise, blur, and rotation effects.
@@ -146,6 +146,8 @@ class ImageCreator(Creator):
                 The size of the font. Defaults to 40.0.
             font_color (str, optional):
                 The color of the text. Defaults to 'black'.
+            font_opacity (float, optional):
+                The opacity of the text, where 1.0 is fully opaque and 0.0 is fully transparent. Defaults to 1.0.
             background_color (str, optional):
                 The background color of the image. Defaults to 'white'.
             margins (tuple[int, int, int, int], optional):
@@ -156,8 +158,6 @@ class ImageCreator(Creator):
                 An optional background image to be used as a base. Defaults to None.
             clear_font (bool, optional): 
                 Whether to clear the font cache after creating the image. Defaults to True.
-            font_opacity (float, optional):
-                The opacity of the text, where 1.0 is fully opaque and 0.0 is fully transparent. Defaults to 1.0.
 
         Returns:
             Image: 

@@ -26,6 +26,10 @@ Each batch generates multiple images based on a list of text strings, applying t
     
     A list of font colors, where each value corresponds to the font color used in a batch of images.
 
+- **font_opacities: `float`**
+
+    The opacity levels of the text for each batch, where `1.0` is fully opaque and `0.0` is fully transparent.
+
 - **background_colors : `list[str]`**
     
     A list of background colors, where each value represents the background color of a batch of images.

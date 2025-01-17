@@ -109,11 +109,13 @@ IFTG offers a wide variety of noise effects that you can apply to your images to
     <th>Pixel Dropout</th>
     <th>Rotation</th>
     <th>Shadow</th>
+    <th>Text Opacity</th>
   </tr>
   <tr>
     <td><img src="https://drive.google.com/uc?export=view&id=1-tK015rD9_qwkwagz6mq7_i9b-Ot3zAT" alt="Pixel Dropout" width="100%"></td>
     <td><img src="https://drive.google.com/uc?export=view&id=1P8x0rhe-y5PKbKwMwVEBLiSzI6kN7hSi" alt="Rotatoin" width="100%"></td>
     <td><img src="https://drive.google.com/uc?export=view&id=1I5vlwsYaG2eC4yGowuYMVOfWo1KbAFYM" alt="Shadow" width="100%"></td>
+    <td><img src="https://drive.google.com/uc?export=view&id=13uoc2zwUK_gC4X5JWAGJndOaqi0saP5c" alt="Text Opacity" width="100%"></td>
   </tr>
 </table>
 
@@ -211,8 +213,9 @@ To get started with IFTG, follow these simple steps:
                                       font_path='path/to/the/font', # The file path to the font.
                                       noises=[],    # A list of noise objects to apply to the image.
                                       font_size=50, # The size of the font.
-                                      font_color='black',   # The color of the text. It can be text or hexadecimal
-                                      background_color='white', # The background color of the image. It can be text or hexadecimal
+                                      font_color='black',   # The color of the text. It can be text or hexadecimal.
+                                      font_opacity=1.0,  # The opacity of the text where 1.0 is fully opaque and 0.0 is fully transparent.
+                                      background_color='white', # The background color of the image. It can be text or hexadecimal.
                                       margins=(5, 5, 5, 5), # Margins for text placement on the image (left, top, right, bottom). 
                                       dpi=(300, 300),   # The resolution of the image (dots per inch). 
                                       background_img=Image.open('path/to/background/image'),   # An optional background image to be used as a base.
@@ -240,11 +243,12 @@ To get started with IFTG, follow these simple steps:
                                       BrightnessNoise(),
                                       DilateNoise()
                                      ],    
-                              font_size= 40,    # The size of the font used in the images.
-                              font_color= 'black',  # The color of the text in the images.
-                              background_color= 'white',    # The background color of the images.
-                              margins= (5, 5, 5, 5),    # Margins for text placement on the images.
-                              dpi= (300, 300),  # The DPI (dots per inch) settings for the images.
+                              font_size=40,    # The size of the font used in the images.
+                              font_color='black',  # The color of the text in the images.
+                              font_opacity=1.0,  # The opacity of the text in the images.
+                              background_color='white',    # The background color of the images.
+                              margins=(5, 5, 5, 5),    # Margins for text placement on the images.
+                              dpi=(300, 300),  # The DPI (dots per inch) settings for the images.
                               img_name='img',   # The base name for the output image files.
                               img_format='.tif',    # The file format for the output images.
                               img_output_path='output', # The directory where the generated images will be saved.
@@ -287,10 +291,11 @@ To get started with IFTG, follow these simple steps:
                                      font_paths=["path/to/the/font"],   # A list of font file paths, where each font corresponds to a batch of images.
                                      noises=[   # A list of lists of noise objects, where each inner list contains noises to be applied to one batch of images.
                                             [ElasticNoise(), FlipNoise()],
-                                            [ErodeNoise(), FlipNoise]
+                                            [ErodeNoise(), FlipNoise()],
                                             ],
                                      font_sizes=[40],   # A list of font sizes, where each size corresponds to a batch of images.
                                      font_colors=['black'], # A list of font colors, where each color corresponds to a batch of images.
+                                     font_opacities=[1.0], # A list of font opacities, where each opacity corresponds to a batch of images.
                                      background_colors=['white'],   # A list of background colors, where each color corresponds to a batch of images.
                                      margins=[(5, 5, 5, 5)],    # A list of margin tuples (left, top, right, bottom) for text placement, where each margin corresponds to a batch of images.
                                      dpi=[(300, 300)],  # A list of DPI (dots per inch) settings, where each DPI value corresponds to a batch of images.

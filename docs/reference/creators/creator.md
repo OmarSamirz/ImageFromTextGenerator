@@ -14,12 +14,13 @@ The <a href='#creator-module' style="text-decoration: underline;">`Creator`</a> 
 ### **`_create_base_image()`**
 ```py
 _create_base_image(cls,
-                   text: str, 
-                   font: ImageFont, 
-                   background_color: str, 
-                   margins: tuple[int, int, int, int], 
+                   text: str,
+                   font: ImageFont,
+                   font_color: tuple[int, int, int],
+                   background_color: str,
+                   margins: tuple[int, int, int, int],
                    background_img: Image
-                  ) -> tuple[Image.Image, int]
+                   ) -> Image.Image:
 ```
 
 This method is responsible for creating the base image with the specified text and background. It is an abstract method that must be implemented by subclasses.
@@ -32,6 +33,10 @@ This method is responsible for creating the base image with the specified text a
     - **font : `ImageFont`**
 
         The font object used to render the text.
+
+    - **font_color : `tuple[int, int, int]`**
+        
+        The color of the text to be added.
 
     - **background_color : `str`**
 
@@ -47,7 +52,7 @@ This method is responsible for creating the base image with the specified text a
 
 - **Returns:**
 
-    A `tuple` containing the generated image and an integer representing the top margin adjustment.
+    The generated `Image`.
 
 ### **`get_text_dimensions()`**
 
@@ -55,7 +60,7 @@ This method is responsible for creating the base image with the specified text a
 get_text_dimensions(cls, 
                     text: str, 
                     font: ImageFont
-                   ) -> tuple[float, float, float, float]
+                    ) -> tuple[float, float, float, float]
 ```
 
 This method calculates the dimensions (bounding box) of the given text using the provided font.
@@ -95,7 +100,7 @@ This method calculates the dimensions (bounding box) of the given text using the
 get_image_dimensions(cls, 
                      margins: tuple[int, int, int, int],
                      text_dimensions: tuple[float, float, float, float]
-                    ) -> tuple[int, int]
+                     ) -> tuple[int, int]
 ```
 
 This method calculates the width and height of the image based on the text dimensions and the provided margins.
@@ -111,6 +116,7 @@ This method calculates the width and height of the image based on the text dimen
         The bounding box of the text (left, top, right, bottom) calculated using <a href='#get_text_dimensions' style="text-decoration: underline;">`get_text_dimensions()`</a>.
 
 - **Returns:**
+
     - A `tuple` containing the width and height of the image as integers:
         - image_width : `int`
 
@@ -123,44 +129,16 @@ This method calculates the width and height of the image based on the text dimen
 ### **`_apply_noise()`**
 
 ```py
-_apply_noise(cls,
-             text: str, 
-             top: int, 
-             font: ImageFont, 
-             noises: list[Noise], 
-             font_color: str, 
-             margins: tuple[int, int, int, int], 
-             image: Image
-            ) -> Image
+_apply_noise(cls, noises: list[Noise], image: Image) -> Image:
 ```
 
 This method applies noise to the image, altering the appearance of the text or background based on the noise objects.
 
 - **Parameters:**
 
-    - **text : `str`**
-        
-        The text to be added to the image.
-
-    - **top : `int`**
-
-        The top coordinate for placing the text.
-
-    - **font : `ImageFont`**
-        
-        The font object used to render the text.
-
     - **noises : `list[Noise]`**
         
         A list of Noise objects to apply to the image.
-
-    - **font_color : `str`**
-        
-        The color of the text to be added.
-
-    - **margins : `tuple[int, int, int, int]`**
-        
-        The margins around the text in the image.
 
     - **image : `Image`**
         
@@ -170,21 +148,51 @@ This method applies noise to the image, altering the appearance of the text or b
     
     The modified `Image` object after the noise has been applied.
 
+
+### **`_blend_colors()`**
+
+```py
+_blend_colors(cls, bg_color: str, text_color: str, font_opacity: float) -> tuple[float, float, float]:
+```
+
+The `_blend_colors` method is an abstract class method intended to blend a text color with a background color based on a specified opacity level. Subclasses must implement this method to compute the blended RGB values and return them as a tuple.
+
+- **Parameters:**
+
+    
+    - **bg_color : `str`**
+        
+        The background color specified in any valid `PIL` color format.
+    
+    - **text_color : `str`**
+        
+        The text color specified in any valid `PIL` color format.
+    
+    - **font_opacity : `float`**
+        
+        The opacity level of the text color to blend with the background color.
+
+- **Returns:**
+
+    `tuple`: A tuple representing the blended color in RGB format `(R, G, B)`
+
+
 ### **`create_image()`**
 
 ```py
-create_image(cls, 
+create_image(cls,
              text: str,
              font_path: str,
              noises: list[Noise],
              font_size: float,
              font_color: str,
+             font_opacity: float,
              background_color: str,
              margins: tuple[int, int, int, int],
              dpi: tuple[float, float],
-             background_img: Image, 
-             clear_font: bool
-            ) -> Image
+             background_img: Image,
+             clear_font: bool,
+             ) -> Image:
 ```
 
 This is the main method responsible for creating the final image with text, background, and optional noise.
@@ -212,6 +220,10 @@ This is the main method responsible for creating the final image with text, back
         
         The color of the font text.
     
+    - **font_opacity : `float`**
+
+        The opacity of the text, where 1.0 is fully opaque and 0.0 is fully transparent.
+
     - **background_color : `str`**
         
         The background color of the image.
@@ -231,6 +243,8 @@ This is the main method responsible for creating the final image with text, back
     - **clear_font : `bool`** 
         
         If `True`, the font will be rendered without noise. If `False`, the font will also have noise applied.
+    
+
 
 - **Returns:**
 
