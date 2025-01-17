@@ -5,21 +5,37 @@ from iftg.noises.noise import Noise
 
 
 class Creator(ABC):
+    """
+    An abstract base class that defines the interface for image creation classes.
+    This class provides the basic structure and required methods for creating images
+    with text and various effects.
+    """
 
     @classmethod
     @abstractmethod
     def _create_base_image(cls,
                            text: str,
                            font: ImageFont,
+                           font_color: tuple[float, float, float],
                            background_color: str,
                            margins: tuple[int, int, int, int],
                            background_img: Image
-                           ) -> tuple[Image.Image, int]:
+                           ) -> Image.Image:
         pass
 
     @classmethod
     @abstractmethod
     def get_text_dimensions(cls, text: str, font: ImageFont) -> tuple[float, float, float, float]:
+        """
+        Gets the dimensions of text when rendered with a specific font.
+
+        Parameters:
+            text (str): The text to measure.
+            font (ImageFont): The font to use for measurement.
+
+        Returns:
+            tuple[float, float, float, float]: The text dimensions as (left, top, right, bottom).
+        """
         left, top, right, bottom = font.getbbox(text)
 
         return left, top, right, bottom
@@ -30,7 +46,16 @@ class Creator(ABC):
                              margins: tuple[int, int, int, int],
                              text_dimensions: tuple[float, float, float, float],
                              ) -> tuple[int, int]:
+        """
+        Calculates the dimensions of the image based on the text dimensions and margins.
 
+        Parameters:
+            margins (tuple[int, int, int, int]): Margins for the image (left, top, right, bottom).
+            text_dimensions (tuple[float, float, float, float]): The dimensions of the text.
+
+        Returns:
+            tuple[int, int]: The image dimensions as (width, height).
+        """
         _, top, right, bottom = text_dimensions
         left_margin, top_margin, right_margin, bottom_margin = margins
 
@@ -41,15 +66,12 @@ class Creator(ABC):
 
     @classmethod
     @abstractmethod
-    def _apply_noise(cls,
-                     text: str,
-                     top: int,
-                     font: ImageFont,
-                     noises: list[Noise],
-                     font_color: str,
-                     margins: tuple[int, int, int, int],
-                     image: Image,
-                     ) -> Image:
+    def _apply_noise(cls, noises: list[Noise], image: Image) -> Image:
+        pass
+    
+    @classmethod
+    @abstractmethod
+    def _blend_colors(cls, bg_color: str, text_color: str, font_opacity: float) -> tuple:
         pass
 
     @classmethod
@@ -64,6 +86,7 @@ class Creator(ABC):
                      margins: tuple[int, int, int, int],
                      dpi: tuple[float, float],
                      background_img: Image,
-                     clear_font: bool
+                     clear_font: bool,
+                     font_opacity: float,
                      ) -> Image:
         pass

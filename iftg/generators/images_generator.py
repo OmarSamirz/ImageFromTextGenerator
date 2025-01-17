@@ -24,6 +24,8 @@ class ImagesGenerator(Generator):
             The size of the font used in the images.
         font_color (str):
             The color of the text in the images.
+        font_opacity (float):
+            The opacity level of the text, where 1.0 is fully opaque and 0.0 is fully transparent.
         background_color (str):
             The background color of the images.
         margins (tuple[int, int, int, int]):
@@ -54,6 +56,7 @@ class ImagesGenerator(Generator):
                  noises: list[Noise] = [],
                  font_size: float = 40.0,
                  font_color: str = 'black',
+                 font_opacity: float = 1.0,
                  background_color: str = 'white',
                  margins: tuple[int, int, int, int] = (5, 5, 5, 5),
                  dpi: tuple[float, float] = (300.0, 300.0),
@@ -81,6 +84,7 @@ class ImagesGenerator(Generator):
                          noises,
                          font_size,
                          font_color,
+                         font_opacity,
                          background_color,
                          margins,
                          dpi,
@@ -119,6 +123,7 @@ class ImagesGenerator(Generator):
                                               self.dpi,
                                               self.background_img,
                                               False,
+                                              self.font_opacity,
                                               ), self.texts[self._count], self._count)
 
         self._count += 1
@@ -126,7 +131,17 @@ class ImagesGenerator(Generator):
 
     def _save_image(self, img: Image, i: int) -> None:
         """
-        Saves the image to output path.
+        Saves the image to the output path with appropriate naming.
+
+        Parameters:
+            img (Image): 
+                The PIL Image object to be saved.
+            i (int): 
+                The index to be appended to the image name.
+
+        Note:
+            The image is saved with the format specified in `img_format` and preserves
+            any metadata stored in the image's info dictionary (like DPI settings).
         """
         img_path = os.path.join(self.img_output_path,
                                 self.img_name + f'_{i}' + self.img_format)

@@ -22,6 +22,9 @@ class BatchesImagesGenerator(Generator):
             A list of font sizes, where each size corresponds to a batch of images.
         font_colors (list[str]): 
             A list of font colors, where each color corresponds to a batch of images.
+        font_opacities (list[float]):
+            A list of opacity levels for text, where each opacity corresponds to a batch of images.
+            Values range from 0.0 (fully transparent) to 1.0 (fully opaque).
         background_colors (list[str]): 
             A list of background colors, where each color corresponds to a batch of images.
         margins (list[tuple[int, int, int, int]]): 
@@ -41,7 +44,7 @@ class BatchesImagesGenerator(Generator):
         txt_output_paths (list[str]): 
             A list of directories where the generated text files will be saved, where each directory corresponds to a batch of images.
         background_image_paths (list[str]):
-            A list of file paths to the background image, if any.
+            A list of file paths to the background images, where each path corresponds to a batch of images.
     """
 
     def __init__(self,
@@ -50,6 +53,7 @@ class BatchesImagesGenerator(Generator):
                  noises: list[list[Noise]] = [],
                  font_sizes: list[float] = [40.0],
                  font_colors: list[str] = ['black'],
+                 font_opacities: list[float] = [1.0],
                  background_colors: list[str] = ['white'],
                  margins: list[tuple[int, int, int, int]] = [(5, 5, 5, 5)],
                  dpi: list[tuple[float, float]] = [(300, 300)],
@@ -63,14 +67,25 @@ class BatchesImagesGenerator(Generator):
                  ):
 
         def extend_list(lst, default_value):
+            """
+            Helper function to extend a list to a target length using a default value.
+            Used to ensure all parameter lists have the same length by extending shorter lists
+            with their last value or a default value.
+
+            Parameters:
+                lst: The list to extend
+                default_value: The value to use for extending the list
+
+            Returns:
+                list: The extended list with length equal to max_len
+            """
             return lst + [default_value] * (max_len - len(lst))
 
         # Check if all input lists have the same length
         list_lengths = [len(texts), len(noises), len(font_paths), len(font_sizes),
-                        len(font_colors), len(background_colors), len(margins),
+                        len(font_colors), len(font_opacities), len(background_colors), len(margins),
                         len(dpi), len(img_names), len(img_formats),
-                        len(img_output_paths), len(
-                            txt_names), len(txt_formats),
+                        len(img_output_paths), len(txt_names), len(txt_formats),
                         len(txt_output_paths), len(background_image_paths)]
         if len(set(list_lengths)) != 1:
             max_len = max(list_lengths)
@@ -79,6 +94,7 @@ class BatchesImagesGenerator(Generator):
             font_paths = extend_list(font_paths, font_paths[-1])
             font_sizes = extend_list(font_sizes, font_sizes[-1])
             font_colors = extend_list(font_colors, font_colors[-1])
+            font_opacities = extend_list(font_opacities, font_opacities[-1])
             background_colors = extend_list(
                 background_colors, background_colors[-1])
             margins = extend_list(margins, margins[-1])
@@ -98,6 +114,7 @@ class BatchesImagesGenerator(Generator):
                          noises,
                          font_sizes,
                          font_colors,
+                         font_opacities,
                          background_colors,
                          margins,
                          dpi,
@@ -131,6 +148,7 @@ class BatchesImagesGenerator(Generator):
                                     self.noises[self._count],
                                     self.font_size[self._count],
                                     self.font_color[self._count],
+                                    self.font_opacity[self._count],
                                     self.background_color[self._count],
                                     self.margins[self._count],
                                     self.dpi[self._count],

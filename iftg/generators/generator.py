@@ -1,4 +1,3 @@
-
 from PIL import Image
 
 from abc import ABC, abstractmethod
@@ -23,6 +22,8 @@ class Generator(ABC):
             The size(s) of the font(s) used in the images.
         font_color (str | list[str]): 
             The color(s) of the text in the images.
+        font_opacity (float | list[float]):
+            The opacity level(s) of the text, where 1.0 is fully opaque and 0.0 is fully transparent.
         background_color (str | list[str]): 
             The background color(s) of the images.
         margins (tuple[int, int, int, int] | list[tuple[int, int, int, int]]): 
@@ -51,6 +52,7 @@ class Generator(ABC):
                  noises: list[Noise] | list[list[Noise]],
                  font_size: float | list[float],
                  font_color: str | list[str],
+                 font_opacity: float | list[float],
                  background_color: str | list[str],
                  margins: tuple[int, int, int, int] | list[tuple[int, int, int, int]],
                  dpi: tuple[float, float] | list[tuple[float, float]],
@@ -67,6 +69,7 @@ class Generator(ABC):
         self.noises = noises
         self.font_size = font_size
         self.font_color = font_color
+        self.font_opacity = font_opacity
         self.background_color = background_color
         self.margins = margins
         self.dpi = dpi
@@ -111,4 +114,19 @@ class Generator(ABC):
 
     @abstractmethod
     def _generate_next(self):
+        """
+        Abstract method that defines how the next image in the sequence is generated.
+        This method must be implemented by subclasses.
+
+        Returns:
+            ImagesGenerator | tuple[Image.Image, str, int]:
+                - If returning an image directly, a tuple containing:
+                    - The generated image
+                    - A label or text associated with the image
+                    - An index or identifier for the image
+                - Alternatively, an instance of ImagesGenerator for batch processing
+
+        Raises:
+            StopIteration: When there are no more images to generate
+        """
         pass

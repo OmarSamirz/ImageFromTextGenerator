@@ -1,5 +1,5 @@
 import numpy as np
-from PIL import Image, ImageFont, ImageDraw
+from PIL import Image, ImageFont, ImageDraw, ImageColor
 
 from functools import reduce
 
@@ -9,7 +9,7 @@ from iftg.image_font_manager import ImageFontManager
 
 
 class ImageCreator(Creator):
-    """ 
+    """
     A class that extends the `Creator` base class to generate images with customizable text, noise, 
     blur, rotation, and other visual effects. This class is particularly useful for creating images 
     with text and applying various transformations for data creation and augmentation.
@@ -19,10 +19,11 @@ class ImageCreator(Creator):
     def _create_base_image(cls,
                            text: str,
                            font: ImageFont,
+                           font_color: tuple[float, float, float],
                            background_color: str,
                            margins: tuple[int, int, int, int],
                            background_img: Image
-                           ) -> tuple[Image.Image, int]:
+                           ) -> Image.Image:
         """
         Creates a base image with the specified background color and dimensions, 
         and optionally adds a background image.
@@ -32,6 +33,8 @@ class ImageCreator(Creator):
                 The text to be added to the image.
             font (ImageFont):
                 The font used for the text.
+            font_color (tuple[float, float, float]):
+                The color (RGB) of the text.
             background_color (str):
                 The background color of the image.
             margins (tuple[int, int, int, int]):
@@ -43,7 +46,7 @@ class ImageCreator(Creator):
             tuple[Image.Image, int]:
                 A tuple containing the generated image and the top margin adjustment.
         """
-
+        
         text_dimensions = cls.get_text_dimensions(text, font)
         image_width, image_height = cls.get_image_dimensions(
             margins, text_dimensions)
@@ -65,47 +68,51 @@ class ImageCreator(Creator):
             random_bg_part = background_img.crop((x1, y1, x2, y2))
 
             image.paste(random_bg_part)
+            
+        # Draw the text on the image
+        draw = ImageDraw.Draw(image)
+        draw.text((margins[0], -text_dimensions[1]+margins[1]),
+                  text, font=font, fill=font_color)
 
-        return image, text_dimensions[1]
+        return image
 
     @classmethod
-    def _apply_noise(cls,
-                     text: str,
-                     top: int,
-                     font: ImageFont,
-                     noises: list[Noise],
-                     font_color: str,
-                     margins: tuple[int, int, int, int],
-                     image: Image,
-                     ) -> Image:
+    def _blend_colors(cls, bg_color: str, text_color: str, font_opacity: float) -> tuple:
+        """
+        Blends the text color with the background color to simulate transparency.
+
+        Parameters:
+            bg_color (str): The background color in any valid PIL color format.
+            text_color (str): The text color in any valid PIL color format.
+            alpha (float): The transparency level (0.0 to 1.0).
+
+        Returns:
+            tuple: The blended color as an (R, G, B) tuple.
+        """
+        
+        bg_r, bg_g, bg_b = ImageColor.getrgb(bg_color)
+        text_r, text_g, text_b = ImageColor.getrgb(text_color)
+
+        r = int((1 - font_opacity) * bg_r + font_opacity * text_r)
+        g = int((1 - font_opacity) * bg_g + font_opacity * text_g)
+        b = int((1 - font_opacity) * bg_b + font_opacity * text_b)
+
+        return r, g, b
+
+    @classmethod
+    def _apply_noise(cls, noises: list[Noise], image: Image) -> Image:
         """
         Applies text, and noise effects to the base image.
 
         Parameters:
-            text (str):
-                The text to be drawn on the image.
-            top (int):
-                The top margin adjustment for the text placement.
-            font (ImageFont):
-                The font used for the text.
             noises (list[Noise]):
                 A list of noise objects to apply to the image.
-            font_color (str):
-                The color of the text.
-            margins (tuple[int, int, int, int]):
-                Margins for text placement on the image (left, top, right, bottom).
             image (Image):
                 The base image to which effects will be applied.
 
         Returns:
             Image: The image with the applied text, noise, blur, and rotation effects.
-        """
-
-        # Draw the text on the image
-        draw = ImageDraw.Draw(image)
-        draw.text((margins[0], -top+margins[1]),
-                  text, font=font, fill=font_color)
-
+        """         
         # Loop through all given noises and add them to the image
         image = reduce(lambda img, noise: noise.add_noise(img), noises, image)
 
@@ -122,7 +129,8 @@ class ImageCreator(Creator):
                      margins: tuple[int, int, int, int] = (5, 5, 5, 5),
                      dpi: tuple[float, float] = (300.0, 300.0),
                      background_img: Image = None,
-                     clear_font: bool = True
+                     clear_font: bool = True,
+                     font_opacity: float = 1.0,
                      ) -> Image:
         """
         Creates an image with the specified text, applying optional noise, blur, and rotation effects.
@@ -148,22 +156,23 @@ class ImageCreator(Creator):
                 An optional background image to be used as a base. Defaults to None.
             clear_font (bool, optional): 
                 Whether to clear the font cache after creating the image. Defaults to True.
+            font_opacity (float, optional):
+                The opacity of the text, where 1.0 is fully opaque and 0.0 is fully transparent. Defaults to 1.0.
 
         Returns:
             Image: 
                 The generated image with the applied text and effects.
         """
-
         font = ImageFontManager.get_font(font_path, font_size)
+        
+        r, g, b = cls._blend_colors(background_color, font_color, font_opacity)
+        image = cls._create_base_image(
+            text, font, (r, g, b), background_color, margins, background_img)
 
-        image, top = cls._create_base_image(
-            text, font, background_color, margins, background_img)
-
-        image = cls._apply_noise(
-            text, top, font, noises, font_color, margins, image)
+        image = cls._apply_noise(noises, image)
         image.info['dpi'] = dpi
 
-        if clear_font:
+        if clear_font == True:
             ImageFontManager.clear()
 
         return image
