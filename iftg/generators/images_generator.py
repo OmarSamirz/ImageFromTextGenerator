@@ -118,12 +118,12 @@ class ImagesGenerator(Generator):
                                               self.noises,
                                               self.font_size,
                                               self.font_color,
+                                              self.font_opacity,
                                               self.background_color,
                                               self.margins,
                                               self.dpi,
                                               self.background_img,
                                               False,
-                                              self.font_opacity,
                                               ), self.texts[self._count], self._count)
 
         self._count += 1

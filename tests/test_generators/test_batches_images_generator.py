@@ -4,7 +4,6 @@ from PIL import Image
 import os
 
 from iftg.noises import BlurNoise
-from iftg.image_font_manager import ImageFontManager
 from iftg.generators import BatchesImagesGenerator, ImagesGenerator
 
 
@@ -31,6 +30,7 @@ def valid_batch_params(valid_texts, valid_noises, valid_font_paths):
         "noises": valid_noises,
         "font_sizes": [40.0, 45.0],
         "font_colors": ["black", "blue"],
+        "font_opacities": [1.0, 0.3],
         "background_colors": ["white", "gray"],
         "margins": [(5, 5, 5, 5), (10, 10, 10, 10)],
         "dpi": [(300, 300), (72, 72)],

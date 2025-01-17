@@ -37,6 +37,7 @@ def main1():
     ],
         font_path='fonts/Arial.ttf', img_output_path='./output',
         txt_output_path='./output',
+        font_opacity=0.1,
     )
 
     # results.generate_images()
@@ -63,14 +64,14 @@ def main2():
 
 
 def main3():
-    texts_lst = [["Text1", "Text2"], ["Text3", "Text4"], ['Text5', 'Text6']]
+    texts_lst = [["Text1", "Text2"], ["Text3", "Text4"]]
     inputs = {
         "texts": texts_lst,
-        "font_paths": ["tests/Arial.ttf", "tests/Arial.ttf"],
+        "font_paths": ["./tests/Arial.ttf", "./tests/Arial.ttf"],
         "noises": [[BlurNoise()], [BlurNoise()]],
         "font_sizes": [40.0, 45.0],
         "font_colors": ["black", "blue"],
-        "font_opacities": [1, 0.3, 0],
+        "font_opacities": [1, 0.3],
         "background_colors": ["white", "gray"],
         "margins": [(5, 5, 5, 5), (10, 10, 10, 10)],
         "dpi": [(300, 300), (72, 72)],
@@ -104,5 +105,5 @@ def main5():
 
 
 if __name__ == '__main__':
-    main0()
+    main1()
 

@@ -96,7 +96,7 @@ class ImageCreator(Creator):
         return image
     
     @classmethod
-    def _blend_colors(cls, bg_color: str, text_color: str, font_opacity: float) -> tuple[float, float, float]:
+    def _blend_colors(cls, bg_color: str, text_color: str, font_opacity: float) -> tuple[int, int, int]:
         """
         Blends the text color with the background color to simulate transparency.
 
@@ -112,9 +112,9 @@ class ImageCreator(Creator):
         bg_r, bg_g, bg_b = ImageColor.getrgb(bg_color)
         text_r, text_g, text_b = ImageColor.getrgb(text_color)
 
-        r = (1 - font_opacity) * bg_r + font_opacity * text_r
-        g = (1 - font_opacity) * bg_g + font_opacity * text_g
-        b = (1 - font_opacity) * bg_b + font_opacity * text_b
+        r = int((1 - font_opacity) * bg_r + font_opacity * text_r)
+        g = int((1 - font_opacity) * bg_g + font_opacity * text_g)
+        b = int((1 - font_opacity) * bg_b + font_opacity * text_b)
 
         return r, g, b
 

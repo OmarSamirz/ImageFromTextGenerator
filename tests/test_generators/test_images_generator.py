@@ -12,19 +12,19 @@ from iftg.image_font_manager import ImageFontManager
 # Fixture to simulate valid input parameters
 @pytest.fixture
 def valid_texts():
-
     return ["Hello", "World"]
-
 
 @pytest.fixture
 def valid_font_path():
     return "tests/Arial.ttf"
 
-
 @pytest.fixture
 def valid_output_path(tmpdir):
     return str(tmpdir)
 
+@pytest.fixture
+def valid_font_opacity():
+    return 1.0
 
 @pytest.fixture
 def valid_background_image_path():
@@ -42,11 +42,12 @@ def mock_noise():
 
 
 # Test the constructor when valid paths are provided
-def test_images_generator_init(valid_texts, valid_font_path, valid_output_path):
+def test_images_generator_init(valid_texts, valid_font_path, valid_font_opacity, valid_output_path):
     with patch("os.path.exists", return_value=True):
         generator = ImagesGenerator(
             texts=valid_texts,
             font_path=valid_font_path,
+            font_opacity=valid_font_opacity,
             img_output_path=valid_output_path
         )
         assert generator.texts == valid_texts
@@ -91,11 +92,12 @@ def test_generate_next(valid_texts, valid_font_path, mock_noise, valid_output_pa
 
 
 # Test that StopIteration is raised after all images are generated
-def test_generate_next_stop_iteration(valid_texts, valid_font_path, valid_output_path):
+def test_generate_next_stop_iteration(valid_texts, valid_font_path, valid_font_opacity, valid_output_path):
     with patch("os.path.exists", return_value=True):
         generator = ImagesGenerator(
             texts=valid_texts,
             font_path=valid_font_path,
+            font_opacity=valid_font_opacity,
             img_output_path=valid_output_path
         )
 
