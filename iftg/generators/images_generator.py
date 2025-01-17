@@ -47,9 +47,8 @@ class ImagesGenerator(Generator):
         auto_remove_font (bool):
             A flag indicating whether to automatically remove the font from the cache after image generation.
     """
-    
-    
-    def __init__(self, 
+
+    def __init__(self,
                  texts: list[str],
                  font_path: str,
                  noises: list[Noise] = [],
@@ -66,23 +65,20 @@ class ImagesGenerator(Generator):
                  txt_output_path: str = 'output',
                  background_image_path: str = '',
                  auto_remove_font: bool = True,
-                ):
-        
-        self.auto_remove_font = auto_remove_font
-        self.background_img = None
+                 ):
 
+        self.background_img = None
+        self.auto_remove_font = auto_remove_font
         if os.path.exists(font_path) == False:
             raise FileNotFoundError("The font does not exist.")
-
         if background_image_path != '':
             try:
                 self.background_img = Image.open(background_image_path)
             except:
                 raise FileNotFoundError("The background image does not exist")
-
-        super().__init__(texts, 
+        super().__init__(texts,
                          font_path,
-                         noises, 
+                         noises,
                          font_size,
                          font_color,
                          background_color,
@@ -95,16 +91,15 @@ class ImagesGenerator(Generator):
                          txt_format,
                          txt_output_path,
                          background_image_path
-                        )
+                         )
 
-    
     def _generate_next(self) -> tuple[Image.Image, str, int]:
         """
         Generates the next image in the sequence.
 
         Returns:
             tuple: A tuple containing the generated image and the text used for the image.
-        
+
         Raises:
             StopIteration: When all images have been generated and the font cache is cleared.
         """
@@ -115,41 +110,40 @@ class ImagesGenerator(Generator):
             raise StopIteration
 
         img_info = (ImageCreator.create_image(self.texts[self._count],
-                                             self.font_path,
-                                             self.noises,
-                                             self.font_size,
-                                             self.font_color,
-                                             self.background_color,
-                                             self.margins,
-                                             self.dpi,
-                                             self.background_img,
-                                             False,
-                                            ), self.texts[self._count], self._count)
-        
+                                              self.font_path,
+                                              self.noises,
+                                              self.font_size,
+                                              self.font_color,
+                                              self.background_color,
+                                              self.margins,
+                                              self.dpi,
+                                              self.background_img,
+                                              False,
+                                              ), self.texts[self._count], self._count)
+
         self._count += 1
         return img_info
-
 
     def _save_image(self, img: Image, i: int) -> None:
         """
         Saves the image to output path.
         """
-        img_path = os.path.join(self.img_output_path, self.img_name + f'_{i}' + self.img_format)
+        img_path = os.path.join(self.img_output_path,
+                                self.img_name + f'_{i}' + self.img_format)
         img.save(img_path, **img.info)
 
-
     def _save_image_and_text(self, img_info: tuple[Image.Image, str, int]) -> None:
-            """
-            Saves the image and the corresponding text to their respective output paths.
-            """
-            img, lbl, i = img_info
-            
-            self._save_image(img, i)
+        """
+        Saves the image and the corresponding text to their respective output paths.
+        """
+        img, lbl, i = img_info
 
-            text_path = os.path.join(self.txt_output_path, self.txt_name + f'_{i}' + self.txt_format)
-            with open(text_path, 'w') as text_file:
-                text_file.write(lbl)
+        self._save_image(img, i)
 
+        text_path = os.path.join(self.txt_output_path,
+                                 self.txt_name + f'_{i}' + self.txt_format)
+        with open(text_path, 'w') as text_file:
+            text_file.write(lbl)
 
     def generate_images(self) -> None:
         """
@@ -164,7 +158,6 @@ class ImagesGenerator(Generator):
         for img, _, i in self:
             self._save_image(img, i)
 
-    
     def generate_images_with_text(self) -> None:
         """
         Generates images and saves both the images and their corresponding texts to the specified directories.
@@ -179,4 +172,3 @@ class ImagesGenerator(Generator):
 
         for img_info in self:
             self._save_image_and_text(img_info)
-        

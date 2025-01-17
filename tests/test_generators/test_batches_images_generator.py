@@ -12,13 +12,16 @@ from iftg.generators import BatchesImagesGenerator, ImagesGenerator
 def valid_texts():
     return [["Text1", "Text2"], ["Text3", "Text4"]]
 
+
 @pytest.fixture
 def valid_noises():
     return [[BlurNoise()], [BlurNoise()]]
 
+
 @pytest.fixture
 def valid_font_paths():
     return [os.path.join("tests", "Arial.ttf"), os.path.join("tests", "Arial.ttf")]
+
 
 @pytest.fixture
 def valid_batch_params(valid_texts, valid_noises, valid_font_paths):
@@ -40,6 +43,7 @@ def valid_batch_params(valid_texts, valid_noises, valid_font_paths):
         "background_image_paths": ["", ""],
     }
 
+
 @pytest.fixture
 def batch_generator(valid_batch_params):
     return BatchesImagesGenerator(**valid_batch_params)
@@ -47,8 +51,10 @@ def batch_generator(valid_batch_params):
 
 @pytest.mark.parametrize("with_label", [True, False])
 def test_generate_batches(batch_generator, with_label, mocker):
-    mock_generate_images = mocker.patch.object(ImagesGenerator, 'generate_images')
-    mock_generate_images_with_text = mocker.patch.object(ImagesGenerator, 'generate_images_with_text')
+    mock_generate_images = mocker.patch.object(
+        ImagesGenerator, 'generate_images')
+    mock_generate_images_with_text = mocker.patch.object(
+        ImagesGenerator, 'generate_images_with_text')
 
     batch_generator.generate_batches(is_with_label=with_label)
 
@@ -65,7 +71,7 @@ def test_stop_iteration(batch_generator):
     # Generate all batches
     for _ in batch_generator:
         pass
-    
+
     # Ensure StopIteration is raised on the next call
     with pytest.raises(StopIteration):
         next(batch_generator)
@@ -78,9 +84,11 @@ def test_mismatched_lengths():
     texts = [["Text1", "Text2"]]
     font_paths = [os.path.join("tests", "Arial.ttf")]
     noises = [[BlurNoise()]]
-    batch_gen = BatchesImagesGenerator(texts=texts, font_paths=font_paths, noises=noises)
+    batch_gen = BatchesImagesGenerator(
+        texts=texts, font_paths=font_paths, noises=noises)
 
-    assert len(batch_gen.texts) == len(batch_gen.font_path) == len(batch_gen.noises) == 1
+    assert len(batch_gen.texts) == len(
+        batch_gen.font_path) == len(batch_gen.noises) == 1
 
 
 def test_missing_font_raises_error():
@@ -90,7 +98,8 @@ def test_missing_font_raises_error():
     texts = [["Text1", "Text2"]]
     font_paths = ["invalid_font_path.ttf"]
     with pytest.raises(FileNotFoundError):
-        batch_generator = BatchesImagesGenerator(texts=texts, font_paths=font_paths)
+        batch_generator = BatchesImagesGenerator(
+            texts=texts, font_paths=font_paths)
         batch_generator.generate_batches()
 
 

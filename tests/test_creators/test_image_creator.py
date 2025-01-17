@@ -33,13 +33,15 @@ def noise_list():
 @pytest.mark.parametrize(
     "text, margins, bg_color, expected_size",
     [
-        ("Sample Text", (5, 5, 5, 5), "white", (500, 500)),  # Example with some dimensions
+        # Example with some dimensions
+        ("Sample Text", (5, 5, 5, 5), "white", (500, 500)),
         ("Another Text", (10, 10, 10, 10), "black", (500, 500)),  # Another example
     ]
 )
 def test_create_base_image(mock_font, mock_image, text, margins, bg_color, expected_size):
     with patch('PIL.Image.new', return_value=mock_image):
-        image, top = ImageCreator._create_base_image(text, mock_font, bg_color, margins, None)
+        image, top = ImageCreator._create_base_image(
+            text, mock_font, bg_color, margins, None)
 
         assert image == mock_image
         assert image.size == expected_size  # Mocked size

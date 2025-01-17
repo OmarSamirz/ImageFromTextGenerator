@@ -14,15 +14,15 @@ class ImageCreator(Creator):
     blur, rotation, and other visual effects. This class is particularly useful for creating images 
     with text and applying various transformations for data creation and augmentation.
     """
-    
+
     @classmethod
-    def _create_base_image(cls, 
-                           text: str,                            
-                           font: ImageFont, 
+    def _create_base_image(cls,
+                           text: str,
+                           font: ImageFont,
                            background_color: str,
                            margins: tuple[int, int, int, int],
                            background_img: Image
-                          ) -> tuple[Image.Image, int]:
+                           ) -> tuple[Image.Image, int]:
         """
         Creates a base image with the specified background color and dimensions, 
         and optionally adds a background image.
@@ -45,13 +45,14 @@ class ImageCreator(Creator):
         """
 
         text_dimensions = cls.get_text_dimensions(text, font)
-        image_width, image_height = cls.get_image_dimensions(margins, text_dimensions)
+        image_width, image_height = cls.get_image_dimensions(
+            margins, text_dimensions)
 
-        image = Image.new('RGB', 
+        image = Image.new('RGB',
                           (image_width, image_height+text_dimensions[1]),
                           color=background_color
-                         )
-        
+                          )
+
         # add a background image to the text
         if background_img != None:
             bg_width, bg_height = background_img.size
@@ -64,10 +65,9 @@ class ImageCreator(Creator):
             random_bg_part = background_img.crop((x1, y1, x2, y2))
 
             image.paste(random_bg_part)
-        
+
         return image, text_dimensions[1]
 
-    
     @classmethod
     def _apply_noise(cls,
                      text: str,
@@ -77,8 +77,7 @@ class ImageCreator(Creator):
                      font_color: str,
                      margins: tuple[int, int, int, int],
                      image: Image,
-                    ) -> Image:
-        
+                     ) -> Image:
         """
         Applies text, and noise effects to the base image.
 
@@ -104,14 +103,14 @@ class ImageCreator(Creator):
 
         # Draw the text on the image
         draw = ImageDraw.Draw(image)
-        draw.text((margins[0], -top+margins[1]), text, font=font, fill=font_color)
-        
+        draw.text((margins[0], -top+margins[1]),
+                  text, font=font, fill=font_color)
+
         # Loop through all given noises and add them to the image
         image = reduce(lambda img, noise: noise.add_noise(img), noises, image)
-            
+
         return image
 
-    
     @classmethod
     def create_image(cls,
                      text: str,
@@ -124,7 +123,7 @@ class ImageCreator(Creator):
                      dpi: tuple[float, float] = (300.0, 300.0),
                      background_img: Image = None,
                      clear_font: bool = True
-                    ) -> Image:
+                     ) -> Image:
         """
         Creates an image with the specified text, applying optional noise, blur, and rotation effects.
 
@@ -154,14 +153,16 @@ class ImageCreator(Creator):
             Image: 
                 The generated image with the applied text and effects.
         """
-        
+
         font = ImageFontManager.get_font(font_path, font_size)
 
-        image, top = cls._create_base_image(text, font, background_color, margins, background_img)
+        image, top = cls._create_base_image(
+            text, font, background_color, margins, background_img)
 
-        image = cls._apply_noise(text, top, font, noises, font_color, margins, image)
+        image = cls._apply_noise(
+            text, top, font, noises, font_color, margins, image)
         image.info['dpi'] = dpi
-        
+
         if clear_font:
             ImageFontManager.clear()
 

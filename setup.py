@@ -24,14 +24,14 @@ setuptools.setup(
     ],
     project_urls={
         "Source": 'https://github.com/OmarSamirz/ImageFromTextGenerator/tree/main'
-        
+
     },
     python_requires='>=3.10,<3.13',
     install_requires=['numpy==2.1.1',
                       'opencv-python==4.10.0.84',
                       'pillow==10.4.0',
                       'scipy==1.14.1',
-                     ],
+                      ],
     packages=setuptools.find_packages(),
     include_package_data=True,
 )

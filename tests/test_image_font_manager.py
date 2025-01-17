@@ -22,7 +22,7 @@ def clear_cache():
     ImageFontManager.clear()
 
 
-### TEST CASES
+# TEST CASES
 
 
 # Test that `get_font` loads a new font when not cached

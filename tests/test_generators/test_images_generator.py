@@ -15,6 +15,7 @@ def valid_texts():
 
     return ["Hello", "World"]
 
+
 @pytest.fixture
 def valid_font_path():
     return "tests/Arial.ttf"
@@ -37,15 +38,15 @@ def mock_noise():
     return noise
 
 
-### TEST CASES
+# TEST CASES
 
 
 # Test the constructor when valid paths are provided
 def test_images_generator_init(valid_texts, valid_font_path, valid_output_path):
     with patch("os.path.exists", return_value=True):
         generator = ImagesGenerator(
-            texts=valid_texts, 
-            font_path=valid_font_path, 
+            texts=valid_texts,
+            font_path=valid_font_path,
             img_output_path=valid_output_path
         )
         assert generator.texts == valid_texts
@@ -57,8 +58,8 @@ def test_images_generator_init(valid_texts, valid_font_path, valid_output_path):
 def test_images_generator_invalid_font_path(valid_texts, valid_output_path):
     with pytest.raises(FileNotFoundError):
         ImagesGenerator(
-            texts=valid_texts, 
-            font_path="invalid_font.ttf", 
+            texts=valid_texts,
+            font_path="invalid_font.ttf",
             img_output_path=valid_output_path
         )
 
@@ -68,9 +69,9 @@ def test_images_generator_invalid_background_image(valid_texts, valid_font_path,
     with patch("os.path.exists", side_effect=[True, False]):
         with pytest.raises(FileNotFoundError):
             ImagesGenerator(
-                texts=valid_texts, 
-                font_path=valid_font_path, 
-                img_output_path=valid_output_path, 
+                texts=valid_texts,
+                font_path=valid_font_path,
+                img_output_path=valid_output_path,
                 background_image_path="invalid_image.jpg"
             )
 
@@ -79,12 +80,12 @@ def test_images_generator_invalid_background_image(valid_texts, valid_font_path,
 def test_generate_next(valid_texts, valid_font_path, mock_noise, valid_output_path):
     with patch("os.path.exists", return_value=True):
         generator = ImagesGenerator(
-            texts=valid_texts, 
-            font_path=valid_font_path, 
-            noises=[mock_noise], 
+            texts=valid_texts,
+            font_path=valid_font_path,
+            noises=[mock_noise],
             img_output_path=valid_output_path
         )
-        
+
         generator._generate_next()
         assert len(ImageFontManager.fonts()) == 1
 
@@ -93,24 +94,25 @@ def test_generate_next(valid_texts, valid_font_path, mock_noise, valid_output_pa
 def test_generate_next_stop_iteration(valid_texts, valid_font_path, valid_output_path):
     with patch("os.path.exists", return_value=True):
         generator = ImagesGenerator(
-            texts=valid_texts, 
-            font_path=valid_font_path, 
+            texts=valid_texts,
+            font_path=valid_font_path,
             img_output_path=valid_output_path
         )
 
-        generator._count = len(valid_texts) + 1 # Set the counter beyond the texts length
+        # Set the counter beyond the texts length
+        generator._count = len(valid_texts) + 1
 
         with pytest.raises(StopIteration):
-                generator._generate_next()
-                ImageFontManager.clear()
+            generator._generate_next()
+            ImageFontManager.clear()
 
 
 # Test save_image saves the image to the correct path
 def test_save_image(valid_texts, valid_font_path, valid_output_path):
     with patch("os.path.exists", return_value=True):
         generator = ImagesGenerator(
-            texts=valid_texts, 
-            font_path=valid_font_path, 
+            texts=valid_texts,
+            font_path=valid_font_path,
             img_output_path=valid_output_path
         )
         img = Image.new('RGB', (100, 100))
@@ -124,13 +126,12 @@ def test_save_image(valid_texts, valid_font_path, valid_output_path):
 def test_generate_images(valid_texts, valid_font_path, valid_output_path, mock_noise):
     with patch("os.path.exists", return_value=True):
         generator = ImagesGenerator(
-            texts=valid_texts, 
-            font_path=valid_font_path, 
-            noises=[mock_noise], 
+            texts=valid_texts,
+            font_path=valid_font_path,
+            noises=[mock_noise],
             img_output_path=valid_output_path
         )
 
-        
         generator.generate_images()
 
         for i, text in enumerate(valid_texts):
@@ -142,9 +143,9 @@ def test_generate_images(valid_texts, valid_font_path, valid_output_path, mock_n
 def test_generate_images_with_text(valid_texts, valid_font_path, valid_output_path, mock_noise):
     with patch("os.path.exists", return_value=True):
         generator = ImagesGenerator(
-            texts=valid_texts, 
-            font_path=valid_font_path, 
-            noises=[mock_noise], 
+            texts=valid_texts,
+            font_path=valid_font_path,
+            noises=[mock_noise],
             img_output_path=valid_output_path,
             txt_output_path=valid_output_path
         )

@@ -23,40 +23,33 @@ class DirectoryNoiseAdder(NoiseAdder):
             A unique identifier to append to the filenames of the processed images.
         img_formats (list[str]): 
             A list of image formats for saving the processed images.
-        
+
     """
 
-    
-    def __init__(self, 
+    def __init__(self,
                  dir_path: str = '',
                  output_path: str = '',
                  noises: list[Noise] = [],
                  identifier: str = 'noisy',
                  img_formats: list[str] = ['jpg', 'png', 'tif'],
-                ):
-
+                 ):
+        self._count = 0
         if os.path.exists(dir_path) == True:
             self.dir_path = dir_path
         else:
             raise FileNotFoundError('The directory does not exist.')
-        
         if output_path == '':
             output_path = dir_path
         else:
             output_path = output_path
-
         self.img_formats = img_formats
-
         self.images_pathes = list(itertools.chain.from_iterable(
-                            glob.iglob(os.path.join(dir_path, f'*.{fmt}')) for fmt in self.img_formats
-                            ))
-        self._count = 0
-
-        super().__init__(noises, 
+            glob.iglob(os.path.join(dir_path, f'*.{fmt}')) for fmt in self.img_formats
+        ))
+        super().__init__(noises,
                          output_path,
-                         identifier, 
-                        )
-    
+                         identifier,
+                         )
 
     def _apply_noises(self, image: Image) -> tuple[Image.Image, str, str]:
         """
@@ -72,8 +65,9 @@ class DirectoryNoiseAdder(NoiseAdder):
         """
         base_name = os.path.basename(self.images_pathes[self._count])
         img_name, img_format = os.path.splitext(base_name)
-        
-        noisy_image = reduce(lambda img, noise: noise.add_noise(img), self.noises, image)
+
+        noisy_image = reduce(
+            lambda img, noise: noise.add_noise(img), self.noises, image)
         if 'dpi' in image.info:
             noisy_image.info['dpi'] = image.info['dpi']
         else:
@@ -82,7 +76,6 @@ class DirectoryNoiseAdder(NoiseAdder):
         self._count += 1
 
         return noisy_image, img_name, img_format
-        
 
     def add_noises(self) -> list[tuple[Image.Image, str, str]]:
         """
@@ -93,10 +86,10 @@ class DirectoryNoiseAdder(NoiseAdder):
                 A list of tuples, each containing a noisy image, the base name of the image, and the image format.
         """
         images = [Image.open(img_path) for img_path in self.images_pathes]
-        noisy_images = reduce(lambda acc, img: acc + [self._apply_noises(img)], images, [])
+        noisy_images = reduce(lambda acc, img: acc +
+                              [self._apply_noises(img)], images, [])
 
         return noisy_images
-    
 
     def save_image(self, img_info: tuple[Image.Image, str, str]) -> None:
         """
@@ -107,7 +100,6 @@ class DirectoryNoiseAdder(NoiseAdder):
                 A tuple containing the noisy image, the base name of the image, and the image format.
         """
         super().save_image(img_info)
-
 
     def transform_images(self) -> None:
         """

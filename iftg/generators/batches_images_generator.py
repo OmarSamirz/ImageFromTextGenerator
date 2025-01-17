@@ -44,8 +44,7 @@ class BatchesImagesGenerator(Generator):
             A list of file paths to the background image, if any.
     """
 
-    
-    def __init__(self, 
+    def __init__(self,
                  texts: list[list[str]],
                  font_paths: list[str],
                  noises: list[list[Noise]] = [],
@@ -61,41 +60,42 @@ class BatchesImagesGenerator(Generator):
                  txt_formats: list[str] = ['.txt'],
                  txt_output_paths: list[str] = [''],
                  background_image_paths: list[str] = ['']
-                ):
-        
+                 ):
 
         def extend_list(lst, default_value):
             return lst + [default_value] * (max_len - len(lst))
-        
+
         # Check if all input lists have the same length
         list_lengths = [len(texts), len(noises), len(font_paths), len(font_sizes),
                         len(font_colors), len(background_colors), len(margins),
                         len(dpi), len(img_names), len(img_formats),
-                        len(img_output_paths), len(txt_names), len(txt_formats),
+                        len(img_output_paths), len(
+                            txt_names), len(txt_formats),
                         len(txt_output_paths), len(background_image_paths)]
-        
         if len(set(list_lengths)) != 1:
             max_len = max(list_lengths)
-
             texts = extend_list(texts, [])
             noises = extend_list(noises, [])
             font_paths = extend_list(font_paths, font_paths[-1])
             font_sizes = extend_list(font_sizes, font_sizes[-1])
             font_colors = extend_list(font_colors, font_colors[-1])
-            background_colors = extend_list(background_colors, background_colors[-1])
+            background_colors = extend_list(
+                background_colors, background_colors[-1])
             margins = extend_list(margins, margins[-1])
             dpi = extend_list(dpi, dpi[-1])
             img_names = extend_list(img_names, img_names[-1])
             img_formats = extend_list(img_formats, img_formats[-1])
-            img_output_paths = extend_list(img_output_paths, img_output_paths[-1])
+            img_output_paths = extend_list(
+                img_output_paths, img_output_paths[-1])
             txt_names = extend_list(txt_names, txt_names[-1])
             txt_formats = extend_list(txt_formats, txt_formats[-1])
-            txt_output_paths = extend_list(txt_output_paths, txt_output_paths[-1])
-            background_image_paths = extend_list(background_image_paths, background_image_paths[-1])
-
-        super().__init__(texts, 
+            txt_output_paths = extend_list(
+                txt_output_paths, txt_output_paths[-1])
+            background_image_paths = extend_list(
+                background_image_paths, background_image_paths[-1])
+        super().__init__(texts,
                          font_paths,
-                         noises, 
+                         noises,
                          font_sizes,
                          font_colors,
                          background_colors,
@@ -108,8 +108,7 @@ class BatchesImagesGenerator(Generator):
                          txt_formats,
                          txt_output_paths,
                          background_image_paths
-                        )            
-    
+                         )
 
     def _generate_next(self) -> ImagesGenerator:
         """
@@ -126,29 +125,30 @@ class BatchesImagesGenerator(Generator):
         if self._count >= self._texts_len:
             ImageFontManager.clear()
             raise StopIteration
-        
-        generator =  ImagesGenerator(self.texts[self._count], 
-                                     self.font_path[self._count],
-                                     self.noises[self._count],
-                                     self.font_size[self._count],
-                                     self.font_color[self._count],
-                                     self.background_color[self._count],
-                                     self.margins[self._count],
-                                     self.dpi[self._count],
-                                     self.img_name[self._count] + f'_{self._count}',
-                                     self.img_format[self._count],
-                                     self.img_output_path[self._count],
-                                     self.txt_name[self._count] + f'_{self._count}',
-                                     self.txt_format[self._count],
-                                     self.txt_output_path[self._count],
-                                     self.background_image_path[self._count],
-                                     False,
+
+        generator = ImagesGenerator(self.texts[self._count],
+                                    self.font_path[self._count],
+                                    self.noises[self._count],
+                                    self.font_size[self._count],
+                                    self.font_color[self._count],
+                                    self.background_color[self._count],
+                                    self.margins[self._count],
+                                    self.dpi[self._count],
+                                    self.img_name[self._count] +
+                                    f'_{self._count}',
+                                    self.img_format[self._count],
+                                    self.img_output_path[self._count],
+                                    self.txt_name[self._count] +
+                                    f'_{self._count}',
+                                    self.txt_format[self._count],
+                                    self.txt_output_path[self._count],
+                                    self.background_image_path[self._count],
+                                    False,
                                     )
 
         self._count += 1
         return generator
 
-    
     def generate_batches(self, is_with_label: bool = True) -> None:
         """
         Generates and saves images for each batch.

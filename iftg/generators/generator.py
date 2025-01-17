@@ -5,6 +5,7 @@ from abc import ABC, abstractmethod
 
 from iftg.noises.noise import Noise
 
+
 class Generator(ABC):
     """
     An abstract base class for creating image generators that apply various effects, 
@@ -43,7 +44,6 @@ class Generator(ABC):
         background_image_path (str | list[str]): 
             The file path(s) to the background image(s) to be used in the images.
     """
-      
 
     def __init__(self,
                  texts: list[str] | list[list[str]],
@@ -61,7 +61,7 @@ class Generator(ABC):
                  txt_format: str | list[str],
                  txt_output_path: str | list[str],
                  background_image_path: str | list[str],
-                ):
+                 ):
         self.texts = texts
         self.font_path = font_path
         self.noises = noises
@@ -77,11 +77,9 @@ class Generator(ABC):
         self.txt_format = txt_format
         self.txt_output_path = txt_output_path
         self.background_image_path = background_image_path
-
         self._texts_len = len(texts)
         self._count = 0
 
-        
     def __iter__(self):
         """
         Returns the generator object itself.
@@ -91,7 +89,6 @@ class Generator(ABC):
                 The generator object.
         """
         return self
-
 
     def __next__(self):
         """
@@ -109,10 +106,9 @@ class Generator(ABC):
             StopIteration:
                 When there are no more images to generate.
         """
-    
+
         return self._generate_next()
-    
-    
+
     @abstractmethod
     def _generate_next(self):
         pass

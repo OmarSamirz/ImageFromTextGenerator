@@ -20,30 +20,26 @@ class NoiseAdder(ABC):
             A unique identifier to append to the filenames of the processed images.
     """
 
-    def __init__(self, 
+    def __init__(self,
                  noises: list[Noise],
                  output_path: str,
                  identifier: str,
-                ):
+                 ):
         self.noises = noises
         self.output_path = output_path
         self.identifier = identifier
 
-    
     @abstractmethod
     def _apply_noises(self, image: Image) -> tuple[Image.Image, str, str]:
         pass
-
 
     @abstractmethod
     def add_noises(self) -> tuple[Image.Image, str, str] | list[tuple[Image.Image, str, str]]:
         pass
 
-
     @abstractmethod
     def save_image(self, img_info: tuple[Image.Image, str, str]) -> None:
         image, img_name, img_format = img_info
         img_final_name = f'{img_name}_{self.identifier}{img_format}'
-        image.save(os.path.join(self.output_path, img_final_name), dpi=image.info['dpi'])
-
-    
+        image.save(os.path.join(self.output_path, img_final_name),
+                   dpi=image.info['dpi'])

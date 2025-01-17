@@ -7,14 +7,11 @@ class ImageFontManager:
     This class caches fonts to avoid loading the same font multiple times.
     """
 
-
     _fonts = {}
-
 
     @classmethod
     def fonts(cls) -> dict:
         return cls._fonts
-
 
     @classmethod
     def clear(cls) -> None:
@@ -22,7 +19,6 @@ class ImageFontManager:
         Clears the cache by removing all stored fonts from the internal dictionary.
         """
         cls._fonts.clear()
-
 
     @classmethod
     def remove_font(cls, font_path, font_size) -> None:
@@ -41,7 +37,6 @@ class ImageFontManager:
         except:
             raise KeyError("This key does not exist inside ImageFontManager")
 
-
     @classmethod
     def get_font(cls, font_path, font_size) -> ImageFont:
         """
@@ -55,7 +50,7 @@ class ImageFontManager:
             ImageFont: The loaded ImageFont object.
         """
         if (font_path, font_size) not in cls._fonts:
-            cls._fonts[(font_path, font_size)] = ImageFont.truetype(font_path, font_size)
-        
+            cls._fonts[(font_path, font_size)] = ImageFont.truetype(
+                font_path, font_size)
+
         return cls._fonts[(font_path, font_size)]
-    
