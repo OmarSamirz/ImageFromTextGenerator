@@ -6,6 +6,7 @@ from iftg.noises.erode_noise import ErodeNoise, RandomErodeNoise
 from iftg.noises.flip_noise import FlipNoise, RandomFlipNoise
 from iftg.noises.gaussian_noise import GaussianNoise, RandomGaussianNoise
 from iftg.noises.pixel_dropout_noise import PixelDropoutNoise, RandomPixelDropoutNoise
+from iftg.noises.pixelate_noise import PixelateNoise, RandomPixelateNoise
 from iftg.noises.rotation_noise import RotationNoise, RandomRotationNoise
 from iftg.noises.shadow_noise import ShadowNoise, RandomShadowNoise
 # from iftg.noises.skew_noise import SkewNoise, RandomSkewNoise

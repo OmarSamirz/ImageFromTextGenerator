@@ -1,3 +1,4 @@
+import numpy as np
 from PIL import ImageFont, Image
 from multiprocessing import Pool, cpu_count
 from concurrent.futures import ThreadPoolExecutor
@@ -11,7 +12,8 @@ from iftg.generators import ImagesGenerator, BatchesImagesGenerator
 from iftg.image_font_manager import ImageFontManager
 from iftg.noises import (
     BlurNoise, BrightnessNoise, DilateNoise, ElasticNoise, ErodeNoise,
-    FlipNoise, GaussianNoise, PixelDropoutNoise, RotationNoise, ShadowNoise
+    FlipNoise, GaussianNoise, PixelDropoutNoise, RotationNoise, ShadowNoise,
+    PixelateNoise, RandomPixelateNoise
 )
 
 
@@ -92,9 +94,11 @@ def main3():
 def main4():
     start = time.time()
 
-    texts = ['Hello, World!']
+    texts = ['Hello, World!', 'how are you', 'what are you doing'] * 10
     results = ImagesGenerator(
-        texts=texts, font_path='fonts/Arial.ttf', font_opacity=0.2)
+        texts=texts, font_path='fonts/Arial.ttf', font_opacity=0.7, 
+        noises=[RandomPixelateNoise()]
+        )
     results.generate_images_with_text()
 
     end = time.time()
@@ -107,5 +111,6 @@ def main5():
     img_noise_adder.transform_image()
 
 
+
 if __name__ == '__main__':
-    main1()
+    main4()
