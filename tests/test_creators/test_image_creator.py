@@ -45,7 +45,8 @@ def test_create_base_image(mock_font, mock_image, text, margins, bg_color, font_
 
         assert image == mock_image
         assert image.size == expected_size
-        assert isinstance(image, MagicMock)  # Changed from Image.Image since we're using a mock
+        # Changed from Image.Image since we're using a mock
+        assert isinstance(image, MagicMock)
 
 
 def test_invalid_font_path():

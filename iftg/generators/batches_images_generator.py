@@ -83,9 +83,11 @@ class BatchesImagesGenerator(Generator):
 
         # Check if all input lists have the same length
         list_lengths = [len(texts), len(noises), len(font_paths), len(font_sizes),
-                        len(font_colors), len(font_opacities), len(background_colors), len(margins),
+                        len(font_colors), len(font_opacities), len(
+                            background_colors), len(margins),
                         len(dpi), len(img_names), len(img_formats),
-                        len(img_output_paths), len(txt_names), len(txt_formats),
+                        len(img_output_paths), len(
+                            txt_names), len(txt_formats),
                         len(txt_output_paths), len(background_image_paths)]
         if len(set(list_lengths)) != 1:
             max_len = max(list_lengths)

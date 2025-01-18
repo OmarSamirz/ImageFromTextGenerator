@@ -14,17 +14,21 @@ from iftg.image_font_manager import ImageFontManager
 def valid_texts():
     return ["Hello", "World"]
 
+
 @pytest.fixture
 def valid_font_path():
     return "tests/Arial.ttf"
+
 
 @pytest.fixture
 def valid_output_path(tmpdir):
     return str(tmpdir)
 
+
 @pytest.fixture
 def valid_font_opacity():
     return 1.0
+
 
 @pytest.fixture
 def valid_background_image_path():

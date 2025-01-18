@@ -13,9 +13,11 @@ from iftg.noises import (
     BlurNoise, BrightnessNoise, DilateNoise, ElasticNoise, ErodeNoise,
     FlipNoise, GaussianNoise, PixelDropoutNoise, RotationNoise, ShadowNoise
 )
- 
+
+
 def main0():
-    image = ImageCreator.create_image('Hello, world', './fonts/Arial.ttf', font_opacity=0.3)
+    image = ImageCreator.create_image(
+        'Hello, world', './fonts/Arial.ttf', font_opacity=0.3)
     image.save('opacity_img.png', **image.info)
 
 
@@ -91,7 +93,8 @@ def main4():
     start = time.time()
 
     texts = ['Hello, World!']
-    results = ImagesGenerator(texts=texts, font_path='fonts/Arial.ttf', font_opacity=0.2)
+    results = ImagesGenerator(
+        texts=texts, font_path='fonts/Arial.ttf', font_opacity=0.2)
     results.generate_images_with_text()
 
     end = time.time()
@@ -106,4 +109,3 @@ def main5():
 
 if __name__ == '__main__':
     main1()
-

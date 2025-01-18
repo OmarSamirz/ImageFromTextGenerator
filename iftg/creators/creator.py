@@ -68,7 +68,7 @@ class Creator(ABC):
     @abstractmethod
     def _apply_noise(cls, noises: list[Noise], image: Image) -> Image:
         pass
-    
+
     @classmethod
     @abstractmethod
     def _blend_colors(cls, bg_color: str, text_color: str, font_opacity: float) -> tuple[int, int, int]:

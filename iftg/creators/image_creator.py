@@ -46,7 +46,7 @@ class ImageCreator(Creator):
             tuple[Image.Image, int]:
                 A tuple containing the generated image and the top margin adjustment.
         """
-        
+
         text_dimensions = cls.get_text_dimensions(text, font)
         image_width, image_height = cls.get_image_dimensions(
             margins, text_dimensions)
@@ -68,7 +68,7 @@ class ImageCreator(Creator):
             random_bg_part = background_img.crop((x1, y1, x2, y2))
 
             image.paste(random_bg_part)
-            
+
         # Draw the text on the image
         draw = ImageDraw.Draw(image)
         draw.text((margins[0], -text_dimensions[1]+margins[1]),
@@ -89,12 +89,12 @@ class ImageCreator(Creator):
 
         Returns:
             Image: The image with the applied text, noise, blur, and rotation effects.
-        """         
+        """
         # Loop through all given noises and add them to the image
         image = reduce(lambda img, noise: noise.add_noise(img), noises, image)
 
         return image
-    
+
     @classmethod
     def _blend_colors(cls, bg_color: str, text_color: str, font_opacity: float) -> tuple[int, int, int]:
         """
@@ -108,7 +108,7 @@ class ImageCreator(Creator):
         Returns:
             tuple: The blended color as an (R, G, B) tuple.
         """
-        
+
         bg_r, bg_g, bg_b = ImageColor.getrgb(bg_color)
         text_r, text_g, text_b = ImageColor.getrgb(text_color)
 
@@ -164,7 +164,7 @@ class ImageCreator(Creator):
                 The generated image with the applied text and effects.
         """
         font = ImageFontManager.get_font(font_path, font_size)
-        
+
         r, g, b = cls._blend_colors(background_color, font_color, font_opacity)
         image = cls._create_base_image(
             text, font, (r, g, b), background_color, margins, background_img)
