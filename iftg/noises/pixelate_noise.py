@@ -14,9 +14,7 @@ class PixelateNoise(Noise):
             The size of pixelation blocks. Larger values create more pronounced pixelation.
     """
 
-    def __init__(self,
-                 noise_intensity: int = 2,
-                 ):
+    def __init__(self, noise_intensity: int = 2):
         self.noise_intensity = noise_intensity
 
     def add_noise(self, image: Image) -> Image:
@@ -75,9 +73,7 @@ class RandomPixelateNoise(PixelateNoise):
             The range within which the pixelation intensity will be randomly selected.
     """
 
-    def __init__(self,
-                 noise_intensity_range: tuple[int, int] = (2, 5),
-                 ):
+    def __init__(self, noise_intensity_range: tuple[int, int] = (2, 5)):
         self.noise_intensity_range = noise_intensity_range
 
     def add_noise(self, image: Image) -> Image:

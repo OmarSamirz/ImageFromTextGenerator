@@ -96,9 +96,9 @@ def main4():
 
     texts = ['Hello, World!', 'how are you', 'what are you doing'] * 10
     results = ImagesGenerator(
-        texts=texts, font_path='fonts/Arial.ttf', font_opacity=0.7, 
+        texts=texts, font_path='fonts/Arial.ttf', font_opacity=0.7,
         noises=[RandomPixelateNoise()]
-        )
+    )
     results.generate_images_with_text()
 
     end = time.time()
@@ -109,7 +109,6 @@ def main5():
     img_noise_adder = ImageNoiseAdder(
         img_path='img.tif', noises=[GaussianNoise()])
     img_noise_adder.transform_image()
-
 
 
 if __name__ == '__main__':
