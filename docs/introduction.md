@@ -83,6 +83,15 @@ enhancing the robustness of your models.
   </tr>
 </table>
 
+<table>
+  <tr>
+    <th>Pixelate</th>
+  </tr>
+  <tr>
+    <td><img src="/ImageFromTextGenerator/assets/pixelate_img.png" alt="Pixel Dropout" width="100%"></td>
+  </tr>
+</table>
+
 ## **Quick Start**
 To get started with IFTG, follow these simple steps:
 

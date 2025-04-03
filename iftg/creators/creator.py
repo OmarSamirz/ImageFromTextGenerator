@@ -17,6 +17,7 @@ class Creator(ABC):
                            text: str,
                            font: ImageFont,
                            font_color: tuple[int, int, int],
+                           font_opacity: float,
                            background_color: str,
                            margins: tuple[int, int, int, int],
                            background_img: Image

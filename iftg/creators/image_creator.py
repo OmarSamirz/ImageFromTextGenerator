@@ -20,12 +20,13 @@ class ImageCreator(Creator):
                            text: str,
                            font: ImageFont,
                            font_color: tuple[int, int, int],
+                           font_opacity: float,
                            background_color: str,
                            margins: tuple[int, int, int, int],
                            background_img: Image
                            ) -> Image.Image:
         """
-        Creates a base image with the specified background color and dimensions, 
+        Creates a base image with the specified text, background color and dimensions, 
         and optionally adds a background image.
 
         Parameters:
@@ -51,13 +52,18 @@ class ImageCreator(Creator):
         image_width, image_height = cls.get_image_dimensions(
             margins, text_dimensions)
 
-        image = Image.new('RGB',
-                          (image_width, image_height+text_dimensions[1]),
-                          color=background_color
-                          )
+        base_img = Image.new('RGBA',
+                             (image_width, image_height+text_dimensions[1]),
+                             color=background_color
+                             )
+        text_layer = Image.new('RGBA', 
+                               (image_width, image_height+text_dimensions[1]),
+                               color=(255, 255, 255, 0)
+                               )
 
         # add a background image to the text
         if background_img != None:
+            background_img = background_img.convert("RGBA")
             bg_width, bg_height = background_img.size
 
             x1 = np.random.randint(0, bg_width - image_width)
@@ -67,19 +73,23 @@ class ImageCreator(Creator):
 
             random_bg_part = background_img.crop((x1, y1, x2, y2))
 
-            image.paste(random_bg_part)
+            base_img.paste(random_bg_part)
 
         # Draw the text on the image
-        draw = ImageDraw.Draw(image)
+        opacity = int(font_opacity * 255)
+        draw = ImageDraw.Draw(text_layer)
         draw.text((margins[0], -text_dimensions[1]+margins[1]),
-                  text, font=font, fill=font_color)
-
-        return image
+                  text, font=font, 
+                  fill=(*font_color, opacity)
+                  )
+        final_img = Image.alpha_composite(base_img, text_layer)
+        
+        return final_img.convert('RGB')
 
     @classmethod
     def _apply_noise(cls, noises: list[Noise], image: Image) -> Image:
         """
-        Applies text, and noise effects to the base image.
+        Applies noise effects to the base image.
 
         Parameters:
             noises (list[Noise]):
@@ -94,29 +104,6 @@ class ImageCreator(Creator):
         image = reduce(lambda img, noise: noise.add_noise(img), noises, image)
 
         return image
-
-    @classmethod
-    def _blend_colors(cls, bg_color: str, text_color: str, font_opacity: float) -> tuple[int, int, int]:
-        """
-        Blends the text color with the background color to simulate transparency.
-
-        Parameters:
-            bg_color (str): The background color in any valid PIL color format.
-            text_color (str): The text color in any valid PIL color format.
-            alpha (float): The transparency level (0.0 to 1.0).
-
-        Returns:
-            tuple: The blended color as an (R, G, B) tuple.
-        """
-
-        bg_r, bg_g, bg_b = ImageColor.getrgb(bg_color)
-        text_r, text_g, text_b = ImageColor.getrgb(text_color)
-
-        r = int((1 - font_opacity) * bg_r + font_opacity * text_r)
-        g = int((1 - font_opacity) * bg_g + font_opacity * text_g)
-        b = int((1 - font_opacity) * bg_b + font_opacity * text_b)
-
-        return r, g, b
 
     @classmethod
     def create_image(cls,
@@ -165,9 +152,9 @@ class ImageCreator(Creator):
         """
         font = ImageFontManager.get_font(font_path, font_size)
 
-        r, g, b = cls._blend_colors(background_color, font_color, font_opacity)
+        font_rgb = ImageColor.getrgb(font_color)
         image = cls._create_base_image(
-            text, font, (r, g, b), background_color, margins, background_img)
+            text, font, font_rgb, font_opacity, background_color, margins, background_img)
 
         image = cls._apply_noise(noises, image)
         image.info['dpi'] = dpi

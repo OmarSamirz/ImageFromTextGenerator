@@ -119,6 +119,14 @@ IFTG offers a wide variety of noise effects that you can apply to your images to
   </tr>
 </table>
 
+<table>
+  <tr>
+    <th>Pixelate</th>
+  </tr>
+  <tr>
+    <td><img src="https://drive.google.com/uc?export=view&id=1r3_sA2A4HM2ILnoxkw1TFrQYYeuIjsk-" alt="Pixel Dropout" width="100%"></td>
+</table>
+
 ## Installation
 To get started with IFTG, you'll need to install the package. You can do this using pip.
 ```bash

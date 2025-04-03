@@ -12,42 +12,30 @@ def mock_font():
     font = ImageFontManager.get_font('tests/Arial.ttf', 12)
     return font
 
-
 @pytest.fixture
 def mock_image():
-    image = MagicMock(spec=Image.Image)
-    # Add required attributes and methods for ImageDraw
-    image.size = (500, 500)
-    image.readonly = False
-    image.getdraw = MagicMock()
-    # Mock the drawing context
-    draw_context = MagicMock()
-    image.getdraw.return_value = draw_context
-    return image
-
+    # Create a real PIL Image with RGBA mode to support more operations
+    return Image.new("RGBA", (500, 500), color=(255, 255, 255))
 
 @pytest.fixture
 def noise_list():
     return [BlurNoise(blur_radius=2.0), BlurNoise(blur_radius=5.0)]
 
-
 @pytest.mark.parametrize(
     "text, margins, bg_color, font_color, expected_size",
     [
-        ("Sample Text", (5, 5, 5, 5), "white", (255, 255, 255), (500, 500)),
-        ("Another Text", (10, 10, 10, 10), "black", (255, 255, 255), (500, 500)),
+        ("Sample Text", (5, 5, 5, 5), (255, 255, 255), (0, 0, 0), (500, 500)),
+        ("Another Text", (10, 10, 10, 10), (0, 0, 0), (255, 255, 255), (500, 500)),
     ]
 )
-def test_create_base_image(mock_font, mock_image, text, margins, bg_color, font_color, expected_size):
-    with patch('PIL.Image.new', return_value=mock_image):
+def test_create_base_image(mock_font, text, margins, bg_color, font_color, expected_size):
+    # Create a patch that returns a real RGBA image
+    with patch('PIL.Image.new', return_value=Image.new("RGBA", expected_size, color=bg_color)):
         image = ImageCreator._create_base_image(
-            text, mock_font, font_color, bg_color, margins, None)
-
-        assert image == mock_image
+            text, mock_font, font_color, 1.0, bg_color, margins, None)
+        
         assert image.size == expected_size
-        # Changed from Image.Image since we're using a mock
-        assert isinstance(image, MagicMock)
-
+        assert isinstance(image, Image.Image)
 
 def test_invalid_font_path():
     with patch('iftg.image_font_manager.ImageFontManager.get_font', side_effect=FileNotFoundError):
