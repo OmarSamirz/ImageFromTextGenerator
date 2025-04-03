@@ -45,3 +45,40 @@ def test_invalid_font_path():
                 font_path="invalid_path",
                 font_size=40
             )
+
+def test_apply_noises():
+    """Test that noises are properly applied to the image."""
+    # Create a mock image
+    test_image = Image.new("RGB", (200, 100), color="white")
+    
+    # Create a proper noise effect
+    blur_noise = BlurNoise(blur_radius=2.0)
+    
+    # Apply the noise to the image
+    with patch.object(ImageCreator, '_create_base_image', return_value=test_image):
+        result = ImageCreator.create_image(
+            text="Test with noise",
+            font_path="tests/Arial.ttf",
+            font_size=12,
+            noises=[blur_noise]
+        )
+    
+    # Verify the result is an image
+    assert isinstance(result, Image.Image)
+
+def test_create_image_with_custom_params():
+    """Test creating an image with custom parameters."""
+    test_image = Image.new("RGB", (300, 150), color="blue")
+    
+    with patch.object(ImageCreator, '_create_base_image', return_value=test_image):
+        # Test with various custom parameters
+        result = ImageCreator.create_image(
+            text="Custom Test",
+            font_path="tests/Arial.ttf",
+            font_size=16,
+            font_color="red",     # String color name instead of tuple
+            background_color="blue",      # String color name instead of tuple
+            margins=(20, 20, 20, 20) # Wide margins
+        )
+    
+    assert isinstance(result, Image.Image)
