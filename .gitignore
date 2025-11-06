@@ -4,3 +4,4 @@ fonts/
 **/__pycache__/
 dist/
 iftg.egg-info/
+build/
