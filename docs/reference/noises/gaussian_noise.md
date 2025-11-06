@@ -79,11 +79,11 @@ noisy_image.save('path/to/noisy_image.tif')
 The <a href='#randomgaussiannoise-module' style="text-decoration: underline;">`RandomGaussianNoise`</a> class extends the functionality of <a href='#gaussiannoise-module' style="text-decoration: underline;">`GaussianNoise`</a> by allowing random selection of the mean and sigma values from specified ranges, resulting in varied noise application for each image.
 
 ### **Attributes**
-- **mean_range : `tuple[float, float]`**
+- **mean_range : `Tuple[float, float]`**
 
     The range for random selection of the mean of the Gaussian noise distribution. The mean controls the average intensity of the noise.
 
-- **sigma_range : `tuple[float, float]`**
+- **sigma_range : `Tuple[float, float]`**
 
     The range for random selection of the standard deviation `sigma` of the Gaussian noise distribution. A larger sigma range will lead to noisier images.
 

@@ -25,7 +25,7 @@ Welcome to the official documentation for IFTG (ImageFromTextGenerator). IFTG is
 - **Rich Noise Library:** Access a diverse set of noise types to simulate real-world conditions.
 - **Custom Noise and Augmentation:** Add custom noise and apply advanced image augmentations.
 - **Support for Multiple Languages:** Generate text images in any language with the appropriate font.
-
+- **Support Multiline Text:** IFTG can automatically render and size text across multiple lines, making it ideal for creating more realistic and diverse OCR training datasets.
 
 ## **Getting Started**
 To get started with IFTG, you’ll want to:

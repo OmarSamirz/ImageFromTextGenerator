@@ -21,11 +21,11 @@ class DirectoryNoiseAdder(NoiseAdder):
             The path to the directory containing images to be processed.
         output_path (str): 
             The path where the processed images will be saved.
-        noises (list[Noise]): 
+        noises (List[Noise]): 
             A list of noise objects to be applied to the images.
         identifier (str): 
             A unique identifier to append to the filenames of the processed images.
-        img_formats (list[str]): 
+        img_formats (List[str]): 
             A list of image formats for saving the processed images.
 
     """
@@ -106,7 +106,7 @@ class DirectoryNoiseAdder(NoiseAdder):
         Saves a noisy image to the output path.
 
         Parameters:
-            img_info (tuple[Image, str, str]): 
+            img_info (Tuple[Image, str, str]): 
                 A tuple containing the noisy image, the base name of the image, and the image format.
         """
         super().save_image(img_info)

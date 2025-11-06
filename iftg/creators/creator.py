@@ -29,7 +29,7 @@ class Creator(ABC):
 
     @classmethod
     @abstractmethod
-    def get_text_dimensions(cls, text: str, font: ImageFont.ImageFont) -> Tuple[float, float, float, float]:
+    def get_text_dimensions(cls, text: str, font: ImageFont.ImageFont) -> Tuple[int, int]:
         """
         Gets the dimensions of text when rendered with a specific font.
 
@@ -38,11 +38,21 @@ class Creator(ABC):
             font (ImageFont): The font to use for measurement.
 
         Returns:
-            tuple[float, float, float, float]: The text dimensions as (left, top, right, bottom).
+            Tuple[int, int]: The text dimensions as (max_width, total_height).
         """
-        left, top, right, bottom = font.getbbox(text)
+        lines = text.splitlines() or [""]
 
-        return left, top, right, bottom
+        bboxes = [
+            font.getbbox("A") if not line.strip() else font.getbbox(line)
+            for line in lines
+        ]
+
+        max_width = max(right for _, _, right, _ in bboxes)
+        bottom_sum = sum(bottom for _, _, _, bottom in bboxes)
+        max_top = max(top for _, top, _, _ in bboxes)
+        total_height = bottom_sum + max_top
+
+        return max_width, total_height
 
     @classmethod
     @abstractmethod
@@ -55,17 +65,17 @@ class Creator(ABC):
         Calculates the dimensions of the image based on the text dimensions and margins.
 
         Parameters:
-            margins (tuple[int, int, int, int]): Margins for the image (left, top, right, bottom).
-            text_dimensions (tuple[float, float, float, float]): The dimensions of the text.
+            margins (Tuple[int, int, int, int]): Margins for the image (left, top, right, bottom).
+            text_dimensions (Tuple[float, float, float, float]): The dimensions of the text.
 
         Returns:
-            tuple[int, int]: The image dimensions as (width, height).
+            Tuple[int, int]: The image dimensions as (width, height).
         """
-        _, top, right, bottom = text_dimensions
+        max_width, max_height = text_dimensions
         left_margin, top_margin, right_margin, bottom_margin = margins
 
-        image_width = right + left_margin + right_margin
-        image_height = bottom - (top * 2) + top_margin + bottom_margin
+        image_width = max_width + left_margin + right_margin
+        image_height = max_height + top_margin + bottom_margin
 
         return image_width, image_height
 

@@ -19,7 +19,11 @@ from iftg.noises import (
 
 def main0():
     image = ImageCreator.create_image(
-        'Hello, world', './fonts/Arial.ttf', font_opacity=0.3)
+        '\nHello\n\nDear world\nHow many cars do we have\nare these cars enough\nHi how are you\nHello\n\nDear world\nHow many cars do we have\nare these cars enough\nHi how are you',
+        './fonts/Arial.ttf',
+        margins=(5, 5, 5, 5),
+        font_size=200,
+    )
     print(image.mode)
     image.save('opacity_img.png', **image.info)
 
@@ -116,4 +120,4 @@ def main5():
 
 
 if __name__ == '__main__':
-    main5()
+    main0()

@@ -16,9 +16,9 @@ The <a href='#creator-module' style="text-decoration: underline;">`Creator`</a> 
 _create_base_image(cls,
                    text: str,
                    font: ImageFont,
-                   font_color: tuple[int, int, int],
+                   font_color: Tuple[int, int, int],
                    background_color: str,
-                   margins: tuple[int, int, int, int],
+                   margins: Tuple[int, int, int, int],
                    background_img: Image
                    ) -> Image.Image:
 ```
@@ -34,7 +34,7 @@ This method is responsible for creating the base image with the specified text a
 
         The font object used to render the text.
 
-    - **font_color : `tuple[int, int, int]`**
+    - **font_color : `Tuple[int, int, int]`**
         
         The color of the text to be added.
 
@@ -42,7 +42,7 @@ This method is responsible for creating the base image with the specified text a
 
         The color of the image background, given as a hex code or color name.
 
-    - **margins : `tuple[int, int, int, int]`**
+    - **margins : `Tuple[int, int, int, int]`**
         
         The margins `(left, top, right, bottom)` around the text in the image.
 
@@ -60,7 +60,7 @@ This method is responsible for creating the base image with the specified text a
 get_text_dimensions(cls, 
                     text: str, 
                     font: ImageFont
-                    ) -> tuple[float, float, float, float]
+                    ) -> Tuple[float, float, float, float]
 ```
 
 This method calculates the dimensions (bounding box) of the given text using the provided font.
@@ -98,20 +98,20 @@ This method calculates the dimensions (bounding box) of the given text using the
 
 ```py
 get_image_dimensions(cls, 
-                     margins: tuple[int, int, int, int],
-                     text_dimensions: tuple[float, float, float, float]
-                     ) -> tuple[int, int]
+                     margins: Tuple[int, int, int, int],
+                     text_dimensions: Tuple[float, float, float, float]
+                     ) -> Tuple[int, int]
 ```
 
 This method calculates the width and height of the image based on the text dimensions and the provided margins.
 
 - **Parameters:**
 
-    - **margins : `tuple[int, int, int, int]`**
+    - **margins : `Tuple[int, int, int, int]`**
         
         The margins (left, top, right, bottom) around the text.
 
-    - **text_dimensions : `tuple[float, float, float, float]`**
+    - **text_dimensions : `Tuple[float, float, float, float]`**
 
         The bounding box of the text (left, top, right, bottom) calculated using <a href='#get_text_dimensions' style="text-decoration: underline;">`get_text_dimensions()`</a>.
 
@@ -129,14 +129,14 @@ This method calculates the width and height of the image based on the text dimen
 ### **`_apply_noise()`**
 
 ```py
-_apply_noise(cls, noises: list[Noise], image: Image) -> Image:
+_apply_noise(cls, noises: List[Noise], image: Image) -> Image:
 ```
 
 This method applies noise to the image, altering the appearance of the text or background based on the noise objects.
 
 - **Parameters:**
 
-    - **noises : `list[Noise]`**
+    - **noises : `List[Noise]`**
         
         A list of Noise objects to apply to the image.
 
@@ -152,7 +152,7 @@ This method applies noise to the image, altering the appearance of the text or b
 ### **`_blend_colors()`**
 
 ```py
-_blend_colors(cls, bg_color: str, text_color: str, font_opacity: float) -> tuple[float, float, float]:
+_blend_colors(cls, bg_color: str, text_color: str, font_opacity: float) -> Tuple[float, float, float]:
 ```
 
 The `_blend_colors` method is an abstract class method intended to blend a text color with a background color based on a specified opacity level. Subclasses must implement this method to compute the blended RGB values and return them as a tuple.
@@ -183,13 +183,13 @@ The `_blend_colors` method is an abstract class method intended to blend a text 
 create_image(cls,
              text: str,
              font_path: str,
-             noises: list[Noise],
+             noises: List[Noise],
              font_size: float,
              font_color: str,
              font_opacity: float,
              background_color: str,
-             margins: tuple[int, int, int, int],
-             dpi: tuple[float, float],
+             margins: Tuple[int, int, int, int],
+             dpi: Tuple[float, float],
              background_img: Image,
              clear_font: bool,
              ) -> Image:
@@ -208,7 +208,7 @@ This is the main method responsible for creating the final image with text, back
         
         The path to the font file used to render the text.
     
-    - **noises : `list[Noise]`**
+    - **noises : `List[Noise]`**
         
         A list of Noise objects to be applied to the image.
     
@@ -228,11 +228,11 @@ This is the main method responsible for creating the final image with text, back
         
         The background color of the image.
     
-    - **margins : `tuple[int, int, int, int]`**
+    - **margins : `Tuple[int, int, int, int]`**
         
         The margins (left, top, right, bottom) around the text.
     
-    - **dpi : `tuple[float, float]`**
+    - **dpi : `Tuple[float, float]`**
         
         The DPI (dots per inch) resolution for the image.
     

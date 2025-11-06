@@ -79,11 +79,11 @@ dilated_image.save('path/to/dilated_image.tif')
 The <a href='#randomdilatenoise-module' style="text-decoration: underline;">`RandomDilateNoise`</a>  class extends <a href='#dilatenoise-module' style="text-decoration: underline;">`DilateNoise`</a> by introducing randomness in both the size of the structuring element (kernel) and the number of iterations for dilation. This adds variability to the dilation noise applied to different images.
 
 ### **Attributes**
-- **kernel_size_range : `tuple[int, int]`**
+- **kernel_size_range : `Tuple[int, int]`**
     
     A tuple representing the range of possible kernel sizes to randomly select from. The first element is the minimum size, and the second is the maximum size.
 
-- **iterations_range : `tuple[int, int]`**
+- **iterations_range : `Tuple[int, int]`**
     
     A tuple representing the range of possible iteration counts to randomly select from.
 

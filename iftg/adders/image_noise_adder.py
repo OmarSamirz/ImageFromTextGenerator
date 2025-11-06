@@ -18,7 +18,7 @@ class ImageNoiseAdder(NoiseAdder):
             Path to the input image file.
         output_path (str): 
             Directory where the noisy image will be saved. Default is an empty string.
-        noises (list[Noise]):
+        noises (List[Noise]):
             List of noise objects to be applied to the image.
         identifier (str):
             Identifier for the noisy image file. Default is 'noisy'.
@@ -90,7 +90,7 @@ class ImageNoiseAdder(NoiseAdder):
         Saves a noisy image to the output path.
 
         Parameters:
-            img_info (tuple[Image, str, str]): 
+            img_info (Tuple[Image, str, str]): 
                 A tuple containing the noisy image, the base name of the image, and the image format.
         """
         super().save_image(img_info)

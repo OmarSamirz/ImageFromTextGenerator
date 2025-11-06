@@ -63,6 +63,8 @@ IFTG is designed to simplify and accelerate the process of creating large and di
 - **Distinctive Image Naming:** Automatically rename images with distinctive names to differentiate between original and augmented versions.
   
 - **User-Friendly API:** Simple and intuitive API design for easy integration into your projects.
+  
+- **Support Multiline Text:** IFTG can automatically render and size text across multiple lines, making it ideal for creating more realistic and diverse OCR training datasets.
 
 ## Noises
 IFTG offers a wide variety of noise effects that you can apply to your images to create robust and diverse datasets for OCR models. With more than 10 noise types available, you have the flexibility to use static noises or introduce randomness in your noise application.
@@ -324,5 +326,3 @@ To get started with IFTG, follow these simple steps:
 - **Support for Multiprocessing:** Enhance performance by adding multiprocessing capabilities to speed up the image generation and noise application processes.
 
 - **Addition of More Noise Effects:** Expand the library of noise effects to provide even more options for dataset augmentation.
-
-- **Support for Multiline Text:** Enable the creation of images with multiline text, allowing for more complex and varied text-based datasets.

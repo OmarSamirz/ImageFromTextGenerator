@@ -81,11 +81,11 @@ The <a href='#randomelasticnoise-module' style="text-decoration: underline;">`Ra
 
 ### **Attributes**
 
-- **alpha_range : `tuple[float, float]`**
+- **alpha_range : `Tuple[float, float]`**
 
     The range of possible values for <a href='#attributes' style="text-decoration: underline;">`alpha`</a> (scaling factor for displacement field)
 
-- **sigma_range : `tuple[float, float]`**
+- **sigma_range : `Tuple[float, float]`**
 
     The range of possible values for <a href='#attributes' style="text-decoration: underline;">`sigma`</a> (standard deviation for Gaussian filter)
 

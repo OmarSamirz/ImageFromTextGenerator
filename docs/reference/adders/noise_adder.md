@@ -7,7 +7,7 @@
 
 ## **Attributes**
 
-- **noises : `list[Noise]`**
+- **noises : `List[Noise]`**
 
     A list of <a href='../../noises/noise/#noise-module' style="text-decoration: underline;">`Noise`</a> objects that represent different noise types to be applied to the images. Each <a href='../../noises/noise/#noise-module' style="text-decoration: underline;">`Noise`</a> object should adhere to the structure and behavior defined by the <a href='../../noises/noise/#noise-module' style="text-decoration: underline;">`Noise`</a> class from the iftg.noises module.
 
@@ -26,7 +26,7 @@
 
 ```py   
 _apply_noises(self, image: Image) 
--> tuple[Image.Image, str, str]
+-> Tuple[Image.Image, str, str]
 ```
 
 This method applies the specified noises to an image.
@@ -48,7 +48,7 @@ It is an abstract method that must be implemented by any subclass.
 ### **`add_noises()`**
 
 ```py
-add_noises(self) -> tuple[Image.Image, str, str] | list[tuple[Image.Image, str, str]]
+add_noises(self) -> Tuple[Image.Image, str, str] | List[Tuple[Image.Image, str, str]]
 ```
 
 This method generates a list of images or a single image with noises applied.
@@ -56,7 +56,7 @@ Subclasses must implement this method to handle batch noise application to multi
 
 - **Returns:**
 
-    - **A `list[tuple]` where each tuple contains:**
+    - **A `List[tuple]` where each tuple contains:**
         - The transformed `Image`,
         - The image name `str`,
         - The image format or extension `str`.
@@ -65,7 +65,7 @@ Subclasses must implement this method to handle batch noise application to multi
 ### **`save_image()`**
 
 ```py
-save_image(self, img_info: tuple[Image.Image, str, str]) -> None
+save_image(self, img_info: Tuple[Image.Image, str, str]) -> None
 ```
 
 This method saves an image after noises have been applied.
@@ -73,7 +73,7 @@ It takes a tuple containing the image, name, and format and saves the image to t
 
 - **Parameters:**
 
-    - **img_info : `tuple[Image.Image, str, str]`**
+    - **img_info : `Tuple[Image.Image, str, str]`**
         
         The tuple representing the image and its saving information.
 

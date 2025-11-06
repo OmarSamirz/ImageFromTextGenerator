@@ -6,23 +6,23 @@ Each batch generates multiple images based on a list of text strings, applying t
 
 ## **Attributes:**
 
-- **texts : `list[list[str]]`**
+- **texts : `List[List[str]]`**
 
     A nested list where each inner list represents a batch of texts. Each batch of images will have texts from the corresponding inner list.
 
-- **noises : `list[list[Noise]]`**
+- **noises : `List[List[Noise]]`**
 
     A nested list of Noise objects to be applied to the images in each batch. Each batch of images will use the noise from the corresponding inner list.
 
-- **font_paths : `list[str]`**
+- **font_paths : `List[str]`**
     
     A list of file paths to the fonts to be used for the text in each batch of images. Each batch will have its own font.
 
-- **font_sizes : `list[float]`**
+- **font_sizes : `List[float]`**
     
     A list of font sizes, where each value corresponds to the font size used in a batch of images.
 
-- **font_colors : `list[str]`**
+- **font_colors : `List[str]`**
     
     A list of font colors, where each value corresponds to the font color used in a batch of images.
 
@@ -30,43 +30,43 @@ Each batch generates multiple images based on a list of text strings, applying t
 
     The opacity levels of the text for each batch, where `1.0` is fully opaque and `0.0` is fully transparent.
 
-- **background_colors : `list[str]`**
+- **background_colors : `List[str]`**
     
     A list of background colors, where each value represents the background color of a batch of images.
 
-- **margins : `list[tuple[int, int, int, int]]`**
+- **margins : `List[Tuple[int, int, int, int]]`**
     
     A list of margin tuples `(left, top, right, bottom)` to define text placement for each batch of images.
 
-- **dpi : `list[tuple[float, float]]`**
+- **dpi : `List[Tuple[float, float]]`**
     
     A list of DPI settings for each batch of images, where each tuple contains horizontal and vertical DPI values.
 
-- **img_names : `list[str]`**
+- **img_names : `List[str]`**
     
     A list of base names for the output image files, where each value corresponds to a batch of images.
 
-- **img_formats : `list[str]`**
+- **img_formats : `List[str]`**
     
     A list of file formats for the output images, where each value represents the format of the images in the respective batch (e.g., `.tif`, `.png`).
 
-- **img_output_paths : `list[str]`**
+- **img_output_paths : `List[str]`**
     
     A list of directory paths where the images of each batch will be saved. Each value corresponds to the output path for a batch.
 
-- **txt_names : `list[str]`**
+- **txt_names : `List[str]`**
     
     A list of base names for the output text files that contain the image labels, where each value corresponds to a batch.
 
-- **txt_formats : `list[str]`**
+- **txt_formats : `List[str]`**
     
     A list of file formats for the output text files, where each value represents the format of the text file for the respective batch.
 
-- **txt_output_paths : `list[str]`**
+- **txt_output_paths : `List[str]`**
     
     A list of directory paths where the text files of each batch will be saved. Each value corresponds to a batch's output path for the text files.
 
-- **background_image_paths : `list[str]`**
+- **background_image_paths : `List[str]`**
     
     A list of file paths for background images. Each batch can have its own background image.
 

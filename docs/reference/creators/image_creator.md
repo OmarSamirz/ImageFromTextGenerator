@@ -15,9 +15,9 @@ base class to provide functionality for generating images with customizable text
 _create_base_image(cls,
                    text: str,
                    font: ImageFont,
-                   font_color: tuple[float, float, float],
+                   font_color: Tuple[float, float, float],
                    background_color: str,
-                   margins: tuple[int, int, int, int],
+                   margins: Tuple[int, int, int, int],
                    background_img: Image
                    ) -> Image.Image:
 ```
@@ -33,7 +33,7 @@ Creates the base image with a specified background color, font, and text. Option
 
         The font object used to render the text.
 
-    - **font_color : `tuple[float, float, float]`**
+    - **font_color : `Tuple[float, float, float]`**
     
         The color of the text to be added.
 
@@ -41,7 +41,7 @@ Creates the base image with a specified background color, font, and text. Option
 
         The color of the image background, given as a hex code or color name.
 
-    - **margins : `tuple[int, int, int, int]`**
+    - **margins : `Tuple[int, int, int, int]`**
         
         The margins `(left, top, right, bottom)` around the text in the image.
 
@@ -57,14 +57,14 @@ Creates the base image with a specified background color, font, and text. Option
 ### **`_apply_noise()`**
 
 ```py
-_apply_noise(cls, noises: list[Noise], image: Image) -> Image:
+_apply_noise(cls, noises: List[Noise], image: Image) -> Image:
 ```
 
 This method applies noise to the image, altering the appearance of the text or background based on the noise objects.
 
 - **Parameters:**
 
-    - **noises : `list[Noise]`**
+    - **noises : `List[Noise]`**
         
         A list of <a href='../../noises' style="text-decoration: underline;">`Noise`</a> objects that apply various noise transformations to the image.
     
@@ -80,7 +80,7 @@ This method applies noise to the image, altering the appearance of the text or b
 ### **`_blend_colors()`**
 
 ```py
-_blend_colors(cls, bg_color: str, text_color: str, font_opacity: float) -> tuple[float, float, float]:
+_blend_colors(cls, bg_color: str, text_color: str, font_opacity: float) -> Tuple[float, float, float]:
 ```
 
 The `_blend_colors` method blends a text color with a background color to achieve a transparency effect based on the provided opacity level. It calculates the blended RGB values and returns them as a `tuple`.
@@ -111,13 +111,13 @@ The `_blend_colors` method blends a text color with a background color to achiev
 create_image(cls,
              text: str,
              font_path: str,
-             noises: list[Noise] = [],
+             noises: List[Noise] = [],
              font_size: float = 40.0,
              font_color: str = 'black',
              font_opacity: float = 1.0,
              background_color: str = 'white',
-             margins: tuple[int, int, int, int] = (5, 5, 5, 5),
-             dpi: tuple[float, float] = (300.0, 300.0),
+             margins: Tuple[int, int, int, int] = (5, 5, 5, 5),
+             dpi: Tuple[float, float] = (300.0, 300.0),
              background_img: Image = None,
              clear_font: bool = True,
              ) -> Image:
@@ -136,7 +136,7 @@ The main method responsible for generating the final image with text and effects
         
         The path to the font file used to render the text.
     
-    - **noises : `list[Noise]`**
+    - **noises : `List[Noise]`**
         
         A list of Noise objects to be applied to the image.
     
@@ -156,11 +156,11 @@ The main method responsible for generating the final image with text and effects
         
         The background color of the image.
     
-    - **margins : `tuple[int, int, int, int]`**
+    - **margins : `Tuple[int, int, int, int]`**
         
         The margins (left, top, right, bottom) around the text.
     
-    - **dpi : `tuple[float, float]`**
+    - **dpi : `Tuple[float, float]`**
         
         The DPI (dots per inch) resolution for the image.
     

@@ -5,7 +5,7 @@ The <a href='#imagesgenerator-module' style="text-decoration: underline;">`Image
 
 ## **Attributes**
 
-- **texts : `list[str]`**
+- **texts : `List[str]`**
 
     A list of texts to be used for generating images. Each text in the list will be applied to a separate image.
 
@@ -13,7 +13,7 @@ The <a href='#imagesgenerator-module' style="text-decoration: underline;">`Image
 
     The file path to the font used for rendering text on the images. The font must be accessible at this path.
 
-- **noises : `list[Noise]`**
+- **noises : `List[Noise]`**
 
     A list of noise objects that will be applied to the images. These can be used to add random variations or effects to the images.
 
@@ -33,11 +33,11 @@ The <a href='#imagesgenerator-module' style="text-decoration: underline;">`Image
 
     The background color of the images. This color will be used if no background image is specified.
 
-- **margins : `tuple[int, int, int, int]`**
+- **margins : `Tuple[int, int, int, int]`**
 
     Margins for text placement on the images. The tuple (left, top, right, bottom) specifies the margins around the text.
 
-- **dpi : `tuple[float, float]`**
+- **dpi : `Tuple[float, float]`**
 
     The DPI (dots per inch) settings for the images. This tuple specifies the horizontal and vertical DPI.
 
@@ -79,7 +79,7 @@ The <a href='#imagesgenerator-module' style="text-decoration: underline;">`Image
 ### **`_generate_next`**
 
 ```py
-_generate_next(self) -> tuple[Image.Image, str]
+_generate_next(self) -> Tuple[Image.Image, str]
 ```
 
 Generates the next image in the sequence. This method is called by the <a href='../generator/#__next__' style="text-decoration: underline;">`__next__`</a> method.
@@ -115,13 +115,13 @@ Saves the image to the specified output path.
 ### **`_save_image_and_text()`**
 
 ```py
-_save_image_and_text(self, img_info: tuple[Image.Image, str, int]) -> None
+_save_image_and_text(self, img_info: Tuple[Image.Image, str, int]) -> None
 ```
 
 Saves both the image and the corresponding text to their respective output paths.
 
 - **Parameters:**
-    - **img_info : `tuple[Image.Image, str, int]`**
+    - **img_info : `Tuple[Image.Image, str, int]`**
         
         A tuple containing the image `Image.Image`, the text `str`, and the index `int`.
 

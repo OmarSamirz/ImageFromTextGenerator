@@ -14,7 +14,7 @@ The <a href='#pixeldropoutnoise-module' style="text-decoration: underline;">`Pix
 
     The probability of a pixel being dropped out. A higher value leads to more pixels being dropped.
 
-- **pixel_dimensions : `tuple[float, float]`**
+- **pixel_dimensions : `Tuple[float, float]`**
 
     The dimensions of the dropout pixels (width, height), controlling how many pixels are removed in blocks.
 
@@ -83,11 +83,11 @@ noisy_image.save('path/to/noisy_image.tif')
 The <a href='#randompixeldropoutnoise-module' style="text-decoration: underline;">`RandomPixelDropoutNoise`</a> class extends the functionality of <a href='#pixeldropoutnoise-module' style="text-decoration: underline;">`PixelDropoutNoise`</a> by allowing random selection of the dropout probability and pixel dimensions from specified ranges.
 
 ### **Attributes**
-- **dropout_prob_range : `tuple[float, float]`**
+- **dropout_prob_range : `Tuple[float, float]`**
 
     The range for random selection of the dropout probability. This controls the likelihood of pixels being dropped out.
 
-- **pixel_dimensions_range : `tuple[float, float]`**
+- **pixel_dimensions_range : `Tuple[float, float]`**
 
     The range for random selection of the pixel dimensions (width, height). Larger ranges will result in larger dropout blocks.
 

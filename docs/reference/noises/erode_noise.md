@@ -80,11 +80,11 @@ noisy_image.save('path/to/noisy_image.tif')
 The <a href='#randomerodenoise-module' style="text-decoration: underline;">`RandomErodeNoise`</a> class extends the functionality of <a href='#erodenoise-module' style="text-decoration: underline;">`ErodeNoise`</a> by randomly selecting the kernel size and the number of iterations for the erosion operation within specified ranges. This adds more variation to the applied noise.
 
 ### **Attributes**
-- **kernel_size_range : `tuple[int, int]`**
+- **kernel_size_range : `Tuple[int, int]`**
 
     The range of possible values for <a href='#attributes' style="text-decoration: underline;">`kernel_size`</a> (structuring element size).
 
-- **iterations_range : `tuple[int, int]`**
+- **iterations_range : `Tuple[int, int]`**
 
     The range of possible values for <a href='#attributes' style="text-decoration: underline;">`iterations`</a> (number of iterations for the erosion operation).
 

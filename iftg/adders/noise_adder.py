@@ -13,7 +13,7 @@ class NoiseAdder(ABC):
     for applying noise, adding noises, saving images, and transforming images.
 
     Attributes:
-        noises (list[Noise]): 
+        noises (List[Noise]): 
             A list of noise objects to be applied to the images.
         output_path (str): 
             The path where the processed images will be saved.

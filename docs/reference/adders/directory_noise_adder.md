@@ -14,7 +14,7 @@ The <a href='#directorynoiseadder-module' style="text-decoration: underline;">`D
     !!! Note
         If left empty, the images will be saved in the same directory as the source images.
 
-- **noises : `list[Noise]`**
+- **noises : `List[Noise]`**
 
     A list of <a href='../../noises/noise/#noise-module' style="text-decoration: underline;">`Noise`</a> objects that represent different noise types to be applied to the images. Each <a href='../../noises/noise/#noise-module' style="text-decoration: underline;">`Noise`</a> object should adhere to the structure and behavior defined by the <a href='../../noises/noise/#noise-module' style="text-decoration: underline;">`Noise`</a> class from the `iftg.noises` module.
 
@@ -22,7 +22,7 @@ The <a href='#directorynoiseadder-module' style="text-decoration: underline;">`D
 
     A unique identifier appended to the filenames of processed images. This is useful for distinguishing between original and processed images (e.g., an image named `example.tif` could become `example_noisy.tif`).
 
-- **img_formats : `list[str]`**
+- **img_formats : `List[str]`**
 
     A list of image formats in which the processed images will be saved. These formats are typically strings like `'TIF'`, `'JPEG'`, etc.
 
@@ -31,7 +31,7 @@ The <a href='#directorynoiseadder-module' style="text-decoration: underline;">`D
 ### **`_apply_noises()`**
 
 ```py
-_apply_noises(self, image: Image) -> tuple[Image.Image, str, str]
+_apply_noises(self, image: Image) -> Tuple[Image.Image, str, str]
 ```
 
 This method applies the specified noise transformations to a given image.
@@ -52,14 +52,14 @@ This method applies the specified noise transformations to a given image.
 ### **`add_noises()`**
 
 ```py
-add_noises(self) -> list[tuple[Image.Image, str, str]]
+add_noises(self) -> List[Tuple[Image.Image, str, str]]
 ```
 
 This method processes all the images in the directory by applying the specified noises.
 
 - **Returns:**
 
-    - A `list[tuple]`, where each tuple contains:
+    - A `List[tuple]`, where each tuple contains:
         - A noisy `Image.Image`,
         - The image's base name `str`,
         - The image's format or extension `str`.
@@ -67,14 +67,14 @@ This method processes all the images in the directory by applying the specified 
 ### **`add_noises()`**
 
 ```py
-add_noises(self) -> list[tuple[Image.Image, str, str]]
+add_noises(self) -> List[Tuple[Image.Image, str, str]]
 ```
 
 This method processes all the images in the directory by applying the specified noises.
 
 - **Returns:**
 
-    - A `list[tuple]`, where each tuple contains:
+    - A `List[tuple]`, where each tuple contains:
         - A noisy `Image.Image`,
         - The image's base name `str`,
         - The image's format or extension `str`.
@@ -82,14 +82,14 @@ This method processes all the images in the directory by applying the specified 
 ### **`save_image()`**
 
 ```py
-save_image(self, img_info: tuple[Image.Image, str, str]) -> None
+save_image(self, img_info: Tuple[Image.Image, str, str]) -> None
 ```
 
 This method saves a noisy image to the output path.
 
 - **Parameters:**
 
-    - **img_info : `tuple[Image.Image, str, str]`**
+    - **img_info : `Tuple[Image.Image, str, str]`**
     
         A tuple containing the noisy image, the base name of the image, and the image format.
 

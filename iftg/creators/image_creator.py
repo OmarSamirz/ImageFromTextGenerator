@@ -54,18 +54,18 @@ class ImageCreator(Creator):
 
         text_dimensions = cls.get_text_dimensions(text, font)
         image_width, image_height = cls.get_image_dimensions(
-            margins, 
+            margins,
             text_dimensions
         )
 
         base_img = Image.new(
             'RGBA',
-            (image_width, image_height+text_dimensions[1]),
+            (image_width, image_height),
             color=background_color
         )
         text_layer = Image.new(
             'RGBA', 
-            (image_width, image_height+text_dimensions[1]),
+            (image_width, image_height),
             color=(255, 255, 255, 0)
         )
 
@@ -86,10 +86,11 @@ class ImageCreator(Creator):
         # Draw the text on the image
         opacity = int(font_opacity * 255)
         draw = ImageDraw.Draw(text_layer)
-        draw.text((margins[0], -text_dimensions[1]+margins[1]),
-                  text, font=font, 
-                  fill=(*font_color, opacity)
-                  )
+        draw.text(
+            (margins[0], margins[1]),
+            text, font=font, 
+            fill=(*font_color, opacity)
+        )
         final_img = Image.alpha_composite(base_img, text_layer)
         
         return final_img.convert('RGB')
