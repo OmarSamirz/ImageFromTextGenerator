@@ -3,13 +3,20 @@
   <h1>ImageFromTextGenerator</h1>
 </div>
 
+
 ![PyPI - Version](https://img.shields.io/pypi/v/iftg)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/OmarSamirz/ImageFromTextGenerator/.%2F.github%2Fworkflows%2Ftest.yml)
+[![Coverage Status](https://coveralls.io/repos/github/OmarSamirz/ImageFromTextGenerator/badge.svg?branch=main)](https://coveralls.io/github/OmarSamirz/ImageFromTextGenerator?branch=main)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FOmarSamirz%2FImageFromTextGenerator.svg?type=shield&issueType=license)](https://app.fossa.com/projects/git%2Bgithub.com%2FOmarSamirz%2FImageFromTextGenerator?ref=badge_shield&issueType=license)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FOmarSamirz%2FImageFromTextGenerator.svg?type=shield&issueType=security)](https://app.fossa.com/projects/git%2Bgithub.com%2FOmarSamirz%2FImageFromTextGenerator?ref=badge_shield&issueType=security)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/iftg)
+[![Downloads](https://static.pepy.tech/badge/iftg)](https://pepy.tech/project/iftg)
 ![PyPI - Downloads](https://img.shields.io/pypi/dm/iftg?color=%231082c3)
 ![PyPI - Downloads](https://img.shields.io/pypi/dw/iftg?color=%231082c3)
+![GitHub repo size](https://img.shields.io/github/repo-size/OmarSamirz/ImageFromTextGenerator)
 ![GitHub Release Date](https://img.shields.io/github/release-date/OmarSamirz/ImageFromTextGenerator)
 ![GitHub License](https://img.shields.io/github/license/OmarSamirz/ImageFromTextGenerator?logoColor=%230d7fc0)
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FOmarSamirz%2FImageFromTextGenerator.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FOmarSamirz%2FImageFromTextGenerator?ref=badge_shield)
+[![DOI](https://zenodo.org/badge/839921966.svg)](https://zenodo.org/doi/10.5281/zenodo.13732596)
 
 
 IFTG is a powerful Python package designed to create high-quality datasets for Optical Character Recognition (OCR) models. By generating synthetic text images with various noise and augmentation techniques, IFTG enables researchers and developers to build robust and accurate OCR systems.
@@ -22,14 +29,15 @@ IFTG is a powerful Python package designed to create high-quality datasets for O
 4. [Documentation](#documentation)
 5. [Quick Start](#quick-start)
 6. [Usage](#usage)
+     - [Adders](#adders)
+         - [ImageNoiseAdder](#imagenoiseadder)
+         - [DirectoryNoiseAdder](#directorynoiseadder)
      - [Creators](#creators)
          - [ImageCreator](#imagecreator)
      - [Generators](#generators)
          - [ImagesGenerator](#imagesgenerator)
          - [BatchesImagesGenerator](#batchesimagesgenerator)
-     - [Adders](#adders)
-         - [DirectoryNoiseAdder](#directorynoiseadder)
-7. [Planned Features](#planned-features)
+8. [Planned Features](#planned-features)
         
 
 
@@ -55,6 +63,8 @@ IFTG is designed to simplify and accelerate the process of creating large and di
 - **Distinctive Image Naming:** Automatically rename images with distinctive names to differentiate between original and augmented versions.
   
 - **User-Friendly API:** Simple and intuitive API design for easy integration into your projects.
+  
+- **Support Multiline Text:** IFTG can automatically render and size text across multiple lines, making it ideal for creating more realistic and diverse OCR training datasets.
 
 ## Noises
 IFTG offers a wide variety of noise effects that you can apply to your images to create robust and diverse datasets for OCR models. With more than 10 noise types available, you have the flexibility to use static noises or introduce randomness in your noise application.
@@ -101,12 +111,22 @@ IFTG offers a wide variety of noise effects that you can apply to your images to
     <th>Pixel Dropout</th>
     <th>Rotation</th>
     <th>Shadow</th>
+    <th>Text Opacity</th>
   </tr>
   <tr>
     <td><img src="https://drive.google.com/uc?export=view&id=1-tK015rD9_qwkwagz6mq7_i9b-Ot3zAT" alt="Pixel Dropout" width="100%"></td>
     <td><img src="https://drive.google.com/uc?export=view&id=1P8x0rhe-y5PKbKwMwVEBLiSzI6kN7hSi" alt="Rotatoin" width="100%"></td>
     <td><img src="https://drive.google.com/uc?export=view&id=1I5vlwsYaG2eC4yGowuYMVOfWo1KbAFYM" alt="Shadow" width="100%"></td>
+    <td><img src="https://drive.google.com/uc?export=view&id=13uoc2zwUK_gC4X5JWAGJndOaqi0saP5c" alt="Text Opacity" width="100%"></td>
   </tr>
+</table>
+
+<table>
+  <tr>
+    <th>Pixelate</th>
+  </tr>
+  <tr>
+    <td><img src="https://drive.google.com/uc?export=view&id=1r3_sA2A4HM2ILnoxkw1TFrQYYeuIjsk-" alt="Pixel Dropout" width="100%"></td>
 </table>
 
 ## Installation
@@ -144,6 +164,48 @@ To get started with IFTG, follow these simple steps:
     ```
 
 ## Usage
+### Adders
+- **ImageNoiseAdder:** ImageNoiseAdder class is designed to test and add noises to existing image in a specific directory.
+
+    Usage Example:
+    ```py
+    iftg.adders import ImageNoiseAdder
+    from iftg.noises import PixelDropoutNoise
+
+    # Initialize ImageNoiseAdder with the specified parameters
+    result = ImageNoiseAdder(img_path='path/to/image.tif',  # Path to the input image file.
+                             output_path='',    #  Directory where the noisy image will be saved. Default is an empty string.
+                             noises=[PixelDropoutNoise()],  # List of noise objects to be applied to the image.
+                             identifier='noisy' # Identifier for the noisy image file.
+                            )
+
+    # Apply the specified noises and save the transformed images
+    result.transform_image()
+    ```
+  
+- **DirectoryNoiseAdder:** DirectoryNoiseAdder class is designed to add noises to existing images in a specific directory.
+
+    Usage Example:
+    ```python
+    from iftg.adders import DirectoryNoiseAdder
+    from iftg.noises import (GaussianNoise, PixelDropoutNoise, RotationNoise, ShadowNoise)
+    
+    # Initialize DirectoryNoiseAdder with the specified parameters
+    results = DirectoryNoiseAdder(dir_path='path/to/directory', # The path to the directory containing images to be processed.
+                                  output_path='path/to/output/directory',   # The path where the processed images will be saved.
+                                  noises=[RotationNoise(), # A list of noise objects to be applied to the images.
+                                          GaussianNoise(),
+                                          PixelDropoutNoise(),
+                                          ShadowNoise()
+                                         ],
+                                  identifier='noisy',   # A unique identifier to append to the filenames of the processed images.
+                                  img_formats=['jpg', 'png'],   # A list of image formats to be considered for processing.
+                                 )
+    
+    # Apply the specified noises and save the transformed images
+    results.transform_images()
+    ```
+
 ### Creators
 - **ImageCreator:** The ImageCreator class is used to generate images with specified text and optional customization. It can be used to create images for testing or as inputs for other generator classes.
 
@@ -161,8 +223,9 @@ To get started with IFTG, follow these simple steps:
                                       font_path='path/to/the/font', # The file path to the font.
                                       noises=[],    # A list of noise objects to apply to the image.
                                       font_size=50, # The size of the font.
-                                      font_color='black',   # The color of the text. It can be text or hexadecimal
-                                      background_color='white', # The background color of the image. It can be text or hexadecimal
+                                      font_color='black',   # The color of the text. It can be text or hexadecimal.
+                                      font_opacity=1.0,  # The opacity of the text where 1.0 is fully opaque and 0.0 is fully transparent.
+                                      background_color='white', # The background color of the image. It can be text or hexadecimal.
                                       margins=(5, 5, 5, 5), # Margins for text placement on the image (left, top, right, bottom). 
                                       dpi=(300, 300),   # The resolution of the image (dots per inch). 
                                       background_img=Image.open('path/to/background/image'),   # An optional background image to be used as a base.
@@ -190,11 +253,12 @@ To get started with IFTG, follow these simple steps:
                                       BrightnessNoise(),
                                       DilateNoise()
                                      ],    
-                              font_size= 40,    # The size of the font used in the images.
-                              font_color= 'black',  # The color of the text in the images.
-                              background_color= 'white',    # The background color of the images.
-                              margins= (5, 5, 5, 5),    # Margins for text placement on the images.
-                              dpi= (300, 300),  # The DPI (dots per inch) settings for the images.
+                              font_size=40,    # The size of the font used in the images.
+                              font_color='black',  # The color of the text in the images.
+                              font_opacity=1.0,  # The opacity of the text in the images.
+                              background_color='white',    # The background color of the images.
+                              margins=(5, 5, 5, 5),    # Margins for text placement on the images.
+                              dpi=(300, 300),  # The DPI (dots per inch) settings for the images.
                               img_name='img',   # The base name for the output image files.
                               img_format='.tif',    # The file format for the output images.
                               img_output_path='output', # The directory where the generated images will be saved.
@@ -237,10 +301,11 @@ To get started with IFTG, follow these simple steps:
                                      font_paths=["path/to/the/font"],   # A list of font file paths, where each font corresponds to a batch of images.
                                      noises=[   # A list of lists of noise objects, where each inner list contains noises to be applied to one batch of images.
                                             [ElasticNoise(), FlipNoise()],
-                                            [ErodeNoise(), FlipNoise]
+                                            [ErodeNoise(), FlipNoise()],
                                             ],
                                      font_sizes=[40],   # A list of font sizes, where each size corresponds to a batch of images.
                                      font_colors=['black'], # A list of font colors, where each color corresponds to a batch of images.
+                                     font_opacities=[1.0], # A list of font opacities, where each opacity corresponds to a batch of images.
                                      background_colors=['white'],   # A list of background colors, where each color corresponds to a batch of images.
                                      margins=[(5, 5, 5, 5)],    # A list of margin tuples (left, top, right, bottom) for text placement, where each margin corresponds to a batch of images.
                                      dpi=[(300, 300)],  # A list of DPI (dots per inch) settings, where each DPI value corresponds to a batch of images.
@@ -257,38 +322,7 @@ To get started with IFTG, follow these simple steps:
     results.generate_batches(is_with_label=True) # Set to False to generate images without labels
     ```
 
-
-### Adders
-- **DirectoryNoiseAdder:** DirectoryNoiseAdder class is designed to add noises to images in a specific directory.
-
-    Usage Example:
-    ```python
-    from iftg.adders import DirectoryNoiseAdder
-    from iftg.noises import (GaussianNoise, PixelDropoutNoise, RotationNoise, ShadowNoise)
-    
-    # Initialize DirectoryNoiseAdder with the specified parameters
-    results = DirectoryNoiseAdder(dir_path='path/to/directory', # The path to the directory containing images to be processed.
-                                  output_path='path/to/output/directory',   # The path where the processed images will be saved.
-                                  noises=[RotationNoise(), # A list of noise objects to be applied to the images.
-                                          GaussianNoise(),
-                                          PixelDropoutNoise(),
-                                          ShadowNoise()
-                                         ],
-                                  identifier='noisy',   # A unique identifier to append to the filenames of the processed images.
-                                  img_formats=['jpg', 'png'],   # A list of image formats to be considered for processing.
-                                 )
-    
-    # Apply the specified noises and save the transformed images
-    results.transform_images()
-    ```
-
 ## Planned Features
 - **Support for Multiprocessing:** Enhance performance by adding multiprocessing capabilities to speed up the image generation and noise application processes.
 
 - **Addition of More Noise Effects:** Expand the library of noise effects to provide even more options for dataset augmentation.
-
-- **Support for Multiline Text:** Enable the creation of images with multiline text, allowing for more complex and varied text-based datasets.
-
-
-## License
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FOmarSamirz%2FImageFromTextGenerator.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FOmarSamirz%2FImageFromTextGenerator?ref=badge_large)

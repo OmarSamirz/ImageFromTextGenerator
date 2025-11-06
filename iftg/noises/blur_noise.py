@@ -1,7 +1,11 @@
 import numpy as np
 from PIL import Image, ImageFilter
 
+from typing import Tuple
+from typing_extensions import override
+
 from iftg.noises.noise import Noise
+
 
 class BlurNoise(Noise):
     """
@@ -13,14 +17,14 @@ class BlurNoise(Noise):
             A higher value results in a more blurred image.
     """
 
-
-    def __init__(self, 
-                 blur_radius: float = 2.0
-                ):
+    def __init__(
+        self,
+        blur_radius: float = 2.0
+    ) -> None:
         self.blur_radius = blur_radius
-    
 
-    def add_noise(self, image: Image) -> Image:
+    @override
+    def add_noise(self, image: Image.Image) -> Image.Image:
         """
         Applies Gaussian blur noise to the input image.
 
@@ -35,10 +39,9 @@ class BlurNoise(Noise):
 
         return self._blur_noise(image)
 
-
-    def _blur_noise(self, image: Image) -> Image:
+    def _blur_noise(self, image: Image.Image) -> Image.Image:
         gaussian_filter = ImageFilter.GaussianBlur(radius=self.blur_radius)
-            
+
         blured_image = image.filter(gaussian_filter)
 
         return blured_image
@@ -49,17 +52,18 @@ class RandomBlurNoise(BlurNoise):
     A class to apply Gaussian blur noise with a random blur radius to an image.
 
     Attributes:
-        blur_radius_range : tuple[float, float]
+        blur_radius_range : Tuple[float, float]
             A tuple representing the range within which the blur radius will be randomly selected.
     """
 
-    def __init__(self, 
-                 blur_radius_range: tuple[float, float] = (1.0, 3.0)
-                ):
+    def __init__(
+        self,
+        blur_radius_range: Tuple[float, float] = (1.0, 3.0)
+    ) -> None:
         self.blur_radius_range = blur_radius_range
-    
 
-    def add_noise(self, image: Image) -> Image:
+    @override
+    def add_noise(self, image: Image.Image) -> Image.Image:
         """
         Applies Gaussian blur noise with a random radius to the input image.
 
@@ -73,6 +77,5 @@ class RandomBlurNoise(BlurNoise):
         """
 
         self.blur_radius = np.random.uniform(*self.blur_radius_range)
-        
-        return super().add_noise(image)
 
+        return super().add_noise(image)

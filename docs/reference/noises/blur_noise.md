@@ -77,7 +77,7 @@ The <a href='#randomblurnoise-module' style="text-decoration: underline;">`Rando
 
 
 ### **Attributes**
-- **blur_radius_range : `tuple[float, float]`**
+- **blur_radius_range : `Tuple[float, float]`**
 
     A tuple representing the minimum and maximum values between which the blur radius will be randomly selected.
 

@@ -79,7 +79,7 @@ rotated_image.save('path/to/rotated_image.tif')
 The <a href='#randomrotationnoise-module' style="text-decoration: underline;">`RandomRotationNoise`</a> class extends the functionality of <a href='#rotationnoise-module' style="text-decoration: underline;">`RotationNoise`</a> by selecting a random rotation angle from a specified range.
 
 ### **Attributes**
-- **rotation_angle_range : `tuple[float, float]`**
+- **rotation_angle_range : `Tuple[float, float]`**
 
     The range within which the rotation angle will be randomly selected. The lower bound defines the maximum counterclockwise rotation, while the upper bound defines the maximum clockwise rotation.
 

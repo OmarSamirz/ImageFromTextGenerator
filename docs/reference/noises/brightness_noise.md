@@ -79,7 +79,7 @@ The <a href='#randombrightnessnoise-module' style="text-decoration: underline;">
 
 ### **Attributes**
 
-- **brightness_factor_range : `tuple[float, float]`**
+- **brightness_factor_range : `Tuple[float, float]`**
 
     The range of brightness factors to choose from. A random factor is selected within this range for each.
 

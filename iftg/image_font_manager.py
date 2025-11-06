@@ -1,5 +1,7 @@
 from PIL import ImageFont
 
+from typing import Dict
+
 
 class ImageFontManager:
     """
@@ -7,14 +9,11 @@ class ImageFontManager:
     This class caches fonts to avoid loading the same font multiple times.
     """
 
-
     _fonts = {}
 
-
-    @property
-    def fonts(cls) -> dict:
+    @classmethod
+    def fonts(cls) -> Dict:
         return cls._fonts
-
 
     @classmethod
     def clear(cls) -> None:
@@ -23,9 +22,8 @@ class ImageFontManager:
         """
         cls._fonts.clear()
 
-
     @classmethod
-    def remove_font(cls, font_path, font_size) -> None:
+    def remove_font(cls, font_path: str, font_size: int) -> None:
         """
         Removes a specific font from the cache based on its path and size.
 
@@ -41,9 +39,8 @@ class ImageFontManager:
         except:
             raise KeyError("This key does not exist inside ImageFontManager")
 
-
     @classmethod
-    def get_font(cls, font_path, font_size) -> ImageFont:
+    def get_font(cls, font_path: str, font_size: int) -> ImageFont.ImageFont:
         """
         Retrieves a font from the cache or loads it if not already cached.
 
@@ -55,7 +52,7 @@ class ImageFontManager:
             ImageFont: The loaded ImageFont object.
         """
         if (font_path, font_size) not in cls._fonts:
-            cls._fonts[(font_path, font_size)] = ImageFont.truetype(font_path, font_size)
-        
+            cls._fonts[(font_path, font_size)] = ImageFont.truetype(
+                font_path, font_size)
+
         return cls._fonts[(font_path, font_size)]
-    

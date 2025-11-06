@@ -17,7 +17,7 @@
 
 
 
-- **noises : `list[Noise]`**
+- **noises : `List[Noise]`**
     
     A list of noise objects that will be applied to the image. These should be instances of <a href='../../noises/noise/#noise-module' style="text-decoration: underline;">`Noise`</a> or its subclasses.
 
@@ -29,7 +29,7 @@
 
 ### **`_apply_noises()`**
 ```py
-_apply_noises(self, image: Noise) -> tuple[Image.Image, str, str]:
+_apply_noises(self, image: Noise) -> Tuple[Image.Image, str, str]:
 ```
 This method applies the list of noise objects to the provided image.
 
@@ -49,7 +49,7 @@ This method applies the list of noise objects to the provided image.
 This method opens the image from the specified file path <a href='#attributes' style="text-decoration: underline;">`img_path`</a>, applies the list of noises to it, and returns the noisy image along with its base name and format.
 
 ```py
-def add_noises(self) -> tuple[Image.Image, str, str]:
+def add_noises(self) -> Tuple[Image.Image, str, str]:
 ```
 
 - **Returns:**
@@ -62,7 +62,7 @@ def add_noises(self) -> tuple[Image.Image, str, str]:
 ### **`save_image()`**
 
 ```py
-save_image(self, img_info: tuple[Image.Image, str, str]) -> None:
+save_image(self, img_info: Tuple[Image.Image, str, str]) -> None:
 ```
 This method saves the noisy image to the specified output directory <a href='#attributes' style="text-decoration: underline;">`output_path`</a> using the file name and format provided.
 

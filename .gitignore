@@ -1,0 +1,7 @@
+.venv/
+fonts/
+.pytest_cache/
+**/__pycache__/
+dist/
+iftg.egg-info/
+build/

@@ -3,15 +3,15 @@ import pathlib
 import setuptools
 
 setuptools.setup(
-    name='iftg',
-    version='1.1.0',
-    description='IFTG (ImageFromTextGenerator) is a Python package that simplifies creating robust datasets for OCR models. Generate images from text, apply over 10 built-in noise effects, and customize fonts and layouts. IFTG supports all languages and offers endless noise combinations, including custom noise creation.',
-    long_description=pathlib.Path('README.md').read_text(),
-    long_description_content_type='text/markdown',
-    url='https://omarsamirz.github.io/ImageFromTextGenerator/',
-    author='Omar Samir',
-    author_email='omarsamir1300@gmail.com',
-    license='MIT',
+    name="iftg",
+    version="1.3.0",
+    description="IFTG (ImageFromTextGenerator) is a Python package that simplifies creating robust datasets for OCR models. Generate images from text, apply over 10 built-in noise effects, and customize fonts and layouts. IFTG supports all languages and offers endless noise combinations, including custom noise creation.",
+    long_description=pathlib.Path("README.md").read_text(),
+    long_description_content_type="text/markdown",
+    url="https://omarsamirz.github.io/ImageFromTextGenerator/",
+    author="Omar Samir",
+    author_email="omarsamir1300@gmail.com",
+    license="MIT",
     classifiers=[
         "Development Status :: 4 - Beta",
         "Intended Audience :: Developers",
@@ -23,15 +23,17 @@ setuptools.setup(
         'Operating System :: MacOS :: MacOS X',
     ],
     project_urls={
-        "Source": 'https://github.com/OmarSamirz/ImageFromTextGenerator/tree/main'
-        
+        "Source": "https://github.com/OmarSamirz/ImageFromTextGenerator/tree/main"
     },
-    python_requires='>=3.10,<3.13',
-    install_requires=['numpy>=2.1.1',
-                      'opencv-python>=4.10.0',
-                      'pillow>=10.4.0',
-                      'scipy>=1.14.1',
-                     ],
+    python_requires=">=3.10,<3.13",
+    install_requires=[
+        "numpy>=2.1.1",
+        "opencv-python>=4.10.0.84",
+        "pillow>=10.4.0",
+        "scipy>=1.14.1",
+        "typing-extensions>=4.10.0",
+        "tqdm>=4.67.1",
+    ],
     packages=setuptools.find_packages(),
     include_package_data=True,
 )
