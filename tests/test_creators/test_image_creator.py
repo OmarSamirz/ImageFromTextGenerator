@@ -1,6 +1,6 @@
 import pytest
-from PIL import Image, ImageFont
-from unittest.mock import patch, MagicMock
+from PIL import Image
+from unittest.mock import patch
 
 from iftg.creators import ImageCreator
 from iftg.noises import BlurNoise

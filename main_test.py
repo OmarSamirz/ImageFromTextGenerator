@@ -59,7 +59,7 @@ def main1():
 
 def main2():
     start = time.time()
-    noise_adder = DirectoryNoiseAdder(dir_path='output',
+    noise_adder = DirectoryNoiseAdder(dir_path='output_images',
                                       output_path='output',
                                       noises=[BrightnessNoise(), ErodeNoise()]
                                       )
@@ -82,11 +82,11 @@ def main3():
         "dpi": [(300, 300), (72, 72)],
         "img_names": ["batch1", "batch2"],
         "img_formats": [".png", ".jpeg"],
-        "img_output_paths": ["output1", "output2"],
+        "img_output_paths": ["output1"],
         "txt_names": ["label1", "label2"],
-        "txt_formats": [".txt", ".md"],
-        "txt_output_paths": ["output1", "output2"],
-        "background_image_paths": ["", ""],
+        "txt_formats": [".txt", ".txt"],
+        "txt_output_paths": ["output1"],
+        "background_image_paths": [""],
     }
     results = BatchesImagesGenerator(**inputs)
     results.generate_batches()
@@ -109,9 +109,11 @@ def main4():
 
 def main5():
     img_noise_adder = ImageNoiseAdder(
-        img_path='img.tif', noises=[GaussianNoise()])
+        img_path='img.tif', 
+        noises=[GaussianNoise()]
+    )
     img_noise_adder.transform_image()
 
 
 if __name__ == '__main__':
-    main0()
+    main5()

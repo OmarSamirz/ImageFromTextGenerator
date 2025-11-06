@@ -1,4 +1,7 @@
+from tqdm.auto import tqdm
 
+from typing import List, Tuple
+from typing_extensions import override
 
 from iftg.noises.noise import Noise
 from iftg.generators import ImagesGenerator
@@ -12,59 +15,60 @@ class BatchesImagesGenerator(Generator):
     Inherits from `Generator` and provides functionality to generate images in batches.
 
     Attributes:
-        texts (list[list[str]]): 
+        texts (List[List[str]]): 
             A list of lists of texts, where each inner list contains texts for one batch of images.
-        noises (list[list[Noise]]): 
+        noises (List[List[Noise]]): 
             A list of lists of noise objects, where each inner list contains noises to be applied to one batch of images.
-        font_paths (list[str]): 
+        font_paths (List[str]): 
             A list of font file paths, where each font corresponds to a batch of images.
-        font_sizes (list[float]): 
+        font_sizes (List[float]): 
             A list of font sizes, where each size corresponds to a batch of images.
-        font_colors (list[str]): 
+        font_colors (List[str]): 
             A list of font colors, where each color corresponds to a batch of images.
-        font_opacities (list[float]):
+        font_opacities (List[float]):
             A list of opacity levels for text, where each opacity corresponds to a batch of images.
             Values range from 0.0 (fully transparent) to 1.0 (fully opaque).
-        background_colors (list[str]): 
+        background_colors (List[str]): 
             A list of background colors, where each color corresponds to a batch of images.
-        margins (list[tuple[int, int, int, int]]): 
+        margins (List[Tuple[int, int, int, int]]): 
             A list of margin tuples (left, top, right, bottom) for text placement, where each margin corresponds to a batch of images.
-        dpi (list[tuple[float, float]]): 
+        dpi (List[Tuple[float, float]]): 
             A list of DPI (dots per inch) settings, where each DPI value corresponds to a batch of images.
-        img_names (list[str]): 
+        img_names (List[str]): 
             A list of base names for the output image files, where each name corresponds to a batch of images.
-        img_formats (list[str]): 
+        img_formats (List[str]): 
             A list of file formats for the output images, where each format corresponds to a batch of images.
-        img_output_paths (list[str]): 
+        img_output_paths (List[str]): 
             A list of directories where the generated images will be saved, where each directory corresponds to a batch of images.
-        txt_names (list[str]): 
+        txt_names (List[str]): 
             A list of base names for the output text files containing image labels, where each name corresponds to a batch of images.
-        txt_formats (list[str]): 
+        txt_formats (List[str]): 
             A list of file formats for the output text files, where each format corresponds to a batch of images.
-        txt_output_paths (list[str]): 
+        txt_output_paths (List[str]): 
             A list of directories where the generated text files will be saved, where each directory corresponds to a batch of images.
-        background_image_paths (list[str]):
+        background_image_paths (List[str]):
             A list of file paths to the background images, where each path corresponds to a batch of images.
     """
 
-    def __init__(self,
-                 texts: list[list[str]],
-                 font_paths: list[str],
-                 noises: list[list[Noise]] = [],
-                 font_sizes: list[float] = [40.0],
-                 font_colors: list[str] = ['black'],
-                 font_opacities: list[float] = [1.0],
-                 background_colors: list[str] = ['white'],
-                 margins: list[tuple[int, int, int, int]] = [(5, 5, 5, 5)],
-                 dpi: list[tuple[float, float]] = [(300, 300)],
-                 img_names: list[str] = ['img'],
-                 img_formats: list[str] = ['.tif'],
-                 img_output_paths: list[str] = [''],
-                 txt_names: list[str] = ['text'],
-                 txt_formats: list[str] = ['.txt'],
-                 txt_output_paths: list[str] = [''],
-                 background_image_paths: list[str] = ['']
-                 ):
+    def __init__(
+        self,
+        texts: List[List[str]],
+        font_paths: List[str],
+        noises: List[List[Noise]] = [],
+        font_sizes: List[float] = [40.0],
+        font_colors: List[str] = ['black'],
+        font_opacities: List[float] = [1.0],
+        background_colors: List[str] = ['white'],
+        margins: List[Tuple[int, int, int, int]] = [(5, 5, 5, 5)],
+        dpi: List[Tuple[float, float]] = [(300, 300)],
+        img_names: List[str] = ['img'],
+        img_formats: List[str] = ['.tif'],
+        img_output_paths: List[str] = [''],
+        txt_names: List[str] = ['text'],
+        txt_formats: List[str] = ['.txt'],
+        txt_output_paths: List[str] = [''],
+        background_image_paths: List[str] = ['']
+    ) -> None:
 
         def extend_list(lst, default_value):
             """
@@ -111,24 +115,26 @@ class BatchesImagesGenerator(Generator):
                 txt_output_paths, txt_output_paths[-1])
             background_image_paths = extend_list(
                 background_image_paths, background_image_paths[-1])
-        super().__init__(texts,
-                         font_paths,
-                         noises,
-                         font_sizes,
-                         font_colors,
-                         font_opacities,
-                         background_colors,
-                         margins,
-                         dpi,
-                         img_names,
-                         img_formats,
-                         img_output_paths,
-                         txt_names,
-                         txt_formats,
-                         txt_output_paths,
-                         background_image_paths
-                         )
+        super().__init__(
+            texts,
+            font_paths,
+            noises,
+            font_sizes,
+            font_colors,
+            font_opacities,
+            background_colors,
+            margins,
+            dpi,
+            img_names,
+            img_formats,
+            img_output_paths,
+            txt_names,
+            txt_formats,
+            txt_output_paths,
+            background_image_paths
+        )
 
+    @override
     def _generate_next(self) -> ImagesGenerator:
         """
         Generates the next batch of images using the specified settings for that batch.
@@ -145,26 +151,27 @@ class BatchesImagesGenerator(Generator):
             ImageFontManager.clear()
             raise StopIteration
 
-        generator = ImagesGenerator(self.texts[self._count],
-                                    self.font_path[self._count],
-                                    self.noises[self._count],
-                                    self.font_size[self._count],
-                                    self.font_color[self._count],
-                                    self.font_opacity[self._count],
-                                    self.background_color[self._count],
-                                    self.margins[self._count],
-                                    self.dpi[self._count],
-                                    self.img_name[self._count] +
-                                    f'_{self._count}',
-                                    self.img_format[self._count],
-                                    self.img_output_path[self._count],
-                                    self.txt_name[self._count] +
-                                    f'_{self._count}',
-                                    self.txt_format[self._count],
-                                    self.txt_output_path[self._count],
-                                    self.background_image_path[self._count],
-                                    False,
-                                    )
+        generator = ImagesGenerator(
+            self.texts[self._count],
+            self.font_path[self._count],
+            self.noises[self._count],
+            self.font_size[self._count],
+            self.font_color[self._count],
+            self.font_opacity[self._count],
+            self.background_color[self._count],
+            self.margins[self._count],
+            self.dpi[self._count],
+            self.img_name[self._count] +
+            f'_{self._count}',
+            self.img_format[self._count],
+            self.img_output_path[self._count],
+            self.txt_name[self._count] +
+            f'_{self._count}',
+            self.txt_format[self._count],
+            self.txt_output_path[self._count],
+            self.background_image_path[self._count],
+            False,
+        )
 
         self._count += 1
         return generator
@@ -178,7 +185,7 @@ class BatchesImagesGenerator(Generator):
                 If True, generates images with corresponding text labels and saves them. 
                 If False, generates images without saving labels.
         """
-        for generator in self:
+        for generator in tqdm(self, total=len(self), desc="Batches"):
             if is_with_label == True:
                 generator.generate_images_with_text()
             else:

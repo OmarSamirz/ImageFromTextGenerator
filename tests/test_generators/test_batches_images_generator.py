@@ -1,5 +1,4 @@
 import pytest
-from PIL import Image
 
 import os
 

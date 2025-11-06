@@ -1,6 +1,9 @@
 import numpy as np
 from scipy.ndimage import gaussian_filter, map_coordinates
 
+from typing import Tuple
+from typing_extensions import override
+
 from iftg.noises.noise import Noise, Image
 
 
@@ -16,14 +19,16 @@ class ElasticNoise(Noise):
             The standard deviation for Gaussian filtering of the displacement fields.
     """
 
-    def __init__(self,
-                 alpha: float = 10.0,
-                 sigma: float = 2.0,
-                 ):
+    def __init__(
+        self,
+        alpha: float = 10.0,
+        sigma: float = 2.0,
+    ) -> None:
         self.alpha = alpha
         self.sigma = sigma
 
-    def add_noise(self, image: Image) -> Image:
+    @override
+    def add_noise(self, image: Image.Image) -> Image.Image:
         """
         Applies elastic noise to the image.
 
@@ -37,7 +42,7 @@ class ElasticNoise(Noise):
         """
         return self._elastic_noise(image)
 
-    def _elastic_noise(self, image: Image) -> Image:
+    def _elastic_noise(self, image: Image.Image) -> Image.Image:
 
         shape = np.array(image).shape
         dx = gaussian_filter((np.random.RandomState(None).rand(
@@ -66,20 +71,22 @@ class RandomElasticNoise(ElasticNoise):
     for the noise are chosen randomly from specified ranges.
 
     Attributes:
-        alpha_range (tuple[float, float]): 
+        alpha_range (Tuple[float, float]): 
             The range of scaling factors for the displacement field.
-        sigma_range (tuple[float, float]): 
+        sigma_range (Tuple[float, float]): 
             The range of standard deviations for Gaussian filtering.
     """
 
-    def __init__(self,
-                 alpha_range: tuple[float, float] = (10.0, 20.0),
-                 sigma_range: tuple[float, float] = (2.0, 4.0),
-                 ):
+    def __init__(
+        self,
+        alpha_range: Tuple[float, float] = (10.0, 20.0),
+        sigma_range: Tuple[float, float] = (2.0, 4.0),
+    ) -> None:
         self.alpha_range = alpha_range
         self.sigma_range = sigma_range
 
-    def add_noise(self, image: Image) -> Image:
+    @override
+    def add_noise(self, image: Image.Image) -> Image.Image:
         self.alpha = np.random.uniform(*self.alpha_range)
         self.sigma = np.random.uniform(*self.sigma_range)
 

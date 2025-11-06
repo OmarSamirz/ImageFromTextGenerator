@@ -1,10 +1,14 @@
+from PIL import Image
+
 import os
 import glob
 import itertools
 from functools import reduce
+from typing import List, Tuple
+from typing_extensions import override
 
+from iftg.noises.noise import Noise
 from iftg.adders.noise_adder import NoiseAdder
-from iftg.noises.noise import Noise, Image
 
 
 class DirectoryNoiseAdder(NoiseAdder):
@@ -26,13 +30,14 @@ class DirectoryNoiseAdder(NoiseAdder):
 
     """
 
-    def __init__(self,
-                 dir_path: str = '',
-                 output_path: str = '',
-                 noises: list[Noise] = [],
-                 identifier: str = 'noisy',
-                 img_formats: list[str] = ['jpg', 'png', 'tif'],
-                 ):
+    def __init__(
+        self,
+        dir_path: str = '',
+        output_path: str = '',
+        noises: List[Noise] = [],
+        identifier: str = 'noisy',
+        img_formats: List[str] = ['jpg', 'png', 'tif'],
+    ) -> None:
         self._count = 0
         if os.path.exists(dir_path) == True:
             self.dir_path = dir_path
@@ -46,12 +51,14 @@ class DirectoryNoiseAdder(NoiseAdder):
         self.images_pathes = list(itertools.chain.from_iterable(
             glob.iglob(os.path.join(dir_path, f'*.{fmt}')) for fmt in self.img_formats
         ))
-        super().__init__(noises,
-                         output_path,
-                         identifier,
-                         )
+        super().__init__(
+            noises,
+            output_path,
+            identifier,
+        )
 
-    def _apply_noises(self, image: Image) -> tuple[Image.Image, str, str]:
+    @override
+    def _apply_noises(self, image: Image.Image) -> Tuple[Image.Image, str, str]:
         """
         Applies the specified noises to a given image.
 
@@ -77,7 +84,8 @@ class DirectoryNoiseAdder(NoiseAdder):
 
         return noisy_image, img_name, img_format
 
-    def add_noises(self) -> list[tuple[Image.Image, str, str]]:
+    @override
+    def add_noises(self) -> List[Tuple[Image.Image, str, str]]:
         """
         Applies noises to all images in the directory.
 
@@ -86,12 +94,14 @@ class DirectoryNoiseAdder(NoiseAdder):
                 A list of tuples, each containing a noisy image, the base name of the image, and the image format.
         """
         images = [Image.open(img_path) for img_path in self.images_pathes]
-        noisy_images = reduce(lambda acc, img: acc +
-                              [self._apply_noises(img)], images, [])
+        noisy_images = reduce(
+            lambda acc, img: acc + [self._apply_noises(img)], images, []
+        )
 
         return noisy_images
 
-    def save_image(self, img_info: tuple[Image.Image, str, str]) -> None:
+    @override
+    def save_image(self, img_info: Tuple[Image.Image, str, str]) -> None:
         """
         Saves a noisy image to the output path.
 

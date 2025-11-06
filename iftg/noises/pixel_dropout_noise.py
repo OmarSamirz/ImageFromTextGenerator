@@ -1,6 +1,9 @@
 import numpy as np
 from PIL import Image, ImageColor
 
+from typing import Tuple
+from typing_extensions import override
+
 from iftg.noises.noise import Noise
 
 
@@ -12,22 +15,24 @@ class PixelDropoutNoise(Noise):
     Attributes:
         dropout_prob (float): 
             The probability of a pixel being dropped out.
-        pixel_dimensions (tuple[float, float]): 
+        pixel_dimensions (Tuple[float, float]): 
             The dimensions of the dropout pixels (width, height).
         pixel_color (str): 
             The color of the dropped-out pixels.
     """
 
-    def __init__(self,
-                 dropout_prob: float = 0.1,
-                 pixel_dimensions: tuple[float, float] = (1, 1),
-                 pixel_color: str = '#FFFFFF'
-                 ):
+    def __init__(
+        self,
+        dropout_prob: float = 0.1,
+        pixel_dimensions: Tuple[float, float] = (1, 1),
+        pixel_color: str = '#FFFFFF'
+    ) -> None:
         self.dropout_prob = dropout_prob
         self.pixel_dimensions = pixel_dimensions
         self.pixel_color = pixel_color
 
-    def add_noise(self, image: Image) -> Image:
+    @override
+    def add_noise(self, image: Image.Image) -> Image.Image:
         """
         Applies pixel dropout noise to the image.
 
@@ -42,7 +47,7 @@ class PixelDropoutNoise(Noise):
 
         return self._pixeldropout_noise(image)
 
-    def _pixeldropout_noise(self, image: Image) -> Image:
+    def _pixeldropout_noise(self, image: Image.Image) -> Image.Image:
         pixel_width, pixel_height = self.pixel_dimensions
 
         image_array = np.array(image)
@@ -69,24 +74,26 @@ class RandomPixelDropoutNoise(PixelDropoutNoise):
     The dropout probability and pixel dimensions are chosen randomly within specified ranges.
 
     Attributes:
-        dropout_prob_range (tuple[float, float]): 
+        dropout_prob_range (Tuple[float, float]): 
             The range for random selection of the dropout probability.
-        pixel_dimensions_range (tuple[float, float]): 
+        pixel_dimensions_range (Tuple[float, float]): 
             The range for random selection of pixel dimensions (width, height).
         pixel_color (str): 
             The color of the dropped-out pixels.
     """
 
-    def __init__(self,
-                 dropout_prob_range: tuple[float, float] = (0.1, 0.3),
-                 pixel_dimensions_range: tuple[float, float] = (5, 10),
-                 pixel_color: str = '#FFFFFF'
-                 ):
+    def __init__(
+        self,
+        dropout_prob_range: Tuple[float, float] = (0.1, 0.3),
+        pixel_dimensions_range: Tuple[float, float] = (5, 10),
+        pixel_color: str = '#FFFFFF'
+    ) -> None:
         self.dropout_prob_range = dropout_prob_range
         self.pixel_dimensions_range = pixel_dimensions_range
         self.pixel_color = pixel_color
 
-    def add_noise(self, image: Image) -> Image:
+    @override
+    def add_noise(self, image: Image.Image) -> Image.Image:
         """
         Applies random pixel dropout noise to the image by selecting a random dropout probability and pixel dimensions.
 

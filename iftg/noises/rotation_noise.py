@@ -1,5 +1,8 @@
 import numpy as np
-from PIL import Image, ImageFilter
+from PIL import Image
+
+from typing import Tuple
+from typing_extensions import override
 
 from iftg.noises.noise import Noise
 
@@ -16,14 +19,16 @@ class RotationNoise(Noise):
             The color to use for the background after rotation.
     """
 
-    def __init__(self,
-                 rotation_angle: float = 30.0,
-                 background_color: str = 'white',
-                 ):
+    def __init__(
+        self,
+        rotation_angle: float = 30.0,
+        background_color: str = 'white',
+    ) -> None:
         self.rotation_angle = rotation_angle
         self.background_color = background_color
 
-    def add_noise(self, image: Image) -> Image:
+    @override
+    def add_noise(self, image: Image.Image) -> Image.Image:
         """
         Applies rotation noise to the image.
 
@@ -37,7 +42,7 @@ class RotationNoise(Noise):
         """
         return self._rotation_noise(image)
 
-    def _rotation_noise(self, image: Image) -> Image:
+    def _rotation_noise(self, image: Image.Image) -> Image.Image:
         rotated_image = image.rotate(angle=self.rotation_angle,
                                      resample=Image.Resampling.BICUBIC,
                                      fillcolor=self.background_color,
@@ -53,20 +58,22 @@ class RandomRotationNoise(RotationNoise):
     The rotation angle is chosen randomly within a specified range.
 
     Attributes:
-        rotation_angle_range (tuple[float, float]): 
+        rotation_angle_range (Tuple[float, float]): 
             The range within which the rotation angle will be randomly selected.
         background_color (str): 
             The color to use for the background after rotation.
     """
 
-    def __init__(self,
-                 rotation_angle_range: tuple[float, float] = (-50.0, 50.0),
-                 background_color: str = 'white',
-                 ):
+    def __init__(
+        self,
+        rotation_angle_range: Tuple[float, float] = (-50.0, 50.0),
+        background_color: str = 'white',
+    ) -> None:
         self.rotation_angle_range = rotation_angle_range
         self.background_color = background_color
 
-    def add_noise(self, image: Image) -> Image:
+    @override
+    def add_noise(self, image: Image.Image) -> Image.Image:
         """
         Applies random rotation noise to the image by selecting a random angle within the specified range.
 

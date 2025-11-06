@@ -1,5 +1,7 @@
 from PIL import ImageFont
 
+from typing import Dict
+
 
 class ImageFontManager:
     """
@@ -10,7 +12,7 @@ class ImageFontManager:
     _fonts = {}
 
     @classmethod
-    def fonts(cls) -> dict:
+    def fonts(cls) -> Dict:
         return cls._fonts
 
     @classmethod
@@ -21,7 +23,7 @@ class ImageFontManager:
         cls._fonts.clear()
 
     @classmethod
-    def remove_font(cls, font_path, font_size) -> None:
+    def remove_font(cls, font_path: str, font_size: int) -> None:
         """
         Removes a specific font from the cache based on its path and size.
 
@@ -38,7 +40,7 @@ class ImageFontManager:
             raise KeyError("This key does not exist inside ImageFontManager")
 
     @classmethod
-    def get_font(cls, font_path, font_size) -> ImageFont:
+    def get_font(cls, font_path: str, font_size: int) -> ImageFont.ImageFont:
         """
         Retrieves a font from the cache or loads it if not already cached.
 

@@ -1,6 +1,7 @@
 import pytest
 from PIL import ImageFont
 from unittest.mock import patch, MagicMock
+
 from iftg.image_font_manager import ImageFontManager
 
 

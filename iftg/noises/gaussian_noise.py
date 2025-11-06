@@ -1,6 +1,10 @@
 import numpy as np
+from PIL import Image
 
-from iftg.noises.noise import Noise, Image
+from typing import Tuple
+from typing_extensions import override
+
+from iftg.noises.noise import Noise
 
 
 class GaussianNoise(Noise):
@@ -14,15 +18,16 @@ class GaussianNoise(Noise):
             The standard deviation of the Gaussian noise distribution.
     """
 
-    def __init__(self,
-                 mean: float = 0,
-                 sigma: float = 40,
-                 ):
-
+    def __init__(
+        self,
+        mean: float = 0,
+        sigma: float = 40,
+    ) -> None:
         self.mean = mean
         self.sigma = sigma
 
-    def add_noise(self, image: Image) -> Image:
+    @override
+    def add_noise(self, image: Image.Image) -> Image.Image:
         """
         Applies Gaussian noise to the image.
 
@@ -37,8 +42,7 @@ class GaussianNoise(Noise):
 
         return self._gaussian_noise(image)
 
-    def _gaussian_noise(self, image: Image) -> Image:
-
+    def _gaussian_noise(self, image: Image.Image) -> Image.Image:
         img_array = np.array(image)
 
         noise = np.random.normal(self.mean, self.sigma, img_array.shape)
@@ -55,21 +59,22 @@ class RandomGaussianNoise(GaussianNoise):
     A class to apply random Gaussian noise to an image. The mean and sigma for the Gaussian distribution are chosen randomly within specified ranges.
 
     Attributes:
-        mean_range (tuple[float, float]): 
+        mean_range (Tuple[float, float]): 
             The range for random selection of the mean of the Gaussian noise distribution. 
-        sigma_range (tuple[float, float]): 
+        sigma_range (Tuple[float, float]): 
             The range for random selection of the standard deviation of the Gaussian noise distribution.
     """
 
-    def __init__(self,
-                 mean_range: tuple[float, float] = (0, 1),
-                 sigma_range: tuple[float, float] = (40, 70),
-                 ):
-
+    def __init__(
+        self,
+        mean_range: Tuple[float, float] = (0, 1),
+        sigma_range: Tuple[float, float] = (40, 70),
+    ) -> None:
         self.mean_range = mean_range
         self.sigma_range = sigma_range
 
-    def add_noise(self, image: Image) -> Image:
+    @override
+    def add_noise(self, image: Image.Image) -> Image.Image:
         """
         Applies random Gaussian noise to the image by selecting a random mean and sigma within the specified ranges.
 

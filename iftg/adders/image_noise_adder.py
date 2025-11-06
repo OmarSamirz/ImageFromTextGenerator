@@ -1,9 +1,12 @@
+from PIL import Image
 
 import os
 from functools import reduce
+from typing import List, Tuple
+from typing_extensions import override
 
+from iftg.noises.noise import Noise
 from iftg.adders.noise_adder import NoiseAdder
-from iftg.noises.noise import Noise, Image
 
 
 class ImageNoiseAdder(NoiseAdder):
@@ -21,25 +24,27 @@ class ImageNoiseAdder(NoiseAdder):
             Identifier for the noisy image file. Default is 'noisy'.
     """
 
-    def __init__(self,
-                 img_path: str,
-                 output_path: str = '',
-                 noises: list[Noise] = [],
-                 identifier: str = 'noisy',
-                 ):
-
+    def __init__(
+        self,
+        img_path: str,
+        output_path: str = '',
+        noises: List[Noise] = [],
+        identifier: str = 'noisy',
+    ) -> None:
         if os.path.exists(img_path) == True:
             self.img_path = img_path
         else:
             raise FileNotFoundError('The image does not exist.')
         if output_path == '':
             output_path = os.path.dirname(img_path)
-        super().__init__(noises,
-                         output_path,
-                         identifier,
-                         )
+        super().__init__(
+            noises,
+            output_path,
+            identifier,
+        )
 
-    def _apply_noises(self, image: Noise) -> tuple[Image.Image, str, str]:
+    @override
+    def _apply_noises(self, image: Noise) -> Tuple[Image.Image, str, str]:
         """
         Applies the specified noises to a given image.
 
@@ -64,7 +69,8 @@ class ImageNoiseAdder(NoiseAdder):
 
         return noisy_image, img_name, img_format
 
-    def add_noises(self) -> tuple[Image.Image, str, str]:
+    @override
+    def add_noises(self) -> Tuple[Image.Image, str, str]:
         """
         Applies noises to the image specified by the image path.
 
@@ -78,7 +84,8 @@ class ImageNoiseAdder(NoiseAdder):
 
         return noisy_image
 
-    def save_image(self, img_info: tuple[Image.Image, str, str]) -> None:
+    @override
+    def save_image(self, img_info: Tuple[Image.Image, str, str]) -> None:
         """
         Saves a noisy image to the output path.
 

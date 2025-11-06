@@ -8,4 +8,4 @@ class Noise(ABC):
     def add_noise(self,
                   image: Image,
                   ) -> Image:
-        pass
+        ...

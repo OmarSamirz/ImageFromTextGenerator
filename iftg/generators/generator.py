@@ -1,6 +1,6 @@
-from PIL import Image
 
 from abc import ABC, abstractmethod
+from typing import List, Tuple, Union
 
 from iftg.noises.noise import Noise
 
@@ -12,58 +12,59 @@ class Generator(ABC):
     to define how each image is generated.
 
     Attributes:
-        texts (list[str] | list[list[str]]): 
+        texts (List[str] | List[List[str]]): 
             A list of texts or a list of lists of texts for generating images.
-        font_path (str | list[str]): 
+        font_path (str | List[str]): 
             The file path(s) to the font(s) used in the images.
-        noises (list[Noise] | list[list[Noise]]): 
+        noises (List[Noise] | List[List[Noise]]): 
             A list of noise objects or a list of lists of noise objects to be applied to the images.
-        font_size (float | list[float]): 
+        font_size (float | List[float]): 
             The size(s) of the font(s) used in the images.
-        font_color (str | list[str]): 
+        font_color (str | List[str]): 
             The color(s) of the text in the images.
-        font_opacity (float | list[float]):
+        font_opacity (float | List[float]):
             The opacity level(s) of the text, where 1.0 is fully opaque and 0.0 is fully transparent.
-        background_color (str | list[str]): 
+        background_color (str | List[str]): 
             The background color(s) of the images.
-        margins (tuple[int, int, int, int] | list[tuple[int, int, int, int]]): 
+        margins (Tuple[int, int, int, int] | List[Tuple[int, int, int, int]]): 
             Margins for text placement on the images, either as a single tuple or a list of tuples.
-        dpi (tuple[float, float] | list[tuple[float, float]]): 
+        dpi (Tuple[float, float] | List[Tuple[float, float]]): 
             The DPI (dots per inch) settings for the images, either as a single tuple or a list of tuples.
-        img_name (str | list[str]): 
+        img_name (str | List[str]): 
             The base name(s) for the output image files.
-        img_format (str | list[str]): 
+        img_format (str | List[str]): 
             The file format(s) for the output images.
-        img_output_path (str | list[str]): 
+        img_output_path (str | List[str]): 
             The directory or directories where the generated images will be saved.
-        txt_name (str | list[str]): 
+        txt_name (str | List[str]): 
             The base name(s) for the output text files containing image labels.
-        txt_format (str | list[str]): 
+        txt_format (str | List[str]): 
             The file format(s) for the output text files.
-        txt_output_path (str | list[str]): 
+        txt_output_path (str | List[str]): 
             The directory or directories where the generated text files will be saved.
-        background_image_path (str | list[str]): 
+        background_image_path (str | List[str]): 
             The file path(s) to the background image(s) to be used in the images.
     """
 
-    def __init__(self,
-                 texts: list[str] | list[list[str]],
-                 font_path: str | list[str],
-                 noises: list[Noise] | list[list[Noise]],
-                 font_size: float | list[float],
-                 font_color: str | list[str],
-                 font_opacity: float | list[float],
-                 background_color: str | list[str],
-                 margins: tuple[int, int, int, int] | list[tuple[int, int, int, int]],
-                 dpi: tuple[float, float] | list[tuple[float, float]],
-                 img_name: str | list[str],
-                 img_format: str | list[str],
-                 img_output_path: str | list[str],
-                 txt_name: str | list[str],
-                 txt_format: str | list[str],
-                 txt_output_path: str | list[str],
-                 background_image_path: str | list[str],
-                 ):
+    def __init__(
+        self,
+        texts: Union[List[str], List[List[str]]],
+        font_path: Union[str, List[str]],
+        noises: Union[List[Noise], List[List[Noise]]],
+        font_size: Union[float, List[float]],
+        font_color: Union[str, List[str]],
+        font_opacity: Union[float, List[float]],
+        background_color: Union[str, List[str]],
+        margins: Union[Tuple[int, int, int, int], List[Tuple[int, int, int, int]]],
+        dpi: Union[Tuple[float, float], List[Tuple[float, float]]],
+        img_name: Union[str, List[str]],
+        img_format: Union[str, List[str]],
+        img_output_path: Union[str, List[str]],
+        txt_name: Union[str, List[str]],
+        txt_format: Union[str, List[str]],
+        txt_output_path: Union[str, List[str]],
+        background_image_path: Union[str, List[str]],
+    ) -> None:
         self.texts = texts
         self.font_path = font_path
         self.noises = noises
@@ -82,6 +83,9 @@ class Generator(ABC):
         self.background_image_path = background_image_path
         self._texts_len = len(texts)
         self._count = 0
+        
+    def __len__(self):
+        return len(self.texts)
 
     def __iter__(self):
         """
@@ -98,7 +102,7 @@ class Generator(ABC):
         Returns the next generated image by calling the `_generate_next` method.
 
         Returns:
-        ImagesGenerator | tuple[Image.Image, str, int]:
+        ImagesGenerator | Tuple[Image.Image, str, int]:
             - If the subclass returns an image, a tuple is expected containing:
                 - `Image.Image`: The generated image.
                 - `str`: A label or related information for the image.
@@ -119,7 +123,7 @@ class Generator(ABC):
         This method must be implemented by subclasses.
 
         Returns:
-            ImagesGenerator | tuple[Image.Image, str, int]:
+            ImagesGenerator | Tuple[Image.Image, str, int]:
                 - If returning an image directly, a tuple containing:
                     - The generated image
                     - A label or text associated with the image
@@ -129,4 +133,4 @@ class Generator(ABC):
         Raises:
             StopIteration: When there are no more images to generate
         """
-        pass
+        ...

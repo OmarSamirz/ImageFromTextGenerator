@@ -1,6 +1,12 @@
 import cv2
 import numpy as np
-from iftg.noises.noise import Noise, Image
+from PIL import Image
+
+from typing import Tuple
+from typing_extensions import override
+
+
+from iftg.noises.noise import Noise
 
 
 class ErodeNoise(Noise):
@@ -15,15 +21,16 @@ class ErodeNoise(Noise):
             The number of times the erosion operation is applied.
     """
 
-    def __init__(self,
-                 kernel_size: int = 3,
-                 iterations: int = 1,
-                 ):
-
+    def __init__(
+        self,
+        kernel_size: int = 3,
+        iterations: int = 1,
+    ) -> None:
         self.kernel_size = kernel_size
         self.iterations = iterations
 
-    def add_noise(self, image: Image) -> Image:
+    @override
+    def add_noise(self, image: Image.Image) -> Image.Image:
         """
         Applies erosion noise to the image.
 
@@ -37,7 +44,7 @@ class ErodeNoise(Noise):
         """
         return self._erode_noise(image)
 
-    def _erode_noise(self, image: Image) -> Image:
+    def _erode_noise(self, image: Image.Image) -> Image.Image:
         img_array = np.array(image)
 
         kernel = np.ones((self.kernel_size, self.kernel_size), np.uint8)
@@ -55,21 +62,22 @@ class RandomErodeNoise(ErodeNoise):
     are chosen randomly within specified ranges.
 
     Attributes:
-        kernel_size_range (tuple[int, int]): 
+        kernel_size_range (Tuple[int, int]): 
             The range of kernel sizes to choose from for erosion.
-        iterations_range (tuple[int, int]): 
+        iterations_range (Tuple[int, int]): 
             The range of iteration counts to choose from for erosion.
     """
 
-    def __init__(self,
-                 kernel_size_range: tuple[int, int] = (3, 5),
-                 iterations_range: tuple[int, int] = (1, 2),
-                 ):
-
+    def __init__(
+        self,
+        kernel_size_range: Tuple[int, int] = (3, 5),
+        iterations_range: Tuple[int, int] = (1, 2),
+    ) -> None:
         self.kernel_size_range = kernel_size_range
         self.iterations_range = iterations_range
 
-    def add_noise(self, image: Image) -> Image:
+    @override
+    def add_noise(self, image: Image.Image) -> Image.Image:
         """
         Applies random erosion noise to the image by selecting random kernel size and number of iterations.
 

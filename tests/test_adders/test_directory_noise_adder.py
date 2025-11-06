@@ -1,8 +1,7 @@
 import pytest
-import os
-import glob
-from unittest.mock import patch, MagicMock
 from PIL import Image
+from unittest.mock import patch, MagicMock
+
 from iftg.adders import DirectoryNoiseAdder
 from iftg.noises import BlurNoise
 

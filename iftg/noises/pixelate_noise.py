@@ -1,6 +1,9 @@
 import numpy as np
 from PIL import Image
 
+from typing import Tuple
+from typing_extensions import override
+
 from iftg.noises.noise import Noise
 
 
@@ -14,10 +17,11 @@ class PixelateNoise(Noise):
             The size of pixelation blocks. Larger values create more pronounced pixelation.
     """
 
-    def __init__(self, noise_intensity: int = 2):
+    def __init__(self, noise_intensity: int = 2) -> None:
         self.noise_intensity = noise_intensity
 
-    def add_noise(self, image: Image) -> Image:
+    @override
+    def add_noise(self, image: Image.Image) -> Image.Image:
         """
         Applies pixelation noise to the image.
 
@@ -34,7 +38,7 @@ class PixelateNoise(Noise):
         """
         return self._pixelate_noise(image)
 
-    def _pixelate_noise(self, image: Image) -> Image:
+    def _pixelate_noise(self, image: Image.Image) -> Image.Image:
         if self.noise_intensity < 1:
             raise ValueError("Window size must be positive")
 
@@ -69,14 +73,14 @@ class RandomPixelateNoise(PixelateNoise):
     The pixelation intensity is chosen randomly within a specified range.
 
     Attributes:
-        noise_intensity_range (tuple[int, int]):
+        noise_intensity_range (Tuple[int, int]):
             The range within which the pixelation intensity will be randomly selected.
     """
 
-    def __init__(self, noise_intensity_range: tuple[int, int] = (2, 5)):
+    def __init__(self, noise_intensity_range: Tuple[int, int] = (2, 5)) -> None:
         self.noise_intensity_range = noise_intensity_range
 
-    def add_noise(self, image: Image) -> Image:
+    def add_noise(self, image: Image.Image) -> Image.Image:
         """
         Applies random pixelation noise to the image by selecting a random intensity within the specified range.
 
