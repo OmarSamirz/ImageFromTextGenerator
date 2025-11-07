@@ -13,14 +13,15 @@ class ImageNoiseAdder(NoiseAdder):
     """
     A class to add noise to an image and save the noisy image to a specified output path.
 
-    Attributes:
-        img_path (str): 
+    Parameters
+    ----------
+        img_path : str
             Path to the input image file.
-        output_path (str): 
+        output_path : str
             Directory where the noisy image will be saved. Default is an empty string.
-        noises (List[Noise]):
+        noises : List[Noise]
             List of noise objects to be applied to the image.
-        identifier (str):
+        identifier : str
             Identifier for the noisy image file. Default is 'noisy'.
     """
 
@@ -48,12 +49,14 @@ class ImageNoiseAdder(NoiseAdder):
         """
         Applies the specified noises to a given image.
 
-        Parameters:
-            image (Image): 
+        Parameters
+        ----------
+            image : Image
                 The image to which noises will be applied.
 
-        Returns:
-            tuple:
+        Returns
+        -------
+            tuple
                 A tuple containing the noisy image, the base name of the image (without extension), and the image format (including the dot).
         """
         base_name = os.path.basename(self.img_path)
@@ -74,8 +77,9 @@ class ImageNoiseAdder(NoiseAdder):
         """
         Applies noises to the image specified by the image path.
 
-        Returns:
-            list:
+        Returns
+        -------
+            list
                 A list of tuples, each containing a noisy image, the base name of the image, and the image format.
         """
         image = Image.open(self.img_path)
@@ -89,8 +93,9 @@ class ImageNoiseAdder(NoiseAdder):
         """
         Saves a noisy image to the output path.
 
-        Parameters:
-            img_info (Tuple[Image, str, str]): 
+        Parameters
+        ----------
+            img_info : Tuple[Image, str, str]
                 A tuple containing the noisy image, the base name of the image, and the image format.
         """
         super().save_image(img_info)

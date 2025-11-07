@@ -11,17 +11,18 @@ class GaussianNoise(Noise):
     """
     A class to apply Gaussian noise to an image. Gaussian noise is added by generating noise from a normal distribution and adding it to the image.
 
-    Attributes:
-        mean (float): 
+    Parameters
+    ----------
+        mean : float
             The mean of the Gaussian noise distribution.
-        sigma (float): 
+        sigma : float
             The standard deviation of the Gaussian noise distribution.
     """
 
     def __init__(
         self,
-        mean: float = 0,
-        sigma: float = 40,
+        mean: float = 0.0,
+        sigma: float = 40.0,
     ) -> None:
         self.mean = mean
         self.sigma = sigma
@@ -31,12 +32,14 @@ class GaussianNoise(Noise):
         """
         Applies Gaussian noise to the image.
 
-        Args:
-            image (Image): 
+        Parameters
+        ----------
+            image : Image
                 The image to which noise will be applied.
 
-        Returns:
-            Image: 
+        Returns
+        -------
+            Image
                 The image with Gaussian noise applied.
         """
 
@@ -58,17 +61,18 @@ class RandomGaussianNoise(GaussianNoise):
     """
     A class to apply random Gaussian noise to an image. The mean and sigma for the Gaussian distribution are chosen randomly within specified ranges.
 
-    Attributes:
-        mean_range (Tuple[float, float]): 
+    Parameters
+    ----------
+        mean_range : Tuple[float, float]
             The range for random selection of the mean of the Gaussian noise distribution. 
-        sigma_range (Tuple[float, float]): 
+        sigma_range : Tuple[float, float]
             The range for random selection of the standard deviation of the Gaussian noise distribution.
     """
 
     def __init__(
         self,
-        mean_range: Tuple[float, float] = (0, 1),
-        sigma_range: Tuple[float, float] = (40, 70),
+        mean_range: Tuple[float, float] = (0.0, 1.0),
+        sigma_range: Tuple[float, float] = (40.0, 70.0),
     ) -> None:
         self.mean_range = mean_range
         self.sigma_range = sigma_range
@@ -78,15 +82,16 @@ class RandomGaussianNoise(GaussianNoise):
         """
         Applies random Gaussian noise to the image by selecting a random mean and sigma within the specified ranges.
 
-        Parameters:
-            image (Image): 
+        Parameters
+        ----------
+            image : Image
                 The image to which noise will be applied.
 
-        Returns:
-            Image: 
+        Returns
+        -------
+            Image
                 The image with random Gaussian noise applied.
         """
-
         self.mean = np.random.uniform(*self.mean_range)
         self.sigma = np.random.uniform(*self.sigma_range)
 

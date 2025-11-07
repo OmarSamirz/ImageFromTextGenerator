@@ -27,12 +27,17 @@ class ImageFontManager:
         """
         Removes a specific font from the cache based on its path and size.
 
-        Args:
-            font_path (str): The file path to the font.
-            font_size (int): The size of the font.
+        Parameters
+        ----------
+            font_path : str 
+                The file path to the font.
+            font_size : int 
+                The size of the font.
 
-        Raises:
-            KeyError: If the specified font is not found in the cache.
+        Raises
+        ------
+            KeyError
+                If the specified font is not found in the cache.
         """
         try:
             del cls._fonts[(font_path, font_size)]
@@ -44,15 +49,22 @@ class ImageFontManager:
         """
         Retrieves a font from the cache or loads it if not already cached.
 
-        Args:
-            font_path (str): The file path to the font.
-            font_size (int): The size of the font.
+        Parameters
+        ----------
+            font_path : str 
+                The file path to the font.
+            font_size : int
+                The size of the font.
 
-        Returns:
-            ImageFont: The loaded ImageFont object.
+        Returns
+        -------
+            ImageFont
+                The loaded ImageFont object.
         """
         if (font_path, font_size) not in cls._fonts:
             cls._fonts[(font_path, font_size)] = ImageFont.truetype(
-                font_path, font_size)
+                font_path, 
+                font_size
+            )
 
         return cls._fonts[(font_path, font_size)]

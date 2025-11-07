@@ -11,38 +11,39 @@ class Generator(ABC):
     such as noise and text, to images. Subclasses should implement the `_generate_next` method 
     to define how each image is generated.
 
-    Attributes:
-        texts (List[str] | List[List[str]]): 
+    Parameters
+    ----------
+        texts : List[str] | List[List[str]]
             A list of texts or a list of lists of texts for generating images.
-        font_path (str | List[str]): 
+        font_path : str | List[str]
             The file path(s) to the font(s) used in the images.
-        noises (List[Noise] | List[List[Noise]]): 
+        noises : List[Noise] | List[List[Noise]]
             A list of noise objects or a list of lists of noise objects to be applied to the images.
-        font_size (float | List[float]): 
+        font_size : float | List[float]
             The size(s) of the font(s) used in the images.
-        font_color (str | List[str]): 
+        font_color : str | List[str]
             The color(s) of the text in the images.
-        font_opacity (float | List[float]):
+        font_opacity : float | List[float]
             The opacity level(s) of the text, where 1.0 is fully opaque and 0.0 is fully transparent.
-        background_color (str | List[str]): 
+        background_color : str | List[str] 
             The background color(s) of the images.
-        margins (Tuple[int, int, int, int] | List[Tuple[int, int, int, int]]): 
+        margins : Tuple[int, int, int, int] | List[Tuple[int, int, int, int]]
             Margins for text placement on the images, either as a single tuple or a list of tuples.
-        dpi (Tuple[float, float] | List[Tuple[float, float]]): 
+        dpi : Tuple[float, float] | List[Tuple[float, float]]
             The DPI (dots per inch) settings for the images, either as a single tuple or a list of tuples.
-        img_name (str | List[str]): 
+        img_name : str | List[str]
             The base name(s) for the output image files.
-        img_format (str | List[str]): 
+        img_format : str | List[str] 
             The file format(s) for the output images.
-        img_output_path (str | List[str]): 
+        img_output_path : str | List[str]
             The directory or directories where the generated images will be saved.
-        txt_name (str | List[str]): 
+        txt_name : str | List[str]
             The base name(s) for the output text files containing image labels.
-        txt_format (str | List[str]): 
+        txt_format : str | List[str]
             The file format(s) for the output text files.
-        txt_output_path (str | List[str]): 
+        txt_output_path : str | List[str]
             The directory or directories where the generated text files will be saved.
-        background_image_path (str | List[str]): 
+        background_image_path : str | List[str]
             The file path(s) to the background image(s) to be used in the images.
     """
 
@@ -91,8 +92,9 @@ class Generator(ABC):
         """
         Returns the generator object itself.
 
-        Returns:
-            Generator:
+        Returns
+        -------
+            Generator
                 The generator object.
         """
         return self
@@ -101,16 +103,18 @@ class Generator(ABC):
         """
         Returns the next generated image by calling the `_generate_next` method.
 
-        Returns:
-        ImagesGenerator | Tuple[Image.Image, str, int]:
+        Returns
+        -------
+        ImagesGenerator | Tuple[Image.Image, str, int]
             - If the subclass returns an image, a tuple is expected containing:
                 - `Image.Image`: The generated image.
                 - `str`: A label or related information for the image.
                 - `int`: An additional identifier or index for the image.
             - Alternatively, a custom subclass may return an instance of `ImagesGenerator`.
 
-        Raises:
-            StopIteration:
+        Raises
+        ------
+            StopIteration
                 When there are no more images to generate.
         """
 
@@ -122,15 +126,18 @@ class Generator(ABC):
         Abstract method that defines how the next image in the sequence is generated.
         This method must be implemented by subclasses.
 
-        Returns:
-            ImagesGenerator | Tuple[Image.Image, str, int]:
+        Returns
+        -------
+            ImagesGenerator | Tuple[Image.Image, str, int]
                 - If returning an image directly, a tuple containing:
                     - The generated image
                     - A label or text associated with the image
                     - An index or identifier for the image
                 - Alternatively, an instance of ImagesGenerator for batch processing
 
-        Raises:
-            StopIteration: When there are no more images to generate
+        Raises
+        ------
+            StopIteration
+                When there are no more images to generate
         """
         ...

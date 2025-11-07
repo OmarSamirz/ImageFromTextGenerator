@@ -30,15 +30,19 @@ class Creator(ABC):
     @classmethod
     @abstractmethod
     def get_text_dimensions(cls, text: str, font: ImageFont.ImageFont) -> Tuple[int, int]:
-        """
-        Gets the dimensions of text when rendered with a specific font.
+        """Gets the dimensions of text when rendered with a specific font.
+        
+        Parameters
+        ----------
+        text : str
+            The text to measure.
+        font : ImageFont.ImageFont
+            The font to use for measurement.
 
-        Parameters:
-            text (str): The text to measure.
-            font (ImageFont): The font to use for measurement.
-
-        Returns:
-            Tuple[int, int]: The text dimensions as (max_width, total_height).
+        Returns
+        -------
+        tuple
+            The text dimensions as (max_width, total_height).
         """
         lines = text.splitlines() or [""]
 
@@ -64,12 +68,17 @@ class Creator(ABC):
         """
         Calculates the dimensions of the image based on the text dimensions and margins.
 
-        Parameters:
-            margins (Tuple[int, int, int, int]): Margins for the image (left, top, right, bottom).
-            text_dimensions (Tuple[float, float, float, float]): The dimensions of the text.
+        Parameters
+        ----------
+            margins : Tuple[int, int, int, int] 
+                Margins for the image (left, top, right, bottom).
+            text_dimensions : Tuple[float, float, float, float] 
+                The dimensions of the text.
 
-        Returns:
-            Tuple[int, int]: The image dimensions as (width, height).
+        Returns
+        -------
+            tuple
+                The image dimensions as (width, height).
         """
         max_width, max_height = text_dimensions
         left_margin, top_margin, right_margin, bottom_margin = margins

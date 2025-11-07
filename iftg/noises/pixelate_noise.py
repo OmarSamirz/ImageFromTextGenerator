@@ -12,8 +12,9 @@ class PixelateNoise(Noise):
     A class to apply pixelation noise to an image.
     The image is divided into blocks and each block is replaced with its average color.
 
-    Attributes:
-        noise_intensity (int):
+    Parameters
+    ----------
+        noise_intensity : int
             The size of pixelation blocks. Larger values create more pronounced pixelation.
     """
 
@@ -25,15 +26,18 @@ class PixelateNoise(Noise):
         """
         Applies pixelation noise to the image.
 
-        Parameters:
-            image (Image):
+        Parameters
+        ----------
+            image : Image
                 The image to which noise will be applied.
 
-        Returns:
-            Image:
+        Returns
+        -------
+            Image
                 The pixelated version of the input image.
 
-        Raises:
+        Raises
+        ------
             ValueError: If noise_intensity is less than 1.
         """
         return self._pixelate_noise(image)
@@ -45,10 +49,12 @@ class PixelateNoise(Noise):
         img = np.array(image)
         orig_height, orig_width = img.shape[:2]
 
-        pad_height = (self.noise_intensity - (orig_height %
-                      self.noise_intensity)) % self.noise_intensity
-        pad_width = (self.noise_intensity - (orig_width %
-                     self.noise_intensity)) % self.noise_intensity
+        pad_height = (
+            self.noise_intensity - (orig_height % self.noise_intensity)
+        ) % self.noise_intensity
+        pad_width = (
+            self.noise_intensity - (orig_width % self.noise_intensity)
+        ) % self.noise_intensity
 
         if pad_height > 0 or pad_width > 0:
             padding = ((0, pad_height), (0, pad_width), (0, 0))
@@ -56,12 +62,19 @@ class PixelateNoise(Noise):
 
         # Get new dimensions after padding
         n, m, c = img.shape
-        reshaped = img.reshape(n//self.noise_intensity, self.noise_intensity,
-                               m//self.noise_intensity, self.noise_intensity, c)
+        reshaped = img.reshape(
+            n//self.noise_intensity,
+            self.noise_intensity,
+            m//self.noise_intensity,
+            self.noise_intensity,
+            c
+        )
         means = reshaped.mean(axis=(1, 3))
 
         pixelated = np.repeat(
-            np.repeat(means, self.noise_intensity, axis=0), self.noise_intensity, axis=1)
+            np.repeat(means, self.noise_intensity, axis=0), 
+            self.noise_intensity, axis=1
+        )
         pixelated = pixelated[:orig_height, :orig_width].astype(np.uint8)
 
         return Image.fromarray(pixelated)
@@ -72,8 +85,9 @@ class RandomPixelateNoise(PixelateNoise):
     A class to apply random pixelation noise to an image.
     The pixelation intensity is chosen randomly within a specified range.
 
-    Attributes:
-        noise_intensity_range (Tuple[int, int]):
+    Parameters
+    ----------
+        noise_intensity_range : Tuple[int, int]
             The range within which the pixelation intensity will be randomly selected.
     """
 
@@ -84,12 +98,14 @@ class RandomPixelateNoise(PixelateNoise):
         """
         Applies random pixelation noise to the image by selecting a random intensity within the specified range.
 
-        Parameters:
-            image (Image):
+        Parameters
+        ----------
+            image : Image
                 The image to which noise will be applied.
 
-        Returns:
-            Image:
+        Returns
+        -------
+            Image
                 The image pixelated with a random intensity within the specified range.
         """
         self.noise_intensity = np.random.randint(*self.noise_intensity_range)

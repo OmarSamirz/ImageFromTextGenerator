@@ -11,8 +11,9 @@ class BlurNoise(Noise):
     """
     A class to apply Gaussian blur noise to an image.
 
-    Attributes:
-        blur_radius (float): 
+    Parameters
+    ----------
+        blur_radius : float
             The radius of the Gaussian blur to be applied. 
             A higher value results in a more blurred image.
     """
@@ -28,12 +29,14 @@ class BlurNoise(Noise):
         """
         Applies Gaussian blur noise to the input image.
 
-        Parameters:
-            image (Image): 
+        Parameters
+        ----------
+            image : Image
                 The input image to which noise will be added.
 
-        Returns:
-            Image:
+        Returns
+        -------
+            Image
                 The image with Gaussian blur applied.
         """
 
@@ -51,7 +54,8 @@ class RandomBlurNoise(BlurNoise):
     """
     A class to apply Gaussian blur noise with a random blur radius to an image.
 
-    Attributes:
+    Parameters
+    ----------
         blur_radius_range : Tuple[float, float]
             A tuple representing the range within which the blur radius will be randomly selected.
     """
@@ -67,12 +71,14 @@ class RandomBlurNoise(BlurNoise):
         """
         Applies Gaussian blur noise with a random radius to the input image.
 
-        Parameters:
-            image (Image): 
+        Parameters
+        ----------
+            image : Image
                 The input image to which noise will be added.
 
-        Returns:
-            Image:
+        Returns
+        -------
+            Image
                 The image with random Gaussian blur applied.
         """
 

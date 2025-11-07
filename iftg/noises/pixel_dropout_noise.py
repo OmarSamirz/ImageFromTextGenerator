@@ -12,12 +12,13 @@ class PixelDropoutNoise(Noise):
     A class to apply pixel dropout noise to an image. 
     Pixel dropout noise simulates the effect of randomly "dropping out" pixels in the image.
 
-    Attributes:
-        dropout_prob (float): 
+    Parameters
+    ----------
+        dropout_prob : float
             The probability of a pixel being dropped out.
-        pixel_dimensions (Tuple[float, float]): 
+        pixel_dimensions : Tuple[float, float]
             The dimensions of the dropout pixels (width, height).
-        pixel_color (str): 
+        pixel_color : str
             The color of the dropped-out pixels.
     """
 
@@ -36,12 +37,14 @@ class PixelDropoutNoise(Noise):
         """
         Applies pixel dropout noise to the image.
 
-        Parameters:
-            image (Image):
+        Parameters
+        ----------
+            image : Image
                 The image to which noise will be applied.
 
-        Returns:
-            Image: 
+        Returns
+        -------
+            Image
                 The image with pixel dropout noise applied.
         """
 
@@ -73,12 +76,13 @@ class RandomPixelDropoutNoise(PixelDropoutNoise):
     A class to apply random pixel dropout noise to an image. 
     The dropout probability and pixel dimensions are chosen randomly within specified ranges.
 
-    Attributes:
-        dropout_prob_range (Tuple[float, float]): 
+    Parameters
+    ----------
+        dropout_prob_range : Tuple[float, float]
             The range for random selection of the dropout probability.
-        pixel_dimensions_range (Tuple[float, float]): 
+        pixel_dimensions_range : Tuple[float, float]
             The range for random selection of pixel dimensions (width, height).
-        pixel_color (str): 
+        pixel_color : str
             The color of the dropped-out pixels.
     """
 
@@ -97,17 +101,20 @@ class RandomPixelDropoutNoise(PixelDropoutNoise):
         """
         Applies random pixel dropout noise to the image by selecting a random dropout probability and pixel dimensions.
 
-        Parameters:
-            image (Image):
+        Parameters
+        ----------
+            image : Image
                 The image to which noise will be applied.
 
-        Returns:
-            Image:
+        Returns
+        -------
+            Image
                 The image with random pixel dropout noise applied.
         """
-
         self.dropout_prob = np.random.uniform(*self.dropout_prob_range)
-        self.pixel_dimensions = (np.random.randint(
-            *self.pixel_dimensions_range), np.random.randint(*self.pixel_dimensions_range))
+        self.pixel_dimensions = (
+            np.random.randint(*self.pixel_dimensions_range), 
+            np.random.randint(*self.pixel_dimensions_range)
+        )
 
         return super().add_noise(image)

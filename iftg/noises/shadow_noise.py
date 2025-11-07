@@ -11,10 +11,11 @@ class ShadowNoise(Noise):
     """
     A class to apply shadow noise to an image. The shadow is applied based on a polygon drawn on a mask image.
 
-    Attributes:
-        num_points (int): 
+    Parameters
+    ----------
+        num_points : int
             The number of points used to create the polygon for the shadow mask. Must be at least 2.
-        shadow_intensity (float): 
+        shadow_intensity : float
             The intensity of the shadow applied to the image. Ranges from 0 to 1.
     """
 
@@ -24,7 +25,7 @@ class ShadowNoise(Noise):
         shadow_intensity: float = 0.5,
     ) -> None:
         if num_points < 2:
-            raise ValueError('num_points should be atleast 2.')
+            raise ValueError('`num_points` should be atleast 2.')
 
         self.num_points = num_points
         self.shadow_intensity = shadow_intensity
@@ -34,12 +35,14 @@ class ShadowNoise(Noise):
         """
         Applies shadow noise to the image.
 
-        Parameters:
-            image (Image):
+        Parameters
+        ----------
+            image : Image
                 The image to which shadow noise will be applied.
 
-        Returns:
-            Image:
+        Returns
+        -------
+            Image
                 The image with the shadow noise applied.
         """
 
@@ -69,10 +72,11 @@ class RandomShadowNoise(ShadowNoise):
     """
     A class to apply random shadow noise to an image. The number of points and shadow intensity are randomly chosen within specified ranges.
 
-    Attributes:
-        num_points_range (Tuple[int, int]):
+    Parameters
+    ----------
+        num_points_range : Tuple[int, int]
             The range of the number of points used to create the polygon for the shadow mask.
-        shadow_intensity_range (Tuple[float, float]):
+        shadow_intensity_range : Tuple[float, float]
             The range of shadow intensity values.
     """
 
@@ -89,15 +93,16 @@ class RandomShadowNoise(ShadowNoise):
         """
         Applies random shadow noise to the image by selecting a random number of points and shadow intensity.
 
-        Parameters:
-            image (Image): 
+        Parameters
+        ----------
+            image : Image
                 The image to which random shadow noise will be applied.
 
-        Returns:
-            Image: 
+        Returns
+        -------
+            Image
                 The image with the random shadow noise applied.
         """
-
         self.num_points = np.random.randint(*self.num_points_range)
         self.shadow_intensity = np.random.uniform(*self.shadow_intensity_range)
 

@@ -12,10 +12,11 @@ class DilateNoise(Noise):
     A class to apply dilation noise to an image. Dilation noise enlarges the white regions of the image
     by applying morphological dilation using a structuring element (kernel).
 
-    Attributes:
-        kernel_size (int): 
+    Parameters
+    ----------
+        kernel_size : int
             The size of the structuring element (kernel) used for dilation.
-        iterations (int): 
+        iterations : int 
             The number of times the dilation operation is applied.
     """
 
@@ -33,12 +34,14 @@ class DilateNoise(Noise):
         """
         Applies dilation noise to the image.
 
-        Parameters:
-            image (Image): 
+        Parameters
+        ----------
+            image : Image
                 The image to which noise will be applied.
 
-        Returns:
-            Image: 
+        Returns
+        -------
+            Image
                 The image with dilation noise applied.
         """
         return self._dilate_noise(image)
@@ -60,10 +63,11 @@ class RandomDilateNoise(DilateNoise):
     A class to apply random dilation noise to an image. The kernel size and number of iterations
     are chosen randomly within specified ranges.
 
-    Attributes:
-        kernel_size_range (Tuple[int, int]): 
+    Parameters
+    ----------
+        kernel_size_range : Tuple[int, int]
             The range of kernel sizes to choose from for dilation.
-        iterations_range (Tuple[int, int]): 
+        iterations_range : Tuple[int, int]
             The range of iteration counts to choose from for dilation.
     """
 
@@ -81,12 +85,14 @@ class RandomDilateNoise(DilateNoise):
         """
         Applies random dilation noise to the image by selecting random kernel size and number of iterations.
 
-        Parameters:
-            image (Image): 
+        Parameters
+        ----------
+            image : Image
                 The image to which noise will be applied.
 
-        Returns:
-            Image: 
+        Returns
+        -------
+            Image
                 The image with random dilation noise applied.
         """
         self.kernel_size = np.random.randint(

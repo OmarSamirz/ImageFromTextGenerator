@@ -2,8 +2,8 @@ import numpy as np
 from PIL import Image, ImageFont, ImageDraw, ImageColor
 
 from functools import reduce
-from typing import Tuple, List
 from typing_extensions import override
+from typing import Tuple, List, Optional
 
 from iftg.noises.noise import Noise
 from iftg.creators.creator import Creator
@@ -33,22 +33,24 @@ class ImageCreator(Creator):
         Creates a base image with the specified text, background color and dimensions, 
         and optionally adds a background image.
 
-        Parameters:
-            text (str):
+        Parameters
+        ----------
+            text : str
                 The text to be added to the image.
-            font (ImageFont):
+            font : ImageFont
                 The font used for the text.
-            font_color (Tuple[float, float, float]):
+            font_color : Tuple[float, float, float]
                 The color (RGB) of the text.
-            background_color (str):
+            background_color : str
                 The background color of the image.
-            margins (Tuple[int, int, int, int]):
+            margins : Tuple[int, int, int, int]
                 Margins for the image (left, top, right, bottom).
-            background_img (Image):
+            background_img : Image
                 An optional background image to be used as a base.
 
-        Returns:
-            Tuple[Image, int]:
+        Returns
+        -------
+            tuple
                 A Tuple containing the generated image and the top margin adjustment.
         """
 
@@ -101,14 +103,17 @@ class ImageCreator(Creator):
         """
         Applies noise effects to the base image.
 
-        Parameters:
-            noises (List[Noise]):
+        Parameters
+        ----------
+            noises : List[Noise]
                 A List of noise objects to apply to the image.
-            image (Image):
+            image : Image
                 The base image to which effects will be applied.
 
-        Returns:
-            Image: The image with the applied text, noise, blur, and rotation effects.
+        Returns
+        -------
+            Image
+                The image with the applied text, noise, blur, and rotation effects.
         """
         # Loop through all given noises and add them to the image
         image = reduce(lambda img, noise: noise.add_noise(img), noises, image)
@@ -128,38 +133,40 @@ class ImageCreator(Creator):
         background_color: str = 'white',
         margins: Tuple[int, int, int, int] = (5, 5, 5, 5),
         dpi: Tuple[float, float] = (300.0, 300.0),
-        background_img: Image.Image = None,
+        background_img: Optional[Image.Image] = None,
         clear_font: bool = True,
     ) -> Image.Image:
         """
         Creates an image with the specified text, applying optional noise, blur, and rotation effects.
 
-        Parameters:
-            text (str): 
+        Parameters
+        ----------
+            text : str 
                 The text to be drawn on the image.
-            font_path (str):
+            font_path : str
                 The file path to the font.
-            noises (List[Noise], optional): 
+            noises : List[Noise], optional
                 A List of noise objects to apply to the image. Defaults to an empty List.
-            font_size (float, optional): 
+            font_size : float, optional
                 The size of the font. Defaults to 40.0.
-            font_color (str, optional):
+            font_color : str, optional
                 The color of the text. Defaults to 'black'.
-            font_opacity (float, optional):
+            font_opacity : float, optional
                 The opacity of the text, where 1.0 is fully opaque and 0.0 is fully transparent. Defaults to 1.0.
-            background_color (str, optional):
+            background_color : str, optional
                 The background color of the image. Defaults to 'white'.
-            margins (Tuple[int, int, int, int], optional):
+            margins : Tuple[int, int, int, int], optional
                 Margins for text placement on the image (left, top, right, bottom). Defaults to (5, 5, 5, 5).
-            dpi (Tuple[float, float], optional):
+            dpi : Tuple[float, float], optional
                 The resolution of the image (dots per inch). Defaults to (300, 300).
-            background_img (Image, optional):
+            background_img : Image, optional
                 An optional background image to be used as a base. Defaults to None.
-            clear_font (bool, optional): 
+            clear_font : bool, optional
                 Whether to clear the font cache after creating the image. Defaults to True.
 
-        Returns:
-            Image: 
+        Returns
+        -------
+            Image
                 The generated image with the applied text and effects.
         """
         font = ImageFontManager.get_font(font_path, font_size)

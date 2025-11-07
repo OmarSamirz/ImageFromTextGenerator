@@ -14,10 +14,11 @@ class ErodeNoise(Noise):
     A class to apply erosion noise to an image. Erosion noise shrinks the white regions of the image
     by applying morphological erosion using a structuring element (kernel).
 
-    Attributes:
-        kernel_size (int): 
+    Parameters
+    ----------
+        kernel_size : int
             The size of the structuring element (kernel) used for erosion.
-        iterations (int): 
+        iterations : int
             The number of times the erosion operation is applied.
     """
 
@@ -34,12 +35,14 @@ class ErodeNoise(Noise):
         """
         Applies erosion noise to the image.
 
-        Parameters:
-            image (Image): 
+        Parameters
+        ----------
+            image : Image
                 The image to which noise will be applied.
 
-        Returns:
-            Image: 
+        Returns
+        -------
+            Image
                 The image with erosion noise applied.
         """
         return self._erode_noise(image)
@@ -61,10 +64,11 @@ class RandomErodeNoise(ErodeNoise):
     A class to apply random erosion noise to an image. The kernel size and number of iterations
     are chosen randomly within specified ranges.
 
-    Attributes:
-        kernel_size_range (Tuple[int, int]): 
+    Parameters
+    ----------
+        kernel_size_range : Tuple[int, int]
             The range of kernel sizes to choose from for erosion.
-        iterations_range (Tuple[int, int]): 
+        iterations_range : Tuple[int, int]
             The range of iteration counts to choose from for erosion.
     """
 
@@ -81,12 +85,14 @@ class RandomErodeNoise(ErodeNoise):
         """
         Applies random erosion noise to the image by selecting random kernel size and number of iterations.
 
-        Parameters:
-            image (Image): 
+        Parameters
+        ----------
+            image : Image
                 The image to which noise will be applied.
 
-        Returns:
-            Image: 
+        Returns
+        -------
+            Image
                 The image with random erosion noise applied.
         """
 

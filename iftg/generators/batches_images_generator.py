@@ -14,39 +14,40 @@ class BatchesImagesGenerator(Generator):
     A generator class for creating batches of images, where each batch can have different text, noise, and style settings.
     Inherits from `Generator` and provides functionality to generate images in batches.
 
-    Attributes:
-        texts (List[List[str]]): 
+    Parameters
+    ----------
+        texts : List[List[str]]
             A list of lists of texts, where each inner list contains texts for one batch of images.
-        noises (List[List[Noise]]): 
+        noises : List[List[Noise]]
             A list of lists of noise objects, where each inner list contains noises to be applied to one batch of images.
-        font_paths (List[str]): 
+        font_paths : List[str]
             A list of font file paths, where each font corresponds to a batch of images.
-        font_sizes (List[float]): 
+        font_sizes : List[float]
             A list of font sizes, where each size corresponds to a batch of images.
-        font_colors (List[str]): 
+        font_colors : List[str]
             A list of font colors, where each color corresponds to a batch of images.
-        font_opacities (List[float]):
+        font_opacities : List[float]
             A list of opacity levels for text, where each opacity corresponds to a batch of images.
             Values range from 0.0 (fully transparent) to 1.0 (fully opaque).
-        background_colors (List[str]): 
+        background_colors : List[str]
             A list of background colors, where each color corresponds to a batch of images.
-        margins (List[Tuple[int, int, int, int]]): 
+        margins : List[Tuple[int, int, int, int]]
             A list of margin tuples (left, top, right, bottom) for text placement, where each margin corresponds to a batch of images.
-        dpi (List[Tuple[float, float]]): 
+        dpi : List[Tuple[float, float]]
             A list of DPI (dots per inch) settings, where each DPI value corresponds to a batch of images.
-        img_names (List[str]): 
+        img_names : List[str]
             A list of base names for the output image files, where each name corresponds to a batch of images.
-        img_formats (List[str]): 
+        img_formats : List[str]
             A list of file formats for the output images, where each format corresponds to a batch of images.
-        img_output_paths (List[str]): 
+        img_output_paths : List[str]
             A list of directories where the generated images will be saved, where each directory corresponds to a batch of images.
-        txt_names (List[str]): 
+        txt_names : List[str]
             A list of base names for the output text files containing image labels, where each name corresponds to a batch of images.
-        txt_formats (List[str]): 
+        txt_formats : List[str]
             A list of file formats for the output text files, where each format corresponds to a batch of images.
-        txt_output_paths (List[str]): 
+        txt_output_paths : List[str]
             A list of directories where the generated text files will be saved, where each directory corresponds to a batch of images.
-        background_image_paths (List[str]):
+        background_image_paths : List[str]
             A list of file paths to the background images, where each path corresponds to a batch of images.
     """
 
@@ -76,12 +77,17 @@ class BatchesImagesGenerator(Generator):
             Used to ensure all parameter lists have the same length by extending shorter lists
             with their last value or a default value.
 
-            Parameters:
-                lst: The list to extend
-                default_value: The value to use for extending the list
+            Parameters
+            ----------
+                lst 
+                    The list to extend
+                default_value
+                    The value to use for extending the list
 
-            Returns:
-                list: The extended list with length equal to max_len
+            Returns
+            -------
+                list
+                    The extended list with length equal to max_len
             """
             return lst + [default_value] * (max_len - len(lst))
 
@@ -139,13 +145,15 @@ class BatchesImagesGenerator(Generator):
         """
         Generates the next batch of images using the specified settings for that batch.
 
-        Returns:
-            ImagesGenerator: 
+        Returns
+        -------
+            ImagesGenerator
                 A generator object that generates images for the current batch.
 
-        Raises:
-            StopIteration:
-            When all batches have been generated and the font cache for the last batch is cleared.
+        Raises
+        ------
+            StopIteration
+                When all batches have been generated and the font cache for the last batch is cleared.
         """
         if self._count >= self._texts_len:
             ImageFontManager.clear()
@@ -180,8 +188,9 @@ class BatchesImagesGenerator(Generator):
         """
         Generates and saves images for each batch.
 
-        Parameters:
-            is_with_label (bool): 
+        Parameters
+        ----------
+            is_with_label : bool
                 If True, generates images with corresponding text labels and saves them. 
                 If False, generates images without saving labels.
         """
